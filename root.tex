@@ -51,21 +51,14 @@ CZ.02.01.01/00/22\_008/0004590) and the EU Horizon Europe project XSCAVE (ID
 \maketitle
 
 \begin{abstract}
-Mobile robots for rough terrain come in three kinds: legged, wheeled, and tracked.
-Legged robots clear the widest range of obstacles but must actively drive their motors
-just to stay upright, which gives them a low payload-to-power-consumption ratio; wheeled and tracked
-robots stay upright passively and carry far more for the same power, yet neither can
-climb an obstacle taller than its leading wheel. \emph{Articulated} tracked robots bridge the gap: four
-independently actuated flippers give them the extra reach to clamber over steps, logs,
-and rubble. Nearly every autonomous or semi-autonomous flipper controller assumes access
+Nearly every autonomous or semi-autonomous flipper controller assumes access
 to an \emph{elevation map} of the ground under and around the robot. Because the terrain
 beneath the chassis is occluded from the robot's exteroceptive sensors, this map cannot
-be measured directly; it must be accumulated from earlier observations and carried
-beneath the robot by integrating odometry, whose drift corrupts it. We present
+be measured directly; it must estimated from earlier observations and odometry integration, whose drift corrupts it. We present
 \emph{Stabilized Anti-Stuck} (\SAS),
 a mapless, localization-free controller that stabilizes body roll and pitch and frees
 itself when stuck, using only proprioception. We deploy \SAS{} on our four-track robot
-MARV and evaluate it on real obstacles against manual teleoperation, prior expert
+MARV and evaluate it on real obstacles against manual teleoperation and prior expert
 flipper controllers. \SAS{} does not reach the traversal quality of methods that rely on a known map,
 and its anti-stuck term can still produce oscillatory dig-release behavior; its value is that
 it keeps the robot leveled and remains operational on terrain with obstacles hidden from
