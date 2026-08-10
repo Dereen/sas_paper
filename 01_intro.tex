@@ -1,0 +1,121 @@
+% ============================ INTRODUCTION ============================
+Tracked robots handle rough, unstructured terrain better than wheeled or legged
+platforms, but a bare tracked chassis still struggles with three things: it cannot climb
+an obstacle taller than its leading wheel, it can tilt toward tip-over on uneven ground,
+and crossing a step or a log jolts the body and its payload with abrupt pitch and shock.
+\emph{Articulated} tracked robots address all three with \emph{flippers}, independently
+actuated sub-tracks that reshape the robot's morphology on the fly: they add the
+reach to climb tall obstacles, help keep the body level, and cushion the transitions that
+would otherwise shake it~\cite{cihala2025,azayev2022,xu2024}.
+
+Two flipper layouts are common. The \emph{six-track} design keeps a main driven track on
+each side and adds four smaller flippers, so the body stays supported even while the
+flippers work~\cite{azayev2022,zimmermann2014,chen2023,xu2024}. The \emph{four-track}
+design (Fig.~\ref{fig:robot}) drops the main tracks and drives four larger flippers
+alone~\cite{rocha2023}: lighter and more maneuverable, but with nothing under the body it
+grounds out, or \emph{stalls}, more readily. Either way, getting \emph{stuck}, failing
+to advance despite a forward command, threatens any ground robot, and once the tracks lose
+their grip only the flippers can free it.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox[c][3.0cm][c]{0.92\linewidth}{\centering \placeholder{[Fig.~\ref{fig:robot}:
+  MARV, a four-track flipper robot, on a field obstacle. Inset: the onboard
+  elevation map degraded by odometry drift beside a ground-truth reference of the
+  same scene.]}}}
+  \caption{\textbf{MARV} traverses obstacles with four independently actuated
+  flippers and no belts beneath the chassis. \TODO{real photo + onboard-vs-ground-truth map.}}
+  \label{fig:robot}
+\end{figure}
+
+\textbf{Prior flipper controllers assume an elevation map.}
+Flipper control spans a spectrum of operator involvement: \emph{manual} teleoperation
+of all four flippers, \emph{semi-autonomous} controllers the operator supervises or
+switches between, and \emph{fully autonomous} control that manages the flippers
+without intervention~\cite{cihala2025}. Higher autonomy lowers the operator's
+cognitive load but shifts the burden onto onboard perception. Across the literature,
+autonomous and semi-autonomous flipper controllers share a precondition: they consume
+an \emph{elevation map} of the ground under and around the robot. Geometric methods
+predict the robot's pose over a discretized flipper configuration space on an elevation
+map or point cloud~\cite{chen2023,oehler2024}, or plan flipper motions by
+configuration-space search and trajectory optimization over an explicit terrain
+model~\cite{yuan2019,xu2024}. Learned
+policies~\cite{pan2023icm,pan2023atd3qn,ctrac2025,azayev2022} take the elevation map,
+transformed into the robot frame, as the dominant part of their observation. The one
+exception is fully manual teleoperation: the operator sees the terrain, so no map is
+needed, but must drive all four flippers by hand~\cite{cihala2025}.
+
+\textbf{On a real robot, the map is a dead-reckoning artifact.}
+The terrain that matters most to a flipper controller is directly under and just ahead of
+the chassis. Onboard sensors see what is ahead, but the body blocks their view of the
+terrain beneath it, which is exactly the terrain that warns of an imminent stall.
+Dedicated underbody sensors could recover it, but they are rarely fitted and are
+themselves blinded by the tall grass pressed against the body. That terrain can therefore
+only be \emph{remembered}: observed earlier, accumulated into a robot-centric elevation
+map, and carried beneath the robot as it advances by
+\emph{integrating wheel odometry}~\cite{fankhauser2018}. Every stage of this pipeline is
+a dead-reckoning process: point-cloud deskewing warps each scan by the estimated
+sensor trajectory, and elevation mapping registers successive scans through the
+estimated motion~\cite{loam2014,pomerleau2013icp}. On the loose, deformable,
+step-like terrain where flippers are needed, odometry is least reliable: tracks
+slip, the chassis pitches and drops abruptly, and the integrated pose drifts.
+
+\textbf{The hardest case is a hidden obstacle.}
+Elevation mapping reports the surface the sensor sees, not the one the tracks will touch.
+When a rigid obstacle is \emph{hidden}, the optical sensors a mobile robot carries, LiDAR
+and cameras, return the compliant canopy above it, and the load-bearing obstacle beneath
+stays invisible until the chassis stalls on it. Longer-wavelength sensors such as
+foliage-penetrating radar can see through vegetation, but they are bulky, low-resolution,
+and absent from standard flipper-robot payloads. Here the map does not drift, it is simply
+wrong: a controller that trusts it drives onto the hidden obstacle or moves the flippers
+into an unsafe configuration. Vegetation, snow, water, and loose debris hide obstacles the
+same way.
+
+\textbf{Our contribution: control the flippers without a map and without localization.}
+Rather than pursue an ever-more-robust perception stack, we control the flippers from
+onboard proprioception alone, with no map and no integration. We present \emph{Stabilized
+Anti-Stuck} (\SAS), a controller that needs no elevation map and no estimate of where the
+robot is. It is not odometry-free (it uses a short-horizon motion cue to tell whether the
+body is moving), but it is \emph{localization-free and integration-free}: it never
+accumulates pose, so it never inherits the drift that corrupts the map. Its dominant
+signal is the roll and pitch reported by the IMU, which are \emph{gravity-referenced and
+therefore drift-free}: they are measured instantaneously against gravity, with no
+integration and no memory of past motion. From these signals \SAS{} superimposes two
+per-flipper velocity terms: an attitude-stabilization term that drives body roll and pitch
+toward a level attitude, and a reactive anti-stuck term that, when the motion cue reports a
+deficit, drives the flippers down to push the robot forward again, whether or not the
+tracks grip the ground. A directional-priority rule gives stabilization precedence: the
+anti-stuck term may reinforce a flipper's stabilization command but never flip its sign, so
+a flipper that stabilization is raising is never driven downward by anti-stuck, and one
+being lowered is never forced up.
+
+This comes at a cost. \SAS{} does not attain the peak traversal quality of a well-fed
+map-based controller, and its anti-stuck term can still produce oscillatory dig-release
+behavior. Its value lies elsewhere: it keeps the robot leveled and keeps operating in the
+regime where the map, and thus every map-based baseline, breaks down, using sensing that
+is always available and never drifts.
+
+\needspace{5\baselineskip}%
+\textbf{Contributions:}
+\nopagebreak
+\begin{enumerate}
+  \item We identify and quantify a dependency shared by state-of-the-art flipper
+  controllers: they require an elevation map of the ground \emph{under} the
+  robot, which is occluded from onboard sensing and can only be maintained by
+  odometry integration whose drift degrades it in the field. We measure this
+  degradation by evaluating map-based baselines under both a \emph{ground-truth}
+  map and the \emph{onboard-estimated} map.
+  \item We propose \SAS, a mapless, localization-free flipper controller that uses
+  only drift-free proprioception (gravity-referenced IMU attitude plus a
+  short-horizon motion cue), combining continuous roll+pitch stabilization with
+  reactive anti-stuck recovery under a directional-priority blend.
+  \item We deploy \SAS{} on a real four-track robot (MARV) and evaluate it on real
+  obstacles against baselines at three levels of autonomy: \emph{manual}
+  teleoperation~\cite{larochelle2013,cihala2025}, \emph{semi-autonomous} switching between
+  reactive experts~\cite{cihala2025,zimmermann2014}, and \emph{autonomous} map-based
+  controllers~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}, using cognitive
+  load, success rate, and traversal quality (acceleration/shock, tilt, and ground clearance).
+  \item We give an honest account of its limitations (residual oscillation and
+  lower peak traversal quality) and characterize the operating regime in which
+  mapless control is the preferable choice.
+\end{enumerate}

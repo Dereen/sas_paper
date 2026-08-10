@@ -1,0 +1,118 @@
+% ============================ RELATED WORK ============================
+% Structure follows the five baseline families in
+% marv research/baselines/baselines_todo.md.
+Flipper control ranges from manual teleoperation to four families of autonomy:
+geometry-based planning, hierarchical switching, monolithic reinforcement learning, and
+recent learning-based control. We summarize each, note the representative works we
+reimplement as baselines (Sec.~\ref{sec:experiments}), and then draw out the assumption
+they share. Table~\ref{tab:sensing} summarizes what each method must sense.
+
+\subsection{Manual and mode-based teleoperation}
+The baseline for everything below is direct teleoperation: the operator drives the
+flippers by hand~\cite{cihala2025}, optionally through a few preset traversal
+modes~\cite{larochelle2013}. This needs no map, since the operator observes the terrain and
+closes the control loop by hand, and with an expert operator it remains the
+traversal-quality ceiling, but at a high and sustained cognitive load~\cite{cihala2025}.
+
+\subsection{Geometry-based / model-based planning}
+A family that plans flipper motion from an explicit terrain model, and is the
+\emph{most} map-dependent of all. Chen et al. combine dynamic programming with a
+fast geometry-based pose predictor over the elevation
+point cloud~\cite{chen2023}; Yuan et al. plan in the flipper configuration space
+from known stair geometry with motion-capture ground truth~\cite{yuan2019}; Oehler
+and von Stryk predict pose on a signed-distance field built from
+LiDAR~\cite{oehler2024}; and Xu et al. solve a receding-horizon hybrid trajectory
+optimization over a simplified terrain sampled from a 3D occupancy map with FAST-LIO
+odometry~\cite{xu2024}. Both Chen and Xu drive the left and right flippers as a symmetric
+pair, and Xu's model is planar outright, so they are confined to terrain with little
+lateral variation and cannot handle asymmetric obstacles, where the two sides must act
+differently.
+
+\subsection{Hierarchical / switching / mixture-of-experts control}
+A family that composes low-level behaviors under a selector, and contains the closest
+comparator to \SAS{}. The adaptive-traversability line~\cite{zimmermann2014} classifies
+terrain into discrete flipper modes from an elevation map, and for the selected mode a
+simple low-level controller drives the flippers. Azayev and Zimmermann~\cite{azayev2022}
+learn a soft-differentiable state machine that switches among seven hand-crafted flipper
+templates; crucially for us, each state overlays a PD \emph{roll}-stabilization term and a
+stagnation-triggered \emph{escape maneuver}, the origin of the anti-stuck recovery we
+adopt, that lowers the rear and lifts the front flippers to free the robot when it stalls.
+It is thus the one prior method that couples anti-stuck recovery with attitude
+stabilization, but it stabilizes roll only, overlays the two without the
+directional-priority safety blend we add to keep them from fighting
+(Sec.~\ref{sec:method-blend}), and draws its per-flipper observations from an Ouster LiDAR
+elevation map with ICP-based localization~\cite{pomerleau2013icp}.
+
+\subsection{Monolithic model-free deep RL}
+This family trains one end-to-end policy to map sensing directly to flipper commands.
+FTR-Bench standardizes this setting, benchmarking SAC, PPO, TD3, DDPG, and TRPO on a
+flipper-track robot in Isaac Lab~\cite{ftrbench2025}. Discrete-action variants dominate the
+flipper-specific literature: Pan et al. learn a dueling double-DQN over discrete
+front/rear flipper increments~\cite{pan2023atd3qn} and extend it with an
+intrinsic-curiosity module~\cite{pan2023icm}; both take a local elevation map,
+downsampled from a LiDAR point-cloud map built by \mbox{LiDAR} odometry and mapping
+(ALOAM), plus chassis pitch, and shape only the pitch for smoothness; roll is
+uncontrolled and ``stuck'' enters only as a terminal penalty. Mitriakov et al.
+learn staircase negotiation with a policy-gradient method, first from step-edge
+geometry with marker-based ground truth~\cite{mitriakov2021} and then in an
+open-source Gazebo/ROS framework from depth-image features with ground-truth
+pose~\cite{mitriakov2022}, injecting stability through center-of-gravity and
+pitch-rate reward shaping. Pecka et al. learn a
+safety-constrained policy (Constrained REPS) whose state is body pitch plus the
+terrain height read from an online octomap~\cite{pecka2016}. All of these consume an
+elevation map (or its geometric surrogate) and an estimated robot pose.
+
+\subsection{Recent (2024--2026) learning-based control}
+The most recent family reflects the current state of the art. C-TRAC learns a contact-aware
+latent from noisy LiDAR jointly with an asymmetric-SAC controller and, unusually,
+stabilizes both roll and pitch via a normalized-energy-stability-margin
+reward~\cite{ctrac2025}; Zhang et al. combine semantic segmentation of the elevation
+map with RRT* flipper-motion planning~\cite{zhang2025}. Both push perception
+harder, and thus depend more, not less, on a working map built by LiDAR odometry.
+
+\subsection{Evaluating traversal quality and operator load}
+We ask two things of any controller: how well it traverses, and whether it truly
+lightens the operator's load or merely shifts it. The second question matters because
+automating the flippers does not always help; an unreliable controller can raise
+cognitive load, as the operator works to compensate for its mistakes~\cite{cihala2025}.
+Traversal quality is read from onboard signals, chiefly IMU-based smoothness such as
+pitch swing and vertical shock~\cite{chen2023} and chassis-to-ground clearance; operator
+effort, subjectively via NASA-TLX~\cite{hart1986}, by direct rating~\cite{larochelle2013},
+or physiologically~\cite{fernandez2020}. Following~\cite{cihala2025,zimmermann2014,labonte2010},
+we score traversal quality from shock, tilt, and clearance, and cognitive load from the
+number of teleoperation commands.
+
+\begin{table}[t]
+\centering
+\caption{\textbf{What each flipper controller senses and stabilizes.} \emph{Map \& loc.}:
+needs a robot-centric elevation map and the localization that registers it beneath the
+moving chassis (built onboard, it drifts with odometry). \emph{Roll}/\emph{Pitch}: has an
+explicit objective to stabilize that attitude axis. \emph{Anti-stuck}: frees itself when
+stuck. Only manual teleoperation and \SAS{} need no map; \SAS{} alone stabilizes both
+attitude axes and recovers when stuck.}
+\label{tab:sensing}
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Method & Map \& loc. & Roll & Pitch & Anti-stuck \\
+\midrule
+Manual modes~\cite{larochelle2013} & \xmark & \xmark & \xmark & \xmark \\
+GC / OA~\cite{cihala2025}          & \cmark & \xmark & \xmark & \xmark \\
+Chen GFMP~\cite{chen2023}          & \cmark & \xmark & \cmark & \xmark \\
+Yuan~\cite{yuan2019}               & \cmark & \xmark & \xmark & \xmark \\
+Oehler~\cite{oehler2024}           & \cmark & \xmark & \xmark & \xmark \\
+Xu HTO~\cite{xu2024}               & \cmark & \xmark & \cmark & \xmark \\
+Azayev~\cite{azayev2022}           & \cmark & \cmark & \xmark & \cmark \\
+AT-D3QN~\cite{pan2023atd3qn}       & \cmark & \xmark & \cmark & \xmark \\
+ICM-D3QN~\cite{pan2023icm}         & \cmark & \xmark & \cmark & \xmark \\
+Mitriakov~\cite{mitriakov2021}     & \cmark & \xmark & \cmark & \xmark \\
+Mitriakov~\cite{mitriakov2022}     & \cmark & \xmark & \cmark & \xmark \\
+Pecka~\cite{pecka2016}             & \cmark & \xmark & \cmark & \xmark \\
+C-TRAC~\cite{ctrac2025}            & \cmark & \cmark & \cmark & \xmark \\
+Zhang~\cite{zhang2025}             & \cmark & \xmark & \xmark & \xmark \\
+\midrule
+\textbf{\SAS{} (ours)}             & \xmark & \cmark & \cmark & \cmark \\
+\bottomrule
+\end{tabular}
+\end{table}
+

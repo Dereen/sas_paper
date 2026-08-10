@@ -1,0 +1,99 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MARV / ICRA 2027 -- Mapless Stabilized Anti-Stuck Flipper Control (mode 12)
+% ICRA 2026/2027 format: standard IEEE conference template (IEEEtran),
+% US-letter, two-column, 8 pages incl. references.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}               % IEEE-standard compressed multi-cites: sorted, consecutive collapse to ranges like [1]-[3]
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{pgfplots}\pgfplotsset{compat=1.18}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{xcolor}
+\usepackage{siunitx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{needspace}          % keep "Contributions:" heading with its list across a column break
+
+% Simple inline draft marker (no todonotes dependency; safe in two-column).
+\newcommand{\TODO}[1]{\textcolor{red}{\textbf{[TODO: #1]}}}
+\newcommand{\placeholder}[1]{\textcolor{gray}{#1}}
+
+\newcommand{\GC}{GC}
+\newcommand{\OA}{OA}
+\newcommand{\SAS}{SAS}                    % Stabilized Anti-Stuck (our method, mode 12)
+\newcommand{\cmark}{\checkmark}
+\newcommand{\xmark}{\ensuremath{\times}}
+
+\begin{document}
+
+\title{Mapless Stabilized Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
+% Alternative titles
+% Get Unstuck Without a Map: Proprioceptive Stabilized Anti-Stuck Flipper Control
+% When the Map Fails: Mapless Flipper Control for Articulated Tracked Robots
+% Proprioceptive Flipper Control: Attitude-Stabilized Anti-Stuck Without a Terrain Map
+
+\author{\IEEEauthorblockN{Valent\'yn {\v C}\'ihala, Pavel Sarga, Martin Pecka, Tom\'a{\v s} Svoboda and Karel Zimmermann}
+\IEEEauthorblockA{Department of Cybernetics, Faculty of Electrical Engineering,
+Czech Technical University in Prague\\
+Corresponding author: \texttt{cihalval@fel.cvut.cz}}
+\thanks{This work was co-funded by the Czech Science Foundation under Project
+24-12360S, the Grant Agency of the CTU in Prague under Project
+SGS24/096/OHK3/2T/13, the European Union under the project ROBOPROX (reg. no.
+CZ.02.01.01/00/22\_008/0004590) and the EU Horizon Europe project XSCAVE (ID
+101189836). \TODO{reconcile grant numbers with final ICRA 2025 acknowledgements.}}}
+
+\maketitle
+
+\begin{abstract}
+Mobile robots for rough terrain come in three kinds: legged, wheeled, and tracked.
+Legged robots clear the widest range of obstacles but must actively drive their motors
+just to stay upright, which gives them a low payload-to-power-consumption ratio; wheeled and tracked
+robots stay upright passively and carry far more for the same power, yet neither can
+climb an obstacle taller than its leading wheel. \emph{Articulated} tracked robots bridge the gap: four
+independently actuated flippers give them the extra reach to clamber over steps, logs,
+and rubble. Nearly every autonomous or semi-autonomous flipper controller assumes access
+to an \emph{elevation map} of the ground under and around the robot. Because the terrain
+beneath the chassis is occluded from the robot's exteroceptive sensors, this map cannot
+be measured directly; it must be accumulated from earlier observations and carried
+beneath the robot by integrating odometry, whose drift corrupts it. We present
+\emph{Stabilized Anti-Stuck} (\SAS),
+a mapless, localization-free controller that stabilizes body roll and pitch and frees
+itself when stuck, using only proprioception. We deploy \SAS{} on our four-track robot
+MARV and evaluate it on real obstacles against manual teleoperation, prior expert
+flipper controllers. \SAS{} does not reach the traversal quality of methods that rely on a known map,
+and its anti-stuck term can still produce oscillatory dig-release behavior; its value is that
+it keeps the robot leveled and remains operational on terrain with obstacles hidden from
+its sensors, such as a rigid log buried in tall grass, where map-based control breaks down. \TODO{final quantitative headline once results are in.}
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\input{01_intro}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Work}\label{sec:related}
+\input{02_related_work}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Method}\label{sec:method}
+\input{03_method}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experiments}\label{sec:experiments}
+\input{04_experiments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}\label{sec:conclusion}
+\input{05_conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{IEEEtran}
+\bibliography{root}
+
+\end{document}

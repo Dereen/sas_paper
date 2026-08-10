@@ -1,0 +1,23 @@
+% ============================ CONCLUSION ============================
+State-of-the-art flipper controllers share a precondition that is easy to overlook
+in simulation and costly on a real robot: they need an elevation map of the ground
+under and around the chassis. That terrain is
+occluded from onboard sensing, so the map can only be carried beneath a moving robot
+by integrating odometry, a dead-reckoning process whose drift corrupts it precisely
+on the loose, step-like terrain where flippers are required.
+
+We took the opposite stance and asked how far a flipper controller can go without a
+map and without localization. \SAS{} is mapless, localization-free, and
+integration-free: it regulates body attitude directly from the gravity-referenced,
+drift-free roll and pitch of the IMU, and recovers from being stuck from a
+short-horizon motion cue, superimposing the two under a directional-priority blend
+that keeps stabilization in control. It is not a universal replacement (with no
+terrain preview its peak traversal quality trails a well-fed map-based controller,
+and its reactive recovery can still oscillate), but it keeps the robot level and
+remains operational in exactly the regime where the onboard map, and therefore every
+map-based baseline, breaks down.
+
+Future work targets a more robust motion cue by fusing the LiDAR-ICP odometry with
+camera odometry, which should hold up in the occluded, feature-poor, or flat places
+where ICP alone struggles; and a fallback scheme that defers to a map-based controller
+when the onboard map is trustworthy and to \SAS{} when it is not.

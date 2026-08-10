@@ -1,0 +1,132 @@
+% ============================ EXPERIMENTS ============================
+\emph{All quantitative results below are placeholders} (marked ``--''); the
+protocol, baselines, and metrics are final and the tables are wired for the
+recorded runs. \TODO{fill from the field campaign.}
+
+\subsection{Platform and onboard pipeline}
+We evaluate on the real MARV robot. The onboard perception pipeline that the
+map-based baselines consume is representative of current practice: an Ouster LiDAR
+and IMU feed point-cloud deskewing and LiDAR-ICP odometry, which drive
+elevation mapping~\cite{fankhauser2018,loam2014,pomerleau2013icp} to produce the
+robot-centric elevation map. \SAS{} bypasses this pipeline entirely and reads only the
+IMU and the motion cue. In every run an experienced operator controls the robot's
+heading and forward velocity; only the flippers are under test, and every command
+the operator issues is logged for the cognitive-load metric.
+
+\subsection{Ground-truth map for a fair baseline}
+The onboard map is exactly what we claim is the weak link, so judging the map-based
+baselines only on a broken map would be unfair. We therefore run each of them twice:
+once with the \emph{onboard-estimated} map, and once with a \emph{ground-truth} map
+that removes odometry drift.
+The ground-truth map is obtained from external localization (AprilTag / total
+station) combined with a surveyed or hand-measured elevation map of each
+obstacle. \TODO{finalize GT-map source; calibrate cameras.} The gap between a
+baseline's two scores measures its sensitivity to onboard mapping; \SAS{} has a
+single score because it uses no map.
+
+\subsection{Obstacles}
+We use seven real obstacles chosen to span the failure modes of a four-track robot
+(Fig.~\ref{fig:obstacles}): an \emph{increasing step}, a \emph{tilted step}, a
+\emph{small stone}, a \emph{long log}, a \emph{tilted log}, \emph{stone rubble}, and a
+\emph{hidden obstacle} (a log buried in tall grass). The last is the decisive case: it
+is where the onboard map is wrong rather than merely degraded. The logs and the rubble
+are also where onboard mapping is hardest (occlusion, slip, abrupt pitch) and where
+anti-stuck oscillation is most likely.
+
+\begin{figure}[t]
+  \centering
+  \fbox{\parbox[c][2.4cm][c]{0.92\linewidth}{\centering \placeholder{[Fig.~\ref{fig:obstacles}:
+  the seven field obstacles: increasing step, tilted step, small stone, long log,
+  tilted log, stone rubble, and a hidden obstacle (log in tall grass).]}}}
+  \caption{Field obstacles used for evaluation. \TODO{photos.}}
+  \label{fig:obstacles}
+\end{figure}
+
+\subsection{Baselines}
+We compare against, in increasing autonomy: (i) \textbf{MFC-continuous} (manual), an
+expert operator driving all four flippers by hand (the traversal-quality
+ceiling~\cite{cihala2025}); (ii) the \textbf{semi-autonomous \GC/\OA{} policy}~\cite{cihala2025},
+in which the operator switches between the map-based ground-clearance (\GC) and
+obstacle-aware (\OA) reactive experts; (iii) \textbf{Stabilization-only}, attitude
+stabilization without anti-stuck; (iv) \textbf{AntiStuck-only}, the anti-stuck dig
+recovery without stabilization~\cite{azayev2022}; (v) every map-based
+controller catalogued in Table~\ref{tab:sensing}, reimplemented as in
+Sec.~\ref{sec:related} and spanning RL, geometric, and recent learned methods; and (vi)
+our \textbf{\SAS}. Every map-based baseline is run under both the ground-truth and the
+onboard map. The stabilization-only and anti-stuck-only variants are ablations
+of \SAS{} itself, isolating the contribution of, respectively, its stabilization and its
+anti-stuck component.
+
+\paragraph{Implementation provenance.} Where the authors released code we run their
+implementation rather than a guess: the configuration-space
+planner~\cite{yuan2019,yuan2019code}, Azayev and Zimmermann's state
+machine~\cite{azayev2022,azayev2022code}, Mitriakov et al.'s RL
+framework~\cite{mitriakov2021,mitriakov2022,mitriakov2022code}, and Oehler and von
+Stryk's pose predictor~\cite{oehler2024,oehler2024code}, with the FTR-Bench
+suite~\cite{ftrbench2025,ftrbench2025code} vendored as our RL substrate. The remaining
+baselines are closed-source; for each we build a \emph{best-effort reimplementation}
+from the paper, faithful to every detail it specifies: Chen's GFMP~\cite{chen2023}, Xu's
+HTO~\cite{xu2024}, Zhang's planner~\cite{zhang2025}, the D3QN
+variants~\cite{pan2023atd3qn,pan2023icm}, C-TRAC~\cite{ctrac2025}, and Pecka et
+al.~\cite{pecka2016}.
+
+\subsection{Metrics}
+Following the Quality-Load framework~\cite{cihala2025} we report three axes.
+\textbf{Success rate} (SR): fraction of runs that traverse the obstacle.
+\textbf{Cognitive load} (CL): the operator's teleoperation-command count over the
+obstacle, normalized as in~\cite{cihala2025,labonte2010} (lower is better).
+\textbf{Traversal quality} (TQ): the mean of three normalized sub-metrics: (a)
+\emph{acceleration/shock} $s$ from the IMU, (b) body \emph{tilt} (roll/pitch
+magnitude), and (c) \emph{ground clearance} $d$ of the chassis. We additionally report
+an \textbf{oscillation} count, the number of dig-release cycles (flipper-direction
+reversals) per meter. Failed runs are penalized $\mathrm{SR}{=}0$, $\mathrm{TQ}{=}0$,
+$\mathrm{CL}{=}1$.
+
+\subsection{Results}
+Table~\ref{tab:main} reports SR, CL, TQ, and oscillation per method under both a
+ground-truth and an onboard map; the gap between the two halves isolates the effect of
+the map. The expected finding, consistent with
+our field observations, is that map-based baselines are strong under a ground-truth
+map but degrade sharply under the onboard map on the log and rubble obstacles, while
+\SAS{} is unaffected and attains the lowest tilt and a competitive success rate at a
+low cognitive load, at the cost of lower peak quality and residual oscillation.
+\TODO{confirm against data; add per-obstacle breakdown and Quality-Load figure.}
+
+\begin{table*}[t]
+\centering
+\caption{\textbf{Overall comparison} (mean over the seven obstacles), each method run
+with a \emph{ground-truth} map (left) and the \emph{onboard-estimated} map (right).
+Mapless methods are map-independent, so their two halves coincide; for a map-based
+method the gap between halves measures its sensitivity to onboard mapping. Higher SR and
+TQ are better; lower CL and oscillation are better. \emph{Placeholders.}}
+\label{tab:main}
+\small
+\begin{tabular}{@{}ll cccc cccc@{}}
+\toprule
+& & \multicolumn{4}{c}{Ground-truth map} & \multicolumn{4}{c}{Onboard map} \\
+\cmidrule(lr){3-6}\cmidrule(lr){7-10}
+Method & Mapless & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & Osc.\,$\downarrow$
+& SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & Osc.\,$\downarrow$ \\
+\midrule
+MFC-continuous (manual)~\cite{cihala2025} & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Semi-AFC (\GC/\OA)~\cite{cihala2025}       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Chen GFMP~\cite{chen2023}                  & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Yuan~\cite{yuan2019}                       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Oehler~\cite{oehler2024}                   & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Xu HTO~\cite{xu2024}                       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Azayev~\cite{azayev2022}                   & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+AT-D3QN~\cite{pan2023atd3qn}               & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+ICM-D3QN~\cite{pan2023icm}                 & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Mitriakov~\cite{mitriakov2021}             & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Mitriakov~\cite{mitriakov2022}             & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Pecka~\cite{pecka2016}                     & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+C-TRAC~\cite{ctrac2025}                    & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Zhang~\cite{zhang2025}                     & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+\midrule
+Stabilization-only (ours)                  & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+AntiStuck-only (ours)                      & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+\textbf{\SAS{} (ours)}                     & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\TODO{fill from the field campaign; reimplement the map-based baselines per Sec.~\ref{sec:related}.}
+\end{table*}
