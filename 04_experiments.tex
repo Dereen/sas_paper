@@ -1,10 +1,10 @@
 % ============================ EXPERIMENTS ============================
 \emph{All quantitative results below are placeholders} (marked ``--''); the
 protocol, baselines, and metrics are final and the tables are wired for the
-recorded runs. \TODO{fill from the field campaign.}
+recorded runs. \TODO{fill from the simulation runs.}
 
 \subsection{Platform and onboard pipeline}
-We evaluate on the real MARV robot. The onboard perception pipeline that the
+We evaluate the MARV robot in Gazebo simulation~\cite{cihala2025}. The onboard perception pipeline that the
 map-based baselines consume is representative of current practice: an Ouster LiDAR
 and IMU feed point-cloud deskewing and LiDAR-ICP odometry, which drive
 elevation mapping~\cite{fankhauser2018,loam2014,pomerleau2013icp} to produce the
@@ -17,41 +17,44 @@ the operator issues is logged for the cognitive-load metric.
 The onboard map is exactly what we claim is the weak link, so judging the map-based
 baselines only on a broken map would be unfair. We therefore run each of them twice:
 once with the \emph{onboard-estimated} map, and once with a \emph{ground-truth} map
-that removes odometry drift.
-The ground-truth map is obtained from external localization (AprilTag / total
-station) combined with a surveyed or hand-measured elevation map of each
-obstacle. \TODO{finalize GT-map source; calibrate cameras.} The gap between a
-baseline's two scores measures its sensitivity to onboard mapping; \SAS{} has a
-single score because it uses no map.
+that removes odometry drift. In simulation the ground-truth map is read directly from the
+simulator, while the onboard-estimated map is produced by running the same LiDAR-ICP
+odometry and elevation-mapping pipeline on the simulated sensor streams, so it accumulates
+exactly the drift we study. The gap between a baseline's two scores measures its
+sensitivity to onboard mapping; \SAS{} has a single score because it uses no map.
 
 \subsection{Obstacles}
-We use seven real obstacles chosen to span the failure modes of a four-track robot
-(Fig.~\ref{fig:obstacles}): an \emph{increasing step}, a \emph{tilted step}, a
-\emph{small stone}, a \emph{long log}, a \emph{tilted log}, \emph{stone rubble}, and a
-\emph{hidden obstacle} (a log buried in tall grass). The last is the decisive case: it
-is where the onboard map is wrong rather than merely degraded. The logs and the rubble
-are also where onboard mapping is hardest (occlusion, slip, abrupt pitch) and where
-anti-stuck oscillation is most likely.
+We evaluate in the Gazebo warehouse arena of our previous work~\cite{cihala2025}
+(Fig.~\ref{fig:obstacles}): a straight aisle lined with \emph{twelve} numbered obstacles of
+increasing difficulty, including pallets, stacked boxes, planks, a staircase, and loose
+debris. The course is reproduced unchanged from~\cite{cihala2025}, so the results are
+directly comparable to the controllers evaluated there. The planks, loose debris, and
+staircase are where onboard mapping is hardest (occlusion, slip, abrupt pitch) and where
+anti-stuck recovery matters most.
 
-\begin{figure}[t]
+\begin{figure*}[t]
   \centering
-  \fbox{\parbox[c][2.4cm][c]{0.92\linewidth}{\centering \placeholder{[Fig.~\ref{fig:obstacles}:
-  the seven field obstacles: increasing step, tilted step, small stone, long log,
-  tilted log, stone rubble, and a hidden obstacle (log in tall grass).]}}}
-  \caption{Field obstacles used for evaluation. \TODO{photos.}}
+  \includegraphics[width=\textwidth]{figures/gazebo_arena}
+  \caption{\textbf{Evaluation arena.} The Gazebo warehouse course reproduced from our
+  previous work~\cite{cihala2025}: a straight aisle lined with twelve numbered obstacles of
+  increasing difficulty (pallets, stacked boxes, planks, a staircase, and loose debris);
+  the robot starts at the right.}
   \label{fig:obstacles}
-\end{figure}
+\end{figure*}
 
 \subsection{Baselines}
-We compare against, in increasing autonomy: (i) \textbf{MFC-continuous} (manual), an
+We compare against, in increasing autonomy: (i) \textbf{Manual control}, an
 expert operator driving all four flippers by hand (the traversal-quality
-ceiling~\cite{cihala2025}); (ii) the \textbf{semi-autonomous \GC/\OA{} policy}~\cite{cihala2025},
-in which the operator switches between the map-based ground-clearance (\GC) and
-obstacle-aware (\OA) reactive experts; (iii) \textbf{Stabilization-only}, attitude
+ceiling~\cite{cihala2025}), and \textbf{Manual modes}, the operator switching between
+preset flipper modes by hand~\cite{azayev2022}; (ii) the \textbf{semi-autonomous \GC/\OA{} policy}~\cite{cihala2025},
+in which the operator switches between two map-based experts: ground-clearance (\GC), a
+\emph{reactive} controller that regulates chassis clearance from the local terrain height,
+and obstacle-aware (\OA), a \emph{geometric} controller that plans flipper poses from the
+obstacle geometry ahead; (iii) \textbf{Stabilization-only}, attitude
 stabilization without anti-stuck; (iv) \textbf{AntiStuck-only}, the anti-stuck dig
 recovery without stabilization~\cite{azayev2022}; (v) every map-based
 controller catalogued in Table~\ref{tab:sensing}, reimplemented as in
-Sec.~\ref{sec:related} and spanning RL, geometric, and recent learned methods; and (vi)
+Sec.~\ref{sec:related} and spanning the geometric, hierarchical, and RL families; and (vi)
 our \textbf{\SAS}. Every map-based baseline is run under both the ground-truth and the
 onboard map. The stabilization-only and anti-stuck-only variants are ablations
 of \SAS{} itself, isolating the contribution of, respectively, its stabilization and its
@@ -77,56 +80,51 @@ Following the Quality-Load framework~\cite{cihala2025} we report three axes.
 obstacle, normalized as in~\cite{cihala2025,labonte2010} (lower is better).
 \textbf{Traversal quality} (TQ): the mean of three normalized sub-metrics: (a)
 \emph{acceleration/shock} $s$ from the IMU, (b) body \emph{tilt} (roll/pitch
-magnitude), and (c) \emph{ground clearance} $d$ of the chassis. We additionally report
-an \textbf{oscillation} count, the number of dig-release cycles (flipper-direction
-reversals) per meter. Failed runs are penalized $\mathrm{SR}{=}0$, $\mathrm{TQ}{=}0$,
-$\mathrm{CL}{=}1$.
+magnitude), and (c) \emph{ground clearance} $d$ of the chassis. Failed runs are penalized
+$\mathrm{SR}{=}0$, $\mathrm{TQ}{=}0$, $\mathrm{CL}{=}1$.
 
 \subsection{Results}
-Table~\ref{tab:main} reports SR, CL, TQ, and oscillation per method under both a
+Table~\ref{tab:main} reports SR, CL, and TQ per method under both a
 ground-truth and an onboard map; the gap between the two halves isolates the effect of
-the map. The expected finding, consistent with
-our field observations, is that map-based baselines are strong under a ground-truth
-map but degrade sharply under the onboard map on the log and rubble obstacles, while
-\SAS{} is unaffected and attains the lowest tilt and a competitive success rate at a
-low cognitive load, at the cost of lower peak quality and residual oscillation.
+the map. The expected finding, consistent with our observations, is that map-based
+baselines are strong under a ground-truth map but degrade sharply under the onboard map on
+the cluttered, stepped obstacles, while \SAS{} is unaffected and attains the lowest tilt
+and a competitive success rate at a low cognitive load, at the cost of lower peak quality
+and residual oscillation.
 \TODO{confirm against data; add per-obstacle breakdown and Quality-Load figure.}
 
 \begin{table*}[t]
 \centering
-\caption{\textbf{Overall comparison} (mean over the seven obstacles), each method run
-with a \emph{ground-truth} map (left) and the \emph{onboard-estimated} map (right).
-Mapless methods are map-independent, so their two halves coincide; for a map-based
-method the gap between halves measures its sensitivity to onboard mapping. Higher SR and
-TQ are better; lower CL and oscillation are better. \emph{Placeholders.}}
+\caption{\textbf{Overall comparison} (mean over the twelve obstacles), each method run
+with a \emph{ground-truth} map (left) and the \emph{onboard-estimated} map (right). For a
+map-based method the gap between the two halves measures its sensitivity to onboard
+mapping; the mapless methods (Table~\ref{tab:sensing}) have identical halves. Higher SR and
+TQ are better; lower CL is better. \emph{Placeholders.}}
 \label{tab:main}
 \small
-\begin{tabular}{@{}ll cccc cccc@{}}
+\begin{tabular}{@{}l ccc ccc@{}}
 \toprule
-& & \multicolumn{4}{c}{Ground-truth map} & \multicolumn{4}{c}{Onboard map} \\
-\cmidrule(lr){3-6}\cmidrule(lr){7-10}
-Method & Mapless & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & Osc.\,$\downarrow$
-& SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & Osc.\,$\downarrow$ \\
+& \multicolumn{3}{c}{Ground-truth map} & \multicolumn{3}{c}{Onboard map} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Method & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ \\
 \midrule
-MFC-continuous (manual)~\cite{cihala2025} & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Semi-AFC (\GC/\OA)~\cite{cihala2025}       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Chen GFMP~\cite{chen2023}                  & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Yuan~\cite{yuan2019}                       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Oehler~\cite{oehler2024}                   & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Xu HTO~\cite{xu2024}                       & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Azayev~\cite{azayev2022}                   & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-AT-D3QN~\cite{pan2023atd3qn}               & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-ICM-D3QN~\cite{pan2023icm}                 & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Mitriakov~\cite{mitriakov2021}             & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Mitriakov~\cite{mitriakov2022}             & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Pecka~\cite{pecka2016}                     & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-C-TRAC~\cite{ctrac2025}                    & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-Zhang~\cite{zhang2025}                     & \xmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+Manual control~\cite{cihala2025}          & -- & -- & -- & -- & -- & -- \\
+Manual modes~\cite{azayev2022}            & -- & -- & -- & -- & -- & -- \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025}    & -- & -- & -- & -- & -- & -- \\
+Chen GFMP~\cite{chen2023}                  & -- & -- & -- & -- & -- & -- \\
+Yuan~\cite{yuan2019}                       & -- & -- & -- & -- & -- & -- \\
+Oehler~\cite{oehler2024}                   & -- & -- & -- & -- & -- & -- \\
+Xu HTO~\cite{xu2024}                       & -- & -- & -- & -- & -- & -- \\
+Zhang~\cite{zhang2025}                     & -- & -- & -- & -- & -- & -- \\
+Azayev~\cite{azayev2022}                   & -- & -- & -- & -- & -- & -- \\
+Pecka~\cite{pecka2016}                     & -- & -- & -- & -- & -- & -- \\
+AT-D3QN~\cite{pan2023atd3qn}               & -- & -- & -- & -- & -- & -- \\
+ICM-D3QN~\cite{pan2023icm}                 & -- & -- & -- & -- & -- & -- \\
+Mitriakov~\cite{mitriakov2021}             & -- & -- & -- & -- & -- & -- \\
+Mitriakov~\cite{mitriakov2022}             & -- & -- & -- & -- & -- & -- \\
+C-TRAC~\cite{ctrac2025}                    & -- & -- & -- & -- & -- & -- \\
 \midrule
-Stabilization-only (ours)                  & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-AntiStuck-only (ours)                      & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
-\textbf{\SAS{} (ours)}                     & \cmark & -- & -- & -- & -- & -- & -- & -- & -- \\
+\textbf{\SAS{} (ours)}                     & -- & -- & -- & -- & -- & -- \\
 \bottomrule
 \end{tabular}
-\TODO{fill from the field campaign; reimplement the map-based baselines per Sec.~\ref{sec:related}.}
 \end{table*}
