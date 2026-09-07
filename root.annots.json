@@ -1,0 +1,632 @@
+[
+ {
+  "note": "arm?",
+  "anchor": "",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "more rigorouz",
+  "anchor": "runs per controller per arm, same arena, same commanded",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "remove this text and add /Delta to the number in the graph",
+  "anchor": "The number above each pair is",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "remove this text and add the colors to the legend. The colors next to the text with small color stripes the same as the bars.",
+  "anchor": "Colour is the controller family and hatching is the arm, so a controller\u2019s two bars stay visibly one controller.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "Remove",
+  "anchor": "6, and none of the drops is within run-to-run spread",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "traversal",
+  "anchor": "quality,",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "Add as TODO, data will be collected",
+  "anchor": "C-TRAC was swept on the",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "the ground-truth slot beside its bar is left empty and labelled rather than filled with a zero",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "chose rather than at a fixed speed, so they sit apart.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_191820.pdf"
+ },
+ {
+  "note": "Remove title. Change the description title to \"Traversal quality degradation under add noise due to icp + elevation mapping perception stack in simulation Gazebo\" Move the title explanation about the binned to the description.\n\nRemove the empty slot in the legend.\n\nChange to SAS [ours], other shortcuts of the papers or names of the first authors",
+  "anchor": "",
+  "done": "",
+  "page_hint": 6,
+  "source": "root_annotated_20260906_192756.pdf"
+ },
+ {
+  "note": "simulation shows otherwise",
+  "anchor": "does not reach the traversal quality",
+  "done": "SAS now stated as attaining the HIGHEST traversal quality of any controller tested, in both map conditions (0.443 / 0.399 distance-binned, top of the field). The matching \"does not attain peak quality\" sentence in the intro was corrected too; the honest caveat that remains is that SAS has no terrain preview.",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "transformed into the robot",
+  "done": "Removed.",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "this should be moved to the hardest case.",
+  "anchor": "and can be blinded themselves by the tall grass",
+  "done": "The tall-grass blinding clause moved into the hidden-obstacle paragraph: \"A dedicated underbody sensor does not help here either: the same vegetation is pressed against the body and blinds it.\"",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "and have very low resolution",
+  "anchor": "Dedicated underbody sensors could recover it, but they are",
+  "done": "Added: \"rarely fitted and have very low resolution\".",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "mainly",
+  "anchor": "",
+  "done": "\"can therefore only be remembered\" -> \"can therefore mainly be remembered\".",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "more rigorous",
+  "anchor": "so the i",
+  "done": "Covered by the rewrite of the inertial-integration sentence -- see the DONE on that sentence.",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "this whole doesnt make sense",
+  "anchor": "accelerometer bias and noise accumulate into a position error",
+  "done": "Rewritten and corrected. The cubic growth was attributed to the accelerometer, which is wrong: a constant accelerometer bias gives t^2 under double integration, while it is a GYROSCOPE bias that tilts the estimated gravity direction and leaks gravity into the horizontal axes, giving t^3. Both are now stated with their sources.",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "more rigorous",
+  "anchor": "not the one the tracks",
+  "done": "Rewritten: \"Elevation mapping reports the surface its sensors observe, which is not in general the surface the tracks will bear on.\"",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "a mobile robot carries,",
+  "done": "Removed; now \"optical sensors---LiDAR and cameras---return ...\".",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "paper with citation",
+  "anchor": "foliage-penetrating radar can see",
+  "done": "Marked \\TODO{citation for foliage-penetrating radar} rather than inventing a reference. The claim is kept; the citation is yours to supply.",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "absent from standard flipper-robot payloads",
+  "done": "Removed.",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "more rigorous",
+  "anchor": "A controller that",
+  "done": "Rewritten together with the sentence it starts; see the DONE on that passage.",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "this whole feels like casual talk, more rigorous",
+  "anchor": "collides with it. Vegetation, snow, water, and loose debris hide",
+  "done": "Rewritten: \"A controller planning on such a map optimises a flipper trajectory that is feasible for the observed surface and infeasible for the true one: the support it plans for rests on vegetation that will not bear the load, and the commanded flipper angles may intersect the occluded obstacle.\"",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "more rigorous",
+  "anchor": "Rather than pursue an ever-more-",
+  "done": "Rewritten: \"Instead of hardening the perception stack against this failure, we remove the dependency: ...\"",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "integration of what?",
+  "anchor": "integration",
+  "done": "Now \"no integration of odometry\".",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "no estimated localization",
+  "anchor": "no estimate of where the robot is.",
+  "done": "Now \"requires neither an elevation map nor an estimated localization of the robot\".",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "move it from the brackes, incorporate it into the text fluently.",
+  "anchor": "(it uses a short-horizon motion cue to tell",
+  "done": "Brackets removed: \"It is not odometry-free, since a short-horizon motion cue tells it whether the body is advancing; it is nonetheless localization-free and integration-free, because it never accumulates pose and therefore never inherits the drift that corrupts the map.\"",
+  "page_hint": 2,
+  "source": "root_reviewed_DONE_20260906_225549.pdf"
+ },
+ {
+  "note": "observe",
+  "anchor": "",
+  "done": "\"Onboard sensors see what is ahead\" -> \"observe\".",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260907_110714.pdf"
+ },
+ {
+  "note": "occlude",
+  "anchor": "",
+  "done": "\"the body blocks their view\" -> \"occludes\".",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260907_110714.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": ", which is exactly the terrain that warns of an",
+  "done": "Removed \", which is exactly the terrain that warns of an imminent stall\".",
+  "page_hint": 1,
+  "source": "root_reviewed_DONE_20260907_110714.pdf"
+ },
+ {
+  "note": "lowers both front and rear",
+  "anchor": "lifts the front flippers",
+  "done": "Corrected: the escape maneuver \"lowers both the front and the rear flippers\".",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "move up, based on rds map (robot deployment system, developed on ctu search for citation) it takes elevation map as one of the input to decide which state to use.",
+  "anchor": "observations from an Ouster LiDAR elevation map with ICP-",
+  "done": "The perception sentence moved up to right after Azayev is introduced, and it now says the map decides WHICH template runs, not just how it is parameterized. I could not find a published RDS reference -- searched CTU/CRAS/AIC and the flipper literature -- so it is marked \\TODO rather than cited to something I am not sure of.",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "soft-differentiable",
+  "done": "Removed \"soft-differentiable\"; now \"learn a state machine that switches among seven ...\".",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "reformulate to more rigorous",
+  "anchor": "most recent methods push perception harder, and so depend",
+  "done": "Rewritten: \"The dependency does not weaken over the period surveyed: the more recent methods enlarge the perceptual input rather than reduce it, so the accuracy of the map built by LiDAR odometry bounds their performance at least as tightly as it bounds the earlier ones.\"",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "reformulate to be more rigorous",
+  "anchor": "We ask one thing of any controller: how well it carries",
+  "done": "Rewritten as \"A controller is judged on how well it carries the robot over the terrain.\" (the rhetorical \"We ask one thing\" is gone).",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "computed",
+  "anchor": "",
+  "done": "\"read from onboard signals\" -> the channels are named as physical quantities and \"computed against ground truth\".",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "This is weirdly formulated. In simulation it is computed from gt map and localization. I reality it will be from gt localization and gt map and localization.",
+  "anchor": "Following [1], [16], we score it from shock, tilt, and clearance",
+  "done": "\"read from onboard signals\" -> the channels are named as physical quantities and \"computed against ground truth\".",
+  "page_hint": 3,
+  "source": "root_reviewed_DONE_20260907_112755.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "A controller is judged on how well it carries the robot over",
+  "done": "Rewritten: \"We evaluate a controller by the quality of the traversal it produces, measured on the robot's body.\"",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Do it",
+  "anchor": "selection is built on \u2013 I could not find a published reference",
+  "done": "Cited the CTU deployment-system paper, Rou\u010dek et al., Field Robotics 2022 (roucek2022subt), as the map this selection is built on. Please confirm that is the RDS you mean.",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "mainly",
+  "anchor": "chiefly",
+  "done": "\"chiefly\" -> \"mainly\".",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove everybody knows that",
+  "anchor": "than against the robot\u2019s own estimate,",
+  "done": "Removed \"rather than against the robot's own estimate\".",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "handcrafted map of the obstacle",
+  "anchor": "surveyed",
+  "done": "\"surveyed map\" -> \"handcrafted map of each obstacle\".",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "not rewarded for a map that happens to agree with itself.",
+  "done": "Removed.",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "that is not true, we are using lidar icp std to detect stuck",
+  "anchor": "s proprioceptive",
+  "done": "Fixed everywhere: method intro now says \"All but m are proprioceptive\" with m from LiDAR-ICP; abstract, intro and contribution 2 no longer say \"only proprioception\".",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "not hunt around level",
+  "done": "Rewritten: \"passed through a dead-band of a few degrees so that attitude noise near the set-point produces no control action\".",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "free the robot from the stuck",
+  "anchor": "",
+  "done": "\"push the robot forward\" -> \"free the robot from the stuck pose\".",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "read the cnuc implementation current one, we added antistuck oscillation because it got stuck if the flippers are fully down.",
+  "anchor": "Reactive anti-stuck",
+  "done": "Added the dig watchdog from Control.cpp: after 8 s of continuous digging without release (flippers at their lower limit, spread zero) anti-stuck suspends for 2.5 s while the flippers are driven back up, then digging resumes -- a dig/reset cycle instead of a permanent stall; stuck detection armed only after 2 s of motion.",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove too specific",
+  "anchor": "velocity, so an overshooting flipper is driven back into range",
+  "done": "Removed the post-limit dead-zone / recovery-velocity sentence.",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "is sent to the velocity",
+  "done": "Removed \"The output v_i is sent to the velocity controllers.\"",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "shorter one or two sentences",
+  "anchor": "obstacles are the terrain that flippers exist to cross and the",
+  "done": "Rocha closing paragraph cut to two sentences.",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "SAS bypasses this pipeline and reads only the IMU, the flipper",
+  "done": "Removed.",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "make it one column with r, p or r&p",
+  "anchor": "",
+  "done": "Table I: Roll/Pitch merged into one \"Stab.\" column with r, p, r&p or --; Rocha row added.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "only the pipeline stack only with the added noise.",
+  "anchor": "flipper joints; each flipper is driven in velocity by a joint plugin",
+  "done": "Simulation paragraph reduced to the pipeline: belt-track sim at RTF 1, simulated OS0 + IMU with their noise, same ICP/mapping stack on the noisy streams.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "The onboard map is exactly what we claim is the weak link,",
+  "done": "Rewritten: \"Our claim is that the onboard map is the limiting input, so evaluating the map-based baselines under that map alone would conflate the controller with its perception.\"",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "handcrafted",
+  "anchor": "surveyed",
+  "done": "\"surveyed\" -> \"handcrafted\".",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "SAS has a single score because it uses no",
+  "done": "Removed.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Read my paper icra2025 there is sentence about Darpa simulation, use it here. It sounds good for paper selection",
+  "anchor": "",
+  "done": "Reused the ICRA 2025 track-simulation sentence (\"unlike typical simulators that approximate tracks with multiple wheels, we employ a track simulation that models conveyor-belt behavior\", RTF 1). No DARPA sentence exists in the icra2025 sources -- this is the closest.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "comparable to the controllers evaluated there.",
+  "done": "Removed.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "slip, abrupt pitch) and where anti-stuck recovery matters most.",
+  "done": "Removed.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this was update to auto, read the cnuc for the implementation",
+  "anchor": "semi-autonomous GC/OA policy",
+  "done": "GC/OA rewritten as the automated form from Control.cpp/policy.launch.py: rears always GC, fronts start OA, stuck for 2 s -> both fronts GC, hold 2 s, back to OA.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "stabilization without anti-stuck; (iv)",
+  "done": "Stabilization-only ablation removed from the baseline list.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "stuck dig recovery without stabilization [2];",
+  "done": "AntiStuck-only ablation removed from the baseline list.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "to our most faitfull reimplementation, some of the papers provide source code, we used that instead.",
+  "anchor": "reimplemented",
+  "done": "Provenance rewritten: released code where it exists, otherwise our most faithful reimplementation from the paper.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "and spanning the geometric, hierarchical, and RL",
+  "done": "Removed.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Cnuc is avaible so update it. We also added some text about the arena already, unify it with it.",
+  "anchor": "far end, through every obstacle in turn, with a per-obstacle timeout; only the flippers are under test, so heading and",
+  "done": "Arena caption unified with the Automated ride paragraph; TODO replaced by the ride text.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "families; and (vi) our",
+  "done": "Removed; enumeration renumbered (i)-(iii) + SAS.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Havent we already stated this somewhere up? If yes remove this",
+  "anchor": "of SAS itself, isolating the contribution of, respectively, its",
+  "done": "Removed (the ablation variants are gone).",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "rather than a guess",
+  "done": "Rewritten: \"where they did not, we use our most faithful reimplementation from the paper\".",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We updated the methods to be more comparable on our four tracks robot. Search the cnuc for the updated methods. Add short explanation what we changed",
+  "anchor": "Implementation provenance",
+  "done": "Added the four-track adaptations: chassis-contact poses excluded from Chen and Zhang pose solvers (MARV has no belts under the chassis), Oehler instantiated on MARV's model over a live SDF; everything else as published.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We have all on tq, we used override sas to release and finish the obstacle",
+  "anchor": "Success",
+  "done": "SR dropped as a metric; text now says the stuck watchdog releases every stalled controller so nearly every field is traversed, and the cost shows in the intervention count and TQ.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "block or bin?",
+  "anchor": "",
+  "done": "\"block\" -> \"bin\" throughout (Metrics, conditioning list, figure caption).",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Shorter in three sentences",
+  "anchor": "much a controller stalls, that is a confound rather than a detail.",
+  "done": "The fixed-length-bins paragraph cut to three sentences.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Thats not true? We are doing the binning?",
+  "anchor": "lug and every contact with a step is a single-sample transien",
+  "done": "Reworded: contact appears as a transient a few samples long (no longer \"single-sample\").",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "reference the graph",
+  "anchor": "of obstacle forms",
+  "done": "Fig. (conditioning) referenced where the bins are defined.",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "signals is implemented but disabled by default, and we report",
+  "done": "Moving-average sentence removed.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "settling strips between obstacles with the flippers at rest. Read",
+  "done": "Ride-height calibration paragraph removed.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "we have only the tq graph",
+  "anchor": "Table II reports SR and TQ per method,",
+  "done": "Results now reports Fig. (ablation); Table II removed.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "not true, sas degrades too because of the gt stuck detection",
+  "anchor": "unaffected",
+  "done": "\"unaffected\" removed; SAS degrades through its LiDAR-ICP motion cue, stated.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "thats not true, the degradation is low.",
+  "anchor": "sharply",
+  "done": "\"degrade sharply\" -> \"the degradation is small\".",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "as the protocol requires, and the",
+  "done": "Removed.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "The robot tipped",
+  "anchor": "TRAC under the ground-truth map put the robot on its side",
+  "done": "\"put the robot on its side\" -> \"the robot tipped\".",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Shorten it, just say the degradation happens because of added noise (values) in the observations.",
+  "anchor": "Results",
+  "done": "Results paragraph shortened to: degradation is small and caused by the noise the perception stack adds to the observations.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the differing trajectories and the teleports then cannot disturb:",
+  "done": "Removed.",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "there is a lot of text in the graph, like legend on top. Unreadable all text. Unreadable text under the graph. Add units where possible. Add obstacles numbers.",
+  "anchor": "onditioning of the three quality channels along the course, in Gazebo simu",
+  "done": "Conditioning figure regenerated: footer text removed (caption carries it), legend enlarged, units on y axes, obstacle numbers on every row.",
+  "page_hint": 8,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "is the signature the ablation shows\u2014quality falls only a little",
+  "done": "Removed.",
+  "page_hint": 8,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "simulator\u2019s pose. The drop is therefore the price of the one",
+  "done": "Removed, with its TODO.",
+  "page_hint": 8,
+  "source": "root.pdf"
+ },
+ {
+  "note": "the deltas looks like they belongs the spread we added. Can we visualize it using drawing dimension.",
+  "anchor": "Traversal quality degradation under the noise the LiDAR-ICP and elevation-mapping perception stack adds, in",
+  "done": "Ablation figure: each delta drawn as a dimension bracket spanning the two bar tops, value beside it.",
+  "page_hint": 9,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Done",
+  "anchor": "[TODO: C-TRAC\u2019s ground-truth runs still to be collected.",
+  "done": "C-TRAC TODO removed.",
+  "page_hint": 9,
+  "source": "root.pdf"
+ },
+ {
+  "note": "or just using only camera or integrated imu",
+  "anchor": "with camera odometry,",
+  "done": "Conclusion: \"or by using camera or integrated IMU motion alone\".",
+  "page_hint": 9,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this. We have almost 100% traversal",
+  "anchor": "measures its sensitivity to onboard mapping; the mapless methods (Table I) have identical GT and onboard columns. Higher",
+  "done": "Table II removed.",
+  "page_hint": 10,
+  "source": "root.pdf"
+ }
+]

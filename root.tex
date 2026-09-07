@@ -52,15 +52,17 @@ CZ.02.01.01/00/22\_008/0004590) and the EU Horizon Europe project XSCAVE (ID
 
 \begin{abstract}
 Nearly every autonomous or semi-autonomous flipper controller assumes access
-to an \emph{elevation map} of the ground under and around the robot. Because the terrain
+to an \emph{elevation map} of the ground under and in front of the robot. Because the terrain
 beneath the chassis is occluded from the robot's exteroceptive sensors, this map cannot
 be measured directly; it must be estimated from earlier observations and odometry integration, whose drift corrupts it. We present
 \emph{Stabilized Anti-Stuck} (\SAS),
 a mapless, localization-free controller that stabilizes body roll and pitch and frees
-itself when stuck, using only proprioception. We deploy \SAS{} on our four-track robot
+itself when stuck, from the IMU, the flipper joints, and a short-window motion cue. We deploy \SAS{} on our four-track robot
 MARV and evaluate it on real obstacles against manual teleoperation and prior expert
-flipper controllers. \SAS{} does not reach the traversal quality of methods that rely on a known map,
-and its anti-stuck term can still produce oscillatory dig-release behavior; its value is that
+flipper controllers. In simulation \SAS{} matches the best map-based controllers on
+traversal quality under both a ground-truth and an onboard elevation map, while using
+neither, though its anti-stuck term can still produce oscillatory dig-release behavior;
+its further value is that
 it keeps the robot leveled and remains operational on terrain with obstacles hidden from
 its sensors, such as a rigid log buried in tall grass, where map-based control breaks down. \TODO{final quantitative headline once results are in.}
 \end{abstract}

@@ -1,130 +1,286 @@
 % ============================ EXPERIMENTS ============================
-\emph{All quantitative results below are placeholders} (marked ``--''); the
-protocol, baselines, and metrics are final and the tables are wired for the
-recorded runs. \TODO{fill from the simulation runs.}
-
 \subsection{Platform and onboard pipeline}
-We evaluate the MARV robot in Gazebo simulation~\cite{cihala2025}. The onboard perception pipeline that the
-map-based baselines consume is representative of current practice: an Ouster LiDAR
-and IMU feed point-cloud deskewing and LiDAR-ICP odometry, which drive
-elevation mapping~\cite{fankhauser2018,loam2014,pomerleau2013icp} to produce the
-robot-centric elevation map. \SAS{} bypasses this pipeline entirely and reads only the
-IMU and the motion cue. In every run an experienced operator controls the robot's
-heading and forward velocity; only the flippers are under test, and every command
-the operator issues is logged for the cognitive-load metric.
+We evaluate the MARV robot both in Gazebo simulation~\cite{cihala2025,gazebo2004} and
+on the real platform. The onboard perception pipeline that the map-based baselines
+consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
+deskewing and LiDAR-ICP odometry, which drive elevation
+mapping~\cite{fankhauser2018,loam2014,pomerleau2013icp} to produce the robot-centric
+elevation map.
+
+\paragraph{Simulation} Unlike typical simulators that approximate tracks with multiple
+wheels, we employ a track simulation that models conveyor-belt behavior, and run it at a
+real-time factor of one~\cite{cihala2025}. The sensors match the real payload: a
+simulated Ouster OS0 ($1024\times64$ rays at \SI{10}{\hertz}, \SIrange{0.1}{50}{\metre},
+\SI{1}{\centi\metre} Gaussian range noise) and a \SI{50}{\hertz} IMU with Gaussian noise
+and a slowly varying bias. The onboard-map condition runs the same ICP and
+elevation-mapping stack as the real robot on these noisy streams; the ground-truth
+condition reads pose and map from the simulator.
+
+\paragraph{Automated ride} In the sweeps reported here nobody is on the sticks. A ride
+node drives the robot at a constant \SI{0.6}{\metre\per\second} with a proportional
+heading regulator aimed at the start of the next obstacle field, so heading and speed are
+identical in every run and both map conditions; only the flippers differ. A \SI{1}{\metre}
+neutral strip separates consecutive fields; on entering it the flippers are flattened and
+the robot is placed at the start of the following field, so every obstacle is approached
+from the same pose. A controller that stalls inside a field is released by a stuck
+watchdog that hands the flippers to \SAS{} until the robot moves again, and the field is
+finished; these interventions are counted and reported. A field not left within
+\SI{120}{\second} is scored as not traversed. The operator-driven reference rides are
+separate and use the same course.
 
 \subsection{Ground-truth map for a fair baseline}
-The onboard map is exactly what we claim is the weak link, so judging the map-based
-baselines only on a broken map would be unfair. We therefore run each of them twice:
+Our claim is that the onboard map is the limiting input, so evaluating the map-based
+baselines under that map alone would conflate the controller with its perception. We
+therefore run each of them twice:
 once with the \emph{onboard-estimated} map, and once with a \emph{ground-truth} map
 that removes odometry drift. In simulation the ground-truth map is read directly from the
-simulator, while the onboard-estimated map is produced by running the same LiDAR-ICP
-odometry and elevation-mapping pipeline on the simulated sensor streams, so it accumulates
+simulator; on the real robot it comes from external localization and a handcrafted elevation
+map of each obstacle. In both settings the onboard-estimated map is produced by running the
+LiDAR-ICP odometry and elevation-mapping pipeline on the sensor streams, so it accumulates
 exactly the drift we study. The gap between a baseline's two scores measures its
-sensitivity to onboard mapping; \SAS{} has a single score because it uses no map.
+sensitivity to onboard mapping.
 
 \subsection{Obstacles}
-We evaluate in the Gazebo warehouse arena of our previous work~\cite{cihala2025}
-(Fig.~\ref{fig:obstacles}): a straight aisle lined with \emph{twelve} numbered obstacles of
-increasing difficulty, including pallets, stacked boxes, planks, a staircase, and loose
-debris. The course is reproduced unchanged from~\cite{cihala2025}, so the results are
-directly comparable to the controllers evaluated there. The planks, loose debris, and
-staircase are where onboard mapping is hardest (occlusion, slip, abrupt pitch) and where
-anti-stuck recovery matters most.
+The evaluation arena is the twelve-obstacle warehouse course of~\cite{cihala2025}
+(Fig.~\ref{fig:obstacles}, shown in Gazebo): a straight aisle lined with \emph{twelve}
+numbered obstacles of variable difficulty that probe different capabilities of the
+controllers, including pallets, stacked boxes, planks, and a staircase. We run it both in
+simulation and with the physical robot; the course is reproduced unchanged
+from~\cite{cihala2025}.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/gazebo_arena}
-  \caption{\textbf{Evaluation arena.} The Gazebo warehouse course reproduced from our
-  previous work~\cite{cihala2025}: a straight aisle lined with twelve numbered obstacles of
-  increasing difficulty (pallets, stacked boxes, planks, a staircase, and loose debris);
-  the robot starts at the right.}
+  \caption{\textbf{Automated simulation arena.} The Gazebo warehouse course
+  of~\cite{cihala2025}: a straight aisle of twelve numbered obstacles of variable
+  difficulty, each probing a different controller capability (pallets, stacked
+  boxes, planks, and a staircase); the robot starts at the right. In the automated
+  ride (Sec.~\ref{sec:experiments}) it is driven at a constant
+  \SI{0.6}{\metre\per\second} through every field in turn, with a \SI{1}{\metre}
+  settling strip between fields and a \SI{120}{\second} timeout per field.
+  \TODO{replace with an image of the current arena version.}}
   \label{fig:obstacles}
 \end{figure*}
 
 \subsection{Baselines}
-We compare against, in increasing autonomy: (i) \textbf{Manual control}, an
-expert operator driving all four flippers by hand (the traversal-quality
+We compare against, in increasing autonomy: (i) \textbf{Manual control}, an expert
+operator driving all four flippers by hand (the traversal-quality
 ceiling~\cite{cihala2025}), and \textbf{Manual modes}, the operator switching between
-preset flipper modes by hand~\cite{azayev2022}; (ii) the \textbf{semi-autonomous \GC/\OA{} policy}~\cite{cihala2025},
-in which the operator switches between two map-based experts: ground-clearance (\GC), a
-\emph{reactive} controller that regulates chassis clearance from the local terrain height,
-and obstacle-aware (\OA), a \emph{geometric} controller that plans flipper poses from the
-obstacle geometry ahead; (iii) \textbf{Stabilization-only}, attitude
-stabilization without anti-stuck; (iv) \textbf{AntiStuck-only}, the anti-stuck dig
-recovery without stabilization~\cite{azayev2022}; (v) every map-based
-controller catalogued in Table~\ref{tab:sensing}, reimplemented as in
-Sec.~\ref{sec:related} and spanning the geometric, hierarchical, and RL families; and (vi)
-our \textbf{\SAS}. Every map-based baseline is run under both the ground-truth and the
-onboard map. The stabilization-only and anti-stuck-only variants are ablations
-of \SAS{} itself, isolating the contribution of, respectively, its stabilization and its
-anti-stuck component.
+preset flipper modes by hand~\cite{azayev2022}; (ii) the \textbf{\GC/\OA{}
+policy}~\cite{cihala2025} in its automated form: the rear flippers always run
+ground-clearance (\GC), a \emph{reactive} controller that regulates chassis clearance
+from the local terrain height, and the front flippers start in obstacle-aware (\OA), a
+\emph{geometric} controller that plans flipper poses from the obstacle geometry ahead.
+Where the original had the operator toggle each front flipper between the two, here a
+stuck criterion identical to the watchdog's switches both fronts to \GC{} after
+\SI{2}{\second} of no progress, holds them there for \SI{2}{\second}, and returns them
+to \OA; (iii) every map-based controller catalogued in Table~\ref{tab:sensing}; and our
+\textbf{\SAS}. Every map-based baseline is run under both the ground-truth and the
+onboard map.
 
 \paragraph{Implementation provenance.} Where the authors released code we run their
-implementation rather than a guess: the configuration-space
-planner~\cite{yuan2019,yuan2019code}, Azayev and Zimmermann's state
-machine~\cite{azayev2022,azayev2022code}, Mitriakov et al.'s RL
-framework~\cite{mitriakov2021,mitriakov2022,mitriakov2022code}, and Oehler and von
-Stryk's pose predictor~\cite{oehler2024,oehler2024code}, with the FTR-Bench
-suite~\cite{ftrbench2025,ftrbench2025code} vendored as our RL substrate. The remaining
-baselines are closed-source; for each we build a \emph{best-effort reimplementation}
-from the paper, faithful to every detail it specifies: Chen's GFMP~\cite{chen2023}, Xu's
-HTO~\cite{xu2024}, Zhang's planner~\cite{zhang2025}, the D3QN
-variants~\cite{pan2023atd3qn,pan2023icm}, C-TRAC~\cite{ctrac2025}, and Pecka et
-al.~\cite{pecka2016}.
+implementation; where they did not, we use our most faithful reimplementation from the
+paper. Released code: the configuration-space planner~\cite{yuan2019,yuan2019code},
+Azayev and Zimmermann's state machine~\cite{azayev2022,azayev2022code}, Mitriakov et
+al.'s RL framework~\cite{mitriakov2021,mitriakov2022,mitriakov2022code}, and Oehler and
+von Stryk's pose predictor~\cite{oehler2024,oehler2024code}, with the FTR-Bench
+suite~\cite{ftrbench2025,ftrbench2025code} as our RL substrate. Reimplemented from the
+paper: Chen's GFMP~\cite{chen2023}, Xu's HTO~\cite{xu2024}, Zhang's
+planner~\cite{zhang2025}, the D3QN variants~\cite{pan2023atd3qn,pan2023icm},
+C-TRAC~\cite{ctrac2025}, and Pecka et al.~\cite{pecka2016}. Two adaptations were needed
+for a four-track robot with no belts under the chassis. Poses in which the chassis
+rests on the terrain, which the six-track originals of Chen and Zhang treat as valid
+support, ground MARV out, so those poses are excluded from their pose solvers. Oehler's
+pose predictor is instantiated on MARV's own kinematic model over a live signed-distance
+field built from the same LiDAR. All other mechanisms are left as published.
 
 \subsection{Metrics}
-Following the Quality-Load framework~\cite{cihala2025} we report three axes.
-\textbf{Success rate} (SR): fraction of runs that traverse the obstacle.
-\textbf{Cognitive load} (CL): the operator's teleoperation-command count over the
-obstacle, normalized as in~\cite{cihala2025,labonte2010} (lower is better).
-\textbf{Traversal quality} (TQ): the mean of three normalized sub-metrics: (a)
+Following~\cite{cihala2025} we report \textbf{traversal quality} (TQ). A success
+rate is not informative here: the stuck watchdog releases every stalled controller, so
+nearly every field is traversed, and the cost of stalling appears instead in the
+watchdog's intervention count and in TQ. TQ is the mean of three normalized sub-metrics: (a)
 \emph{acceleration/shock} $s$ from the IMU, (b) body \emph{tilt} (roll/pitch
-magnitude), and (c) \emph{ground clearance} $d$ of the chassis. Failed runs are penalized
-$\mathrm{SR}{=}0$, $\mathrm{TQ}{=}0$, $\mathrm{CL}{=}1$.
+magnitude), and (c) \emph{ground clearance}. Prior flipper control uses ground clearance as
+a control target or planning constraint (Rocha et al.\ regulate it~\cite{rocha2023};
+geometry planners enforce ground contact~\cite{chen2023,xu2024}); we use it instead as a
+scored quality. Rather than reward maximal clearance, we score the \emph{deviation} of the
+chassis clearance from its resting value on flat ground: the score peaks in a deadband around
+that flat-ground clearance and falls to zero both at belly contact and far above it. Rewarding raw clearance would favor
+baselines that freeze their flippers and coast in a high pose; penalizing deviation does not.
+\label{sec:metrics-block}%
+Each channel is reduced over a traversal by a \emph{distance-binned maximum}
+(Fig.~\ref{fig:conditioning}). Every \SI{0.25}{\metre} of obstacle forms one bin; the
+worst normalized sample in each bin is taken, and the bins are averaged. Two choices are
+being made here, and both have precedent outside flipper control.
+
+\emph{Why bins of a fixed length, rather than a fixed number of them.} The ICRA 2025
+estimator~\cite{cihala2025} splits a traversal into ten equal shares of its
+\emph{samples}, which weights the terrain by how long the robot lingered on it, so a
+stall is counted once as poor quality and again as more of it. Binning by distance gives
+every metre of obstacle one vote whatever it cost in seconds. The KITTI odometry metric
+averages error over fixed-length path segments for the same reason~\cite{geiger2012kitti}.
+
+\emph{Why the worst sample in a bin, rather than its mean.} The shock channel is made of
+sub-second transients (Sec.~\ref{sec:conditioning}), and a mean over samples averages them
+away. Taking a bin maximum and then averaging the bins is the \emph{block-maxima}
+estimator of extreme-value statistics~\cite{coles2001extremes}, and the same construction
+is what ISO 2631-1 prescribes for exactly this situation: when the crest factor of a
+vibration signal is high, the standard replaces the plain RMS with the maximum of a running
+RMS over short windows, because the RMS understates a spiky signal~\cite{iso2631}. Our
+bins are cut in space rather than in time, but the estimator is the same one, and it
+keeps the statistic a distribution summary rather than the single worst instant of the
+ride. The closest precedent within flipper control is the spatial gating
+of~\cite{chen2023}. Failed runs are penalized $\mathrm{SR}{=}0$ and $\mathrm{TQ}{=}0$.
+\TODO{Proposal, not settled: clearance-as-quality is novel (unused as a scored metric in
+the literature we surveyed) and unproven, and the deadband shape and asymmetric down/up
+penalty are still being calibrated. Notes to remember: a pairwise Spearman check among the
+three TQ sub-metrics before merging them, and a one-line robustness statement that the
+method ordering is unchanged under alternative channel aggregations on the current run.}
+
+\subsection{Signal conditioning}\label{sec:conditioning}
+The raw streams are noisy in different ways, and none of them is low-pass
+filtered before scoring. \emph{Shock} is the acceleration magnitude $|a|$ from
+the IMU at \SI{21}{\hertz}; contact with a track lug or a step edge appears as a
+transient a few samples long, and those transients are exactly what the channel exists
+to see, so averaging them away would change what is measured rather than clean it. \emph{Clearance} is not read from a range sensor at all: it is a
+$10\times8$ grid of points on \SI{5}{\centi\metre} spacing under the chassis,
+looked up in the elevation map and reduced to the \emph{closest} ground point,
+i.e.\ the worst of eighty lookups. That reduction is deliberately conservative,
+and it means a single catastrophic map cell---the tail quantified in
+Sec.~\ref{sec:whydegrade}---propagates straight into the channel. \emph{Tilt}
+is taken from the pose rather than from the IMU's reported orientation, which
+carries a fixed mounting offset that makes it unusable as an attitude directly.
+
+Rather than smooth the signals, we bound their influence at four points:
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/signal_conditioning}
+  \caption{\textbf{Conditioning of the three quality channels along the course,
+  in Gazebo simulation.} Raw per-sample scores, the low-pass that is implemented
+  but disabled, and the bins the score actually uses, each drawn across the
+  stretch of aisle it covers. Shaded fields are the numbered obstacles; the
+  settling strips between them are not scored, so no bins are drawn there. A
+  bin sits at the worst sample it covers, so it lies on or below the raw
+  trace, and the channel score is the mean of the bins. Scoring the
+  low-passed signal instead of the raw one moves shock by $+0.417$ and
+  clearance and tilt by $+0.033$ and $+0.009$: half a second of averaging
+  doubles the shock score and leaves the other two alone, because clearance and
+  tilt are already smooth while the shock channel is made of sub-second
+  transients.
+  \TODO{single \SAS{} run from the hand-driven campaign, the only one with a
+  per-sample timeline; regenerate from a sweep run once those are extracted.}}
+  \label{fig:conditioning}
+\end{figure*}
+
+\begin{enumerate}
+  \item \textbf{Hole filling.} The terrain under the chassis is occluded, so the
+  raw elevation layer has no data exactly where clearance is measured. The
+  lookup reads the \emph{inpainted} layer of the mapping filter chain, so an
+  occluded cell is interpolated rather than dropped; without it the channel
+  would be undefined under the robot.
+  \item \textbf{Deadband.} Deviations from the nominal ride height smaller than
+  \SI{1}{\centi\metre} below it or \SI{2}{\centi\metre} above score zero
+  badness. The band is asymmetric because the two directions are not equally
+  dangerous: below the target the belly is close, above it is merely wasteful.
+  Small disturbances are the robot working, not the robot failing.
+  \item \textbf{Bounded normalizers.} Shock passes through
+  $N(s,s_{\max}/2)$ with $s_{\max}=\SI{20}{\metre\per\second\squared}$, and
+  clearance is clipped to $[0,1]$, saturating at belly contact below and
+  \SI{10}{\centi\metre} above. No single sample can dominate a bin, whatever
+  the sensor does.
+  \item \textbf{Bin maximum, then mean.} The worst normalized sample in each
+  spatial bin is taken and the bins averaged. Taking a rank statistic per
+  bin and averaging those, rather than averaging samples, keeps a rare spike
+  visible without letting the single worst instant of the ride stand for the
+  whole traversal.
+\end{enumerate}
 
 \subsection{Results}
-Table~\ref{tab:main} reports SR, CL, and TQ per method under both a
-ground-truth and an onboard map; the gap between the two halves isolates the effect of
-the map. The expected finding, consistent with our observations, is that map-based
-baselines are strong under a ground-truth map but degrade sharply under the onboard map on
-the cluttered, stepped obstacles, while \SAS{} is unaffected and attains the lowest tilt
-and a competitive success rate at a low cognitive load, at the cost of lower peak quality
-and residual oscillation.
-\TODO{confirm against data; add per-obstacle breakdown and Quality-Load figure.}
+Fig.~\ref{fig:gt_ablation} reports TQ per controller in simulation under the
+ground-truth and the onboard map. Every controller, \SAS{} included, loses quality under
+the onboard map; the degradation is small, and it is caused by the noise the perception
+stack adds to the observations the controllers act on. \SAS{} degrades through its motion
+cue, which reads that same noise through LiDAR-ICP. In one C-TRAC run under the
+ground-truth map the robot tipped on obstacle~7 (\ang{88.5} of roll, \ang{128.2} from
+upright), the only tip-over in either campaign; that obstacle is scored as not traversed
+with $\mathrm{TQ}{=}0$.
 
-\begin{table*}[t]
-\centering
-\caption{\textbf{Overall comparison} (mean over the twelve obstacles), each method run
-with a \emph{ground-truth} map (left) and the \emph{onboard-estimated} map (right). For a
-map-based method the gap between the two halves measures its sensitivity to onboard
-mapping; the mapless methods (Table~\ref{tab:sensing}) have identical halves. Higher SR and
-TQ are better; lower CL is better. \emph{Placeholders.}}
-\label{tab:main}
-\small
-\begin{tabular}{@{}l ccc ccc@{}}
-\toprule
-& \multicolumn{3}{c}{Ground-truth map} & \multicolumn{3}{c}{Onboard map} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-Method & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ & SR\,$\uparrow$ & CL\,$\downarrow$ & TQ\,$\uparrow$ \\
-\midrule
-Manual control~\cite{cihala2025}          & -- & -- & -- & -- & -- & -- \\
-Manual modes~\cite{azayev2022}            & -- & -- & -- & -- & -- & -- \\
-{\v C}\'ihala \GC/\OA~\cite{cihala2025}    & -- & -- & -- & -- & -- & -- \\
-Chen GFMP~\cite{chen2023}                  & -- & -- & -- & -- & -- & -- \\
-Yuan~\cite{yuan2019}                       & -- & -- & -- & -- & -- & -- \\
-Oehler~\cite{oehler2024}                   & -- & -- & -- & -- & -- & -- \\
-Xu HTO~\cite{xu2024}                       & -- & -- & -- & -- & -- & -- \\
-Zhang~\cite{zhang2025}                     & -- & -- & -- & -- & -- & -- \\
-Azayev~\cite{azayev2022}                   & -- & -- & -- & -- & -- & -- \\
-Pecka~\cite{pecka2016}                     & -- & -- & -- & -- & -- & -- \\
-AT-D3QN~\cite{pan2023atd3qn}               & -- & -- & -- & -- & -- & -- \\
-ICM-D3QN~\cite{pan2023icm}                 & -- & -- & -- & -- & -- & -- \\
-Mitriakov~\cite{mitriakov2021}             & -- & -- & -- & -- & -- & -- \\
-Mitriakov~\cite{mitriakov2022}             & -- & -- & -- & -- & -- & -- \\
-C-TRAC~\cite{ctrac2025}                    & -- & -- & -- & -- & -- & -- \\
-\midrule
-\textbf{\SAS{} (ours)}                     & -- & -- & -- & -- & -- & -- \\
-\bottomrule
-\end{tabular}
-\end{table*}
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/tq_gt_ablation}
+  \caption{\textbf{Traversal quality degradation under the noise the LiDAR-ICP
+  and elevation-mapping perception stack adds, in Gazebo simulation.} Every
+  controller on the twelve-obstacle course in two conditions: the
+  \emph{ground-truth} elevation map (solid), and the elevation map built by the
+  perception stack (hatched).
+}
+  \label{fig:gt_ablation}
+\end{figure*}
+
+\subsection{Where the degradation comes from}\label{sec:whydegrade}
+Fig.~\ref{fig:gt_ablation} shows every map-based controller losing quality when
+it has to build its own map, but a drop alone does not say \emph{why}. The two
+candidate causes---the robot not knowing where it is, and its map of the ground
+being wrong---are separable in simulation, so we measured both against the
+simulator's ground truth rather than asserting one.
+
+\paragraph{Localization} We report \emph{incremental} error, how far the
+estimator thinks it moved over a \SI{1}{\second} window against how far it
+really moved; integrated drift is not meaningful on this course because the
+ride teleports the robot between obstacles. LiDAR-ICP gives
+\SI{1.4}{\centi\metre\per\second} mean error (p95 \SI{3.5}{\centi\metre\per\second}),
+against \SI{5.4}{} for IMU$+$wheel fusion and \SI{23.6}{} for wheel odometry
+alone. The resulting offset of the ICP \texttt{map} frame from the true world is
+\SI{5.1}{\centi\metre} on average over the course and \SI{4.6}{\centi\metre} on
+the obstacles, almost all of it longitudinal.
+
+\paragraph{Perception} The arena is static, so the two conditions are compared per
+\emph{physical point} rather than per run: every \texttt{grid\_map} message carries its
+window pose and resolution, so each cell has a world coordinate, and cells
+within \SI{2}{\metre} of the robot are accumulated into one \SI{5}{\centi\metre}
+field per condition. Registering the ground-truth field against itself gives
+\SI{0.42}{\centi\metre} RMSE on the obstacle bands, the noise floor of the
+method; the onboard field gives \SI{2.20}{\centi\metre}.
+
+\paragraph{Perception dominates} The onboard field is accumulated twice: once
+with its cells where the robot believes they are, which is what the controller
+actually plans on, and once pushed into true world by the full rigid transform
+$T_{wm}=T_{wb}\,T_{mb}^{-1}$ evaluated per message, which removes the
+localization error entirely and leaves perception alone. The difference between
+the two is the localization contribution, and it is small: RMSE moves from
+\SI{2.20}{} to \SI{2.18}{\centi\metre} on the obstacles ($2.1\%$ of the squared
+error) and from \SI{2.83}{} to \SI{2.64}{\centi\metre} over the whole course
+($13.3\%$). The \SI{5}{\centi\metre} ICP offset is real but nearly irrelevant to
+what the controller reads; the map is wrong mostly because it was \emph{seen}
+wrong, not because it was \emph{placed} wrong.
+
+\paragraph{The error's shape predicts the failure mode} The onboard map is not
+uniformly noisy. Its median error on the obstacles is \SI{0.71}{\centi\metre},
+essentially perfect, while p99 is \SI{9.1}{\centi\metre} and $0.8\%$ of cells
+are wrong by more than \SI{10}{\centi\metre}. Against a nominal chassis ride
+height of \SI{7.0}{\centi\metre}, an error that large is not degraded vision: it
+is a step that is not there, or one that is missing. A uniformly noisy map would
+blunt quality everywhere; rare catastrophic cells instead make a controller
+occasionally commit to the wrong flipper pose and stall. \emph{The cost of the
+onboard map is paid in stalls, not in roughness.}
+
+\paragraph{The defect is in the approach, not on the obstacle} Counter to the
+obvious intuition, the flat gaps between obstacles are mapped about twice as
+badly as the obstacles themselves (RMSE \SI{4.35}{} against
+\SI{2.20}{\centi\metre}, and $3.8\%$ against $0.8\%$ of cells wrong by more than
+\SI{10}{\centi\metre}). The cause is geometric: the LiDAR sits high and sees a
+nearby obstacle at a favourable incidence angle, while flat ground further ahead
+is grazed, where a small range error projects into a large height error and the
+robot's own shadow is a large fraction of what it is trying to measure. A
+controller that reads a false step \emph{during the approach} therefore sets the
+wrong flipper pose before it arrives, and has to recover on the obstacle.
+
+\paragraph{\SAS{} is not exempt} \SAS{} loses $0.043$ across the two conditions, in
+the middle of the field, and it is worth being explicit about why a controller
+that reads no map moves at all. Its stabilization term is map-free and
+gravity-referenced, and does not change between the conditions; its motion cue $m$
+(Sec.~\ref{sec:method-antistuck}) is the short-window variance of LiDAR-ICP
+odometry, which carries the perception stack's noise into the stuck detection.
+
+

@@ -1,42 +1,27 @@
 % ============================ METHOD ============================
 \SAS{} runs on the four flippers $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$
-of MARV and emits a per-flipper angular \emph{velocity} command $v_i$. Its entire input is
-proprioceptive and needs no integration: the gravity-referenced body roll $r$ and pitch
-$p$ from the IMU, the four joint angles $\theta_i$, the commanded body velocity
-$v_\text{cmd}$, and a scalar motion cue $m$ (Sec.~\ref{sec:method-antistuck}).
+of MARV and emits a per-flipper angular \emph{velocity} command $v_i$. Its input needs no
+map and no odometry integration: the gravity-referenced body roll $r$ and pitch $p$ from
+the IMU, the four joint angles $\theta_i$, the commanded body velocity $v_\text{cmd}$,
+and a scalar motion cue $m$ derived from LiDAR-ICP odometry over a short window
+(Sec.~\ref{sec:method-antistuck}). All but $m$ are proprioceptive.
 
 The command superimposes a stabilization action $a^{\mathrm{s}}_i$ and an anti-stuck
-action $a^{\mathrm{d}}_i$, combined by a directional-priority rule and clamped
-(Fig.~\ref{fig:block}):
+action $a^{\mathrm{d}}_i$, combined by a directional-priority rule and clamped:
 \begin{equation}
   v_i \;=\; \mathrm{limit}\big(\, a^{\mathrm{s}}_i \;+\; \mathrm{cap}(a^{\mathrm{d}}_i,\,a^{\mathrm{s}}_i)\,\big).
   \label{eq:overview}
 \end{equation}
 The three operators are defined next.
 
-\begin{figure}[t]
-  \centering
-  \fbox{\parbox[c][2.6cm][c]{0.92\linewidth}{\centering \placeholder{[Fig.~\ref{fig:block}:
-  block diagram: IMU roll/pitch $\to$ PI stabilization $a^{\mathrm{s}}_i$; motion cue + cmd
-  $\to$ stuck detection $\to$ dig-spread $a^{\mathrm{d}}_i$; directional-priority blend $\to$
-  limits $\to$ flipper velocities. No map/pose input.]}}}
-  \caption{\SAS{} superimposes an IMU-driven stabilization action and a reactive
-  anti-stuck action under a directional-priority blend. All inputs are drift-free
-  proprioception. \TODO{draw.}}
-  \label{fig:block}
-\end{figure}
-
 \subsection{Attitude stabilization}\label{sec:method-stab}
-The dominant term regulates body attitude to level from the IMU alone. Stabilizing
-attitude with flippers is not new: Azayev and Zimmermann add a roll-only PD term inside
-a map-based state machine~\cite{azayev2022}, C-TRAC learns to level both roll and pitch
-from a map-based reward~\cite{ctrac2025}, and, closest to us, Rocha et al. regulate roll,
-pitch, and ground clearance from the IMU and joint proprioception with no map at
-all~\cite{rocha2023}. That controller only levels the body, however: with no recovery
-behavior it can still stall on the steps, logs, and rubble that flippers exist to cross.
+The dominant term regulates body attitude to level from the IMU alone; how this
+relates to prior attitude control with flippers is set out in
+Sec.~\ref{sec:related-posture}.
 From the roll and pitch deviations $e_r=r_0-r$ and $e_p=p_0-p$ about the level setpoints
-$r_0,p_0$ (taken as zero), each dead-banded by a few degrees so the robot does not hunt
-around level, we form proportional-integral actions
+$r_0,p_0$ (taken as zero), each passed through a dead-band of a few degrees so that
+attitude noise near the set-point produces no control action, we form
+proportional-integral actions
 \begin{equation}
   u_r = K^r_{\mathrm P}\,e_r + K^r_{\mathrm I}\, I_r, \qquad
   u_p = K^p_{\mathrm P}\,e_p + K^p_{\mathrm I}\, I_p,
@@ -55,7 +40,8 @@ differential for pitch and a left/right differential for roll:
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
 The subordinate action follows the escape idea of~\cite{azayev2022}: when the robot is
-stuck, it drives the flippers to lift the body off the ground and push the robot forward.
+stuck, it drives the flippers to lift the body off the ground and free the robot from the
+stuck pose.
 It fires whenever the robot is commanded to move yet is not moving:
 \begin{equation}
   \text{dig} \;=\; \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
@@ -76,6 +62,18 @@ Sec.~\ref{sec:method-blend} hold them:
   a^{\mathrm{d}}_i = \begin{cases} +\lambda & \text{dig}\\ -\lambda_\text{low} & \text{otherwise.}\end{cases}
   \label{eq:spread}
 \end{equation}
+Digging alone can lock up. If the flippers reach their lower position limit without
+freeing the robot, the spread the limit permits is zero, the motion cue stays below
+$\tau_\text{stuck}$, and the robot would remain stuck indefinitely with its flippers fully
+down. A second, longer timer therefore watches the dig itself: after
+$T_\text{dig}=\SI{8}{\second}$ of continuous digging without release, the anti-stuck term
+is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are driven back up
+toward the climbing pose, after which digging is permitted again. A hopeless dig thus
+becomes a dig--reset cycle rather than a permanent stall; this is the dig--release
+oscillation visible in the experiments. The reset remains a subordinate demand, so
+stabilization still caps it. Stuck detection is armed only after the robot has been
+moving for \SI{2}{\second}, so a robot that is merely starting is not mistaken for one that
+is stuck.
 
 \subsection{Directional-priority blend and limits}\label{sec:method-blend}
 Stabilization takes priority: the anti-stuck action may reinforce it but must not
@@ -97,6 +95,4 @@ passes $a^{\mathrm{d}}_i$ through:
 \end{equation}
 The blended command is clamped to the maximum flipper speed and passed through
 programmed position limits: each flipper angle $\theta_i$ is held within a lower (dig)
-and upper (raise) bound with a post-limit dead-zone and an active recovery velocity, so
-an overshooting flipper is driven back into range rather than merely stopped. The output
-$v_i$ is sent to the velocity controllers.
+and upper (raise) bound.
