@@ -25,9 +25,7 @@ optimization over a simplified terrain sampled from a 3D occupancy map with FAST
 odometry~\cite{xu2024}; and, most recently, Zhang et al. plan the path and flipper
 maneuvers with RRT* over a contact-model pose predictor, using learned semantic
 segmentation of the elevation map only as a perception front-end~\cite{zhang2025}. Both
-Chen and Xu drive the left and right flippers as a symmetric pair, and Xu's model is planar
-outright, so they are confined to terrain with little lateral variation and cannot handle
-asymmetric obstacles, where the two sides must act differently.
+Chen and Xu drive the left and right flippers as a symmetric pair, and Xu's model is planar outright, so they are confined to terrain with little lateral variation and cannot handle asymmetric obstacles, where the two sides must act differently.
 
 \subsection{Hierarchical / switching / mixture-of-experts control}
 A family that composes low-level behaviors under a selector, and contains the closest
