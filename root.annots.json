@@ -1041,5 +1041,40 @@
   "done": "",
   "page_hint": 3,
   "source": "root.pdf"
+ },
+ {
+  "note": "put the (a) into the image, remove the gap between the images",
+  "anchor": "(a) The real robot.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "(b) The same obstacle in the Gazebo arena.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "visualization of elevation map using perception stack and how much it doesnt fit the gt. Red transparen is the ground truth handcrafted elevation map and blue is from elevation mapping. \n\nAlso the robot transparent is ground truth position of the robot so we can also observe the shift in localization caused by the perception stack",
+  "anchor": "dently actuated flippers and no belts beneath the chassis.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Dont focus on the marv, we are observing the elevation map. Name it Obstacle traversal with elevation...\n\nDont talk about the four flippers and no belt.",
+  "anchor": "dently actuated flippers and no belts beneath the chassis.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Sorry this is not simulated arena, this is visualization from the same position of the robot above it, from the observed data from the robot in that position. The gt is handcrafted map which is positioned using the april tags.",
+  "anchor": "The simulated arena,",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
  }
 ]

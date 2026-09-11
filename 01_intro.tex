@@ -14,23 +14,22 @@ flippers alone~\cite{rocha2023}.
 
 \begin{figure}[t]
   \centering
-  \begin{subfigure}{\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/real_robot_crop.jpg}
-    \caption{The real robot.}
-    \label{fig:robot-real}
-  \end{subfigure}
-
-  \vspace{3pt}
-
-  \begin{subfigure}{\linewidth}
-    \centering
-    \includegraphics[width=\linewidth]{figures/simulated_robot_crop.png}
-    \caption{The same obstacle in the Gazebo arena.}
-    \label{fig:robot-sim}
-  \end{subfigure}
-  \caption{\textbf{MARV} climbing a pallet obstacle with four independently actuated
-  flippers and no belts beneath the chassis.}
+  \begin{tikzpicture}[inner sep=0, outer sep=0]
+    \node[anchor=north west] (ra) at (0,0)
+      {\includegraphics[width=\linewidth]{figures/real_robot_crop.jpg}};
+    \node[anchor=north west] (rb) at (ra.south west)
+      {\includegraphics[width=\linewidth]{figures/simulated_robot_crop.png}};
+    \node[anchor=north west, inner sep=1.5pt, fill=white, fill opacity=0.75,
+          text opacity=1, font=\bfseries\small] at (ra.north west) {(a)};
+    \node[anchor=north west, inner sep=1.5pt, fill=white, fill opacity=0.75,
+          text opacity=1, font=\bfseries\small] at (rb.north west) {(b)};
+  \end{tikzpicture}
+  \caption{\textbf{Obstacle traversal with the elevation map.} (a) The robot climbing a
+  pallet obstacle. (b) The same pose, rendered from the data the robot observed there: the
+  map built by the onboard perception stack (blue) against the handcrafted ground-truth
+  map registered with AprilTags (transparent red), with the ground-truth robot pose drawn
+  transparent. The offset between the two surfaces, and between the two bodies, is the map
+  and localization error the perception stack introduces.}
   \label{fig:robot}
 \end{figure}
 
