@@ -1,18 +1,17 @@
 % ============================ METHOD ============================
 \SAS{} runs on the four flippers $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$
-of MARV and emits a per-flipper angular \emph{velocity} command $v_i$. Its input needs no
-map and no odometry integration: the gravity-referenced body roll $r$ and pitch $p$ from
+and emits a per-flipper angular \emph{velocity} command $v_i$. Its inputs are the
+gravity-referenced body roll $r$ and pitch $p$ from
 the IMU, the four joint angles $\theta_i$, the commanded body velocity $v_\text{cmd}$,
 and a scalar motion cue $m$ derived from LiDAR-ICP odometry over a short window
-(Sec.~\ref{sec:method-antistuck}). All but $m$ are proprioceptive.
+(Sec.~\ref{sec:method-antistuck}).
 
-The command superimposes a stabilization action $a^{\mathrm{s}}_i$ and an anti-stuck
-action $a^{\mathrm{d}}_i$, combined by a directional-priority rule and clamped:
+The command superimposes a stabilization velocity $v^{\mathrm{s}}_i$ and an anti-stuck
+velocity $v^{\mathrm{d}}_i$, combined by a directional-priority rule and clamped:
 \begin{equation}
-  v_i \;=\; \mathrm{limit}\big(\, a^{\mathrm{s}}_i \;+\; \mathrm{cap}(a^{\mathrm{d}}_i,\,a^{\mathrm{s}}_i)\,\big).
+  v_i \;=\; \mathrm{limit}\big(\, v^{\mathrm{s}}_i \;+\; \mathrm{cap}(v^{\mathrm{d}}_i,\,v^{\mathrm{s}}_i)\,\big).
   \label{eq:overview}
 \end{equation}
-The three operators are defined next.
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
 The dominant term regulates body attitude to level from the IMU alone; how this
@@ -31,7 +30,7 @@ where $I_{(\cdot)}\!\leftarrow\!\mathrm{clamp}(I_{(\cdot)}+e_{(\cdot)}\Delta t)$
 anti-windup-limited integrals. The scalar actions map to the four flippers as a front/rear
 differential for pitch and a left/right differential for roll:
 \begin{equation}
-  \begin{bmatrix} a^{\mathrm{s}}_{\mathrm{FL}}\\ a^{\mathrm{s}}_{\mathrm{FR}}\\ a^{\mathrm{s}}_{\mathrm{RL}}\\ a^{\mathrm{s}}_{\mathrm{RR}} \end{bmatrix}
+  \begin{bmatrix} v^{\mathrm{s}}_{\mathrm{FL}}\\ v^{\mathrm{s}}_{\mathrm{FR}}\\ v^{\mathrm{s}}_{\mathrm{RL}}\\ v^{\mathrm{s}}_{\mathrm{RR}} \end{bmatrix}
   =
   \begin{bmatrix} -1 & +1\\ -1 & -1\\ +1 & +1\\ +1 & -1 \end{bmatrix}
   \begin{bmatrix} u_p\\ u_r \end{bmatrix}.
@@ -59,7 +58,7 @@ terrain and drive the body forward, out of the stuck pose; otherwise they retrac
 toward the flat pose ($-\lambda_\text{low}$), where the position limits of
 Sec.~\ref{sec:method-blend} hold them:
 \begin{equation}
-  a^{\mathrm{d}}_i = \begin{cases} +\lambda & \text{dig}\\ -\lambda_\text{low} & \text{otherwise.}\end{cases}
+  v^{\mathrm{d}}_i = \begin{cases} +\lambda & \text{dig}\\ -\lambda_\text{low} & \text{otherwise.}\end{cases}
   \label{eq:spread}
 \end{equation}
 Digging alone can lock up. If the flippers reach their lower position limit without
@@ -78,18 +77,18 @@ is stuck.
 \subsection{Directional-priority blend and limits}\label{sec:method-blend}
 Stabilization takes priority: the anti-stuck action may reinforce it but must not
 reverse the net direction on any flipper. This is enforced by the $\mathrm{cap}$ operator of
-Eq.~\eqref{eq:overview}, a directional \emph{clamp}: when $a^{\mathrm{d}}_i$ opposes
-$a^{\mathrm{s}}_i$ it clamps the anti-stuck action into the band
-$[-\alpha|a^{\mathrm{s}}_i|,\,\alpha|a^{\mathrm{s}}_i|]$ set by a fraction $\alpha\in[0,1]$ of the
-stabilization demand, but only when stabilization meaningfully acts ($|a^{\mathrm{s}}_i|$
+Eq.~\eqref{eq:overview}, a directional \emph{clamp}: when $v^{\mathrm{d}}_i$ opposes
+$v^{\mathrm{s}}_i$ it clamps the anti-stuck action into the band
+$[-\alpha|v^{\mathrm{s}}_i|,\,\alpha|v^{\mathrm{s}}_i|]$ set by a fraction $\alpha\in[0,1]$ of the
+stabilization demand, but only when stabilization meaningfully acts ($|v^{\mathrm{s}}_i|$
 above a small dead-band $\beta$, so noise on a level robot cannot veto a dig); otherwise it
-passes $a^{\mathrm{d}}_i$ through:
+passes $v^{\mathrm{d}}_i$ through:
 \begin{equation}
-  \mathrm{cap}(a^{\mathrm{d}}_i,a^{\mathrm{s}}_i)=
+  \mathrm{cap}(v^{\mathrm{d}}_i,v^{\mathrm{s}}_i)=
   \begin{cases}
-    \mathrm{clamp}\!\big(a^{\mathrm{d}}_i,\,-\alpha|a^{\mathrm{s}}_i|,\,\alpha|a^{\mathrm{s}}_i|\big)\\
-    \quad\text{if } a^{\mathrm{s}}_i a^{\mathrm{d}}_i<0 \ \wedge\ |a^{\mathrm{s}}_i|>\beta,\\[2pt]
-    a^{\mathrm{d}}_i \quad\text{otherwise.}
+    \mathrm{clamp}\!\big(v^{\mathrm{d}}_i,\,-\alpha|v^{\mathrm{s}}_i|,\,\alpha|v^{\mathrm{s}}_i|\big)\\
+    \quad\text{if } v^{\mathrm{s}}_i v^{\mathrm{d}}_i<0 \ \wedge\ |v^{\mathrm{s}}_i|>\beta,\\[2pt]
+    v^{\mathrm{d}}_i \quad\text{otherwise.}
   \end{cases}
   \label{eq:cap}
 \end{equation}

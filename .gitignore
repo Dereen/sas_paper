@@ -19,3 +19,6 @@ stabilized_antistuck_icra_2027_v1.pdf
 *.zip
 .root.pdf.versions/
 root.pdf.comments.json
+
+# macOS
+.DS_Store

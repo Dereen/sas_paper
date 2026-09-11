@@ -628,5 +628,418 @@
   "done": "Table II removed.",
   "page_hint": 10,
   "source": "root.pdf"
+ },
+ {
+  "note": "Tady to po\u0159ad\u00ed mi p\u0159ijde n\u011bjak\u00e9 divn\u00e9. Obr\u00e1til bych, nebo bych Mapless \u00fapln\u011b vyj\u00e1d\u0159il jinak",
+  "anchor": "Mapless Stabilized",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Change stabilized to stabilizing",
+  "anchor": "Stabilized",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "a",
+  "anchor": "",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "stabilizing",
+  "anchor": "Stabilized",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "the robot",
+  "anchor": "",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "something like address higher obstacles with flippers... and helps the robot unstuck",
+  "anchor": "address",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "actuated just to stay upright, which gives them a low payload-",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Squish this to three sentences",
+  "anchor": "smaller flippers used only to climb and stabilize; the two tracks",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this too.",
+  "anchor": "lighter and more maneuverable, but with nothing under the",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Either way,",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "move this to the sentence what the articulated tracked robot addresses",
+  "anchor": "and failing to advance despite a forward command",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Two things stand outside this pattern, and neither",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "control that manages the flippers without interven-",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Higher autonomy asks less of the operator but shifts",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "an elevation map or point cloud [5], [6], or plan flipper motions",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Is this in related work? If yes move it there",
+  "anchor": "restrict it to ground without steps, gaps, or vertical obstacles",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Make it standalone sentence. SAS uses as input IMU, robot state and short-window motion cue.",
+  "anchor": "k, from the IMU, the flipper joints,",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "co znamen\u00e1 integration free. To je divn\u00e9. Tak\u00e9 m\u00e1me v n\u00e1zvu \u010dl\u00e1nku mapless, a tady je najednou localisation, integration, atp.",
+  "anchor": "integration-free,",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "\u010dtu ten text, kter\u00fd n\u00e1sleduje a po\u0159\u00e1d moc nev\u00edm jak ta metoda funguje a jak\u00e9 jsou vstupy. Text hodn\u011b popisuje co nen\u00ed, jak\u00e1 data nepot\u0159ebujeme, atd atd.",
+  "anchor": "Our contribution: control of the flippers without a map",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove it and add one sentence why is this problem for flipper controllers",
+  "anchor": "Inertial integration does not recover the estimate either. Double",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Make it one sentence",
+  "anchor": "dedicated underbody sensor does not help here either: the same",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove it and replace it with one sentence why it is problem for flipper controllers",
+  "anchor": "planning on such a map optimises a flipper trajectory that is",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove and replace with something in sense: \"reactive method that tries to keep robot body horizontal regardless of the terrain or when climbing obstacles up and down. It has two main parts, 1) stabilizes robot body, 2) frees the robot from a stuck. ...\"",
+  "anchor": "its sign, so a flipper that stabilization is raising is never driven",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove this and combine the not predictive into the previous sentence",
+  "anchor": "can still produce oscillatory dig-release behavior. Its value is",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "MARV and emits a per-flipper angular",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "velocity action",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "velocity",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "use v",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "v",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "The three operators are defined next.",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Its input needs no map and no odometry integration: the",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "per control spans a spectrum of operator involvement:",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "terrain that matters most",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Two flipper layouts are common.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "larger, independently actuated flippers alone [4], which makes",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "foliage-penetrating radar.]",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "referenced and therefore drift-free",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "by driving",
+  "anchor": "driving",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "has precedence, so the anti-stuck part may reinforce a flipper\u2019s",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "control the flippers from onboard proprioception and a short-",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformate to one simple sentence and join it to the previous text",
+  "anchor": "anticipate an obstacle before contact, but it keeps operating",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Part A",
+  "anchor": "estimated localization of the robot. It is not odometry-free,",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Merge with part A",
+  "anchor": "two parts: it stabilizes the body, and it frees the robot when it",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and",
+  "anchor": "",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We propose SAS, a mapless, localization-free flipper\ncontroller combining continuous\nroll+pitch stabilization with reactive anti-stuck recovery\nunder a directional-priority blend.",
+  "anchor": "roll+pitch stabilization with reactive anti-stuck recovery",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "[5], [9], [10], using success rate and traversal quality",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "in simulation and on real obstacles",
+  "anchor": "levels of autonomy:",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "4) We give an honest account of its limitations (residual",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "whether or not the tracks grip the ground.",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "respect: they cannot climb an obstacle taller than their leading",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "(Sec. II-E)",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Merge this with the first sentence of this paragraph",
+  "anchor": "a flipper controller the consequence is direct: the remembered",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Mapping",
+  "anchor": "Elevation mapping",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ". Vegetation, snow, water, and loose",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Merge with the first sentence",
+  "anchor": "ning on such a map therefore commands angles for a surface",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "All are autonomous, even the gc oa",
+  "anchor": "map-based controllers [2], [3], [5], [9], [10].",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "then turn to the one line of work that controls flippers without",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ", but it demands the operator\u2019s con-",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "are proprioceptive.",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
  }
 ]

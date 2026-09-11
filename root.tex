@@ -26,13 +26,13 @@
 
 \newcommand{\GC}{GC}
 \newcommand{\OA}{OA}
-\newcommand{\SAS}{SAS}                    % Stabilized Anti-Stuck (our method, mode 12)
+\newcommand{\SAS}{SAS}                    % Stabilizing Anti-Stuck (our method, mode 12)
 \newcommand{\cmark}{\checkmark}
 \newcommand{\xmark}{\ensuremath{\times}}
 
 \begin{document}
 
-\title{Mapless Stabilized Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
+\title{Mapless Stabilizing Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
 % Alternative titles
 % Get Unstuck Without a Map: Proprioceptive Stabilized Anti-Stuck Flipper Control
 % When the Map Fails: Mapless Flipper Control for Articulated Tracked Robots
@@ -55,9 +55,10 @@ Nearly every autonomous or semi-autonomous flipper controller assumes access
 to an \emph{elevation map} of the ground under and in front of the robot. Because the terrain
 beneath the chassis is occluded from the robot's exteroceptive sensors, this map cannot
 be measured directly; it must be estimated from earlier observations and odometry integration, whose drift corrupts it. We present
-\emph{Stabilized Anti-Stuck} (\SAS),
+\emph{Stabilizing Anti-Stuck} (\SAS),
 a mapless, localization-free controller that stabilizes body roll and pitch and frees
-itself when stuck, from the IMU, the flipper joints, and a short-window motion cue. We deploy \SAS{} on our four-track robot
+the robot when stuck. \SAS{} uses as input the IMU, the robot state, and a short-window
+motion cue. We deploy \SAS{} on a four-track robot
 MARV and evaluate it on real obstacles against manual teleoperation and prior expert
 flipper controllers. In simulation \SAS{} matches the best map-based controllers on
 traversal quality under both a ground-truth and an onboard elevation map, while using
