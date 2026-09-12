@@ -1076,5 +1076,166 @@
   "done": "",
   "page_hint": 1,
   "source": "root.pdf"
+ },
+ {
+  "note": "hard to follow sentence, split it",
+  "anchor": "A flipper controller must know the geometry of the ground its",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "gazebo simulation. We put a lot of effort in the simulation arena, we have 12 obstacles, each policy rides the arena 10x, after each obstacle the perception stack is reseted, the performance is evaluated againts simulation ground truth. We performed thorough evaluation in the gazebo. Dont write this here but I need to make bolder statement how thoroughly we tested all the methods not just evaluate it in simulation. Also we have 11 methods to compare so this is quit large comparison.",
+  "anchor": "simulation",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and also, we spend a lot of time to setting up real life repeatable experiments with april tags for gt localization, automated the ride and repeatablility to remove the human factor. Again dont write this here but make the statement more bold",
+  "anchor": "obstacles",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "I dont understand, reformulate",
+  "anchor": "The baseline for everything below is direct teleoperation",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Manual does not need map",
+  "anchor": "This needs no map",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "traversal-quality ceiling.",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "so they are confined to terrain with little lateral variation and",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove the names",
+  "anchor": "Azayev and Zimmermann",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "template runs as well as how it is parameterized.",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Both the state selection and the per-flipper observations are",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "based on the input (write which input it takes)",
+  "anchor": "templates",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the one maintained by the CTU robot deployment system [18].",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "attitude stabilization, but it stabilizes roll only and overlays",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "Stabilizing body attitude with flippers is not new, but it",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove names",
+  "anchor": "Azayev and",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "The exception is",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "controller treats the four flipper anchor points as the legs of a",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and ground clearance",
+  "anchor": "chassis",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": ", but is not designed for obstacle traversal.",
+  "anchor": "",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "obstacles are the only terrain on our course. The map-free line",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "weird formulation reformulate",
+  "anchor": "for this are physical rather than perceptual: mainly IMU-based",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We should add simple overview how the method works",
+  "anchor": "",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
  }
 ]

@@ -1,4 +1,12 @@
 % ============================ METHOD ============================
+At every control step \SAS{} reads the body attitude and a motion cue and emits one
+velocity per flipper. Two terms are formed independently: a stabilization term that drives
+the body back towards level, and an anti-stuck term that digs the flippers down when the
+robot is commanded forward but is not advancing. A directional-priority rule combines them,
+so the anti-stuck term can reinforce the stabilization term but never reverse it, and the
+result is clamped to the flipper speed and position limits. The rest of this section
+defines each term in turn.
+
 \SAS{} runs on the four flippers $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$
 and emits a per-flipper angular \emph{velocity} command $v_i$. Its inputs are the
 gravity-referenced body roll $r$ and pitch $p$ from

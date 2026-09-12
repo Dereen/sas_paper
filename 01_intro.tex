@@ -45,8 +45,9 @@ chassis from proprioception alone, but does not cross obstacles.
 
 \textbf{On a real robot, the map is a dead-reckoning artifact.}
 A flipper controller must know the geometry of the ground its tracks and flippers are about
-to contact, which lies directly beneath and immediately ahead of the chassis; where that
-estimate drifts, the flipper angles it commands are computed for the wrong ground. Onboard sensors
+to contact. That ground lies directly beneath and immediately ahead of the chassis, and
+where the estimate of it drifts, the flipper angles the controller commands are computed
+for the wrong ground. Onboard sensors
 observe what is ahead, but the body occludes their view of the terrain beneath it.
 Dedicated underbody sensors could recover it, but they are rarely fitted and have very
 low resolution. That terrain can therefore mainly be \emph{remembered}: observed earlier, accumulated into a robot-centric elevation
@@ -88,9 +89,13 @@ contact, yet it keeps operating where every map-based baseline breaks down.
   \item We propose \SAS, a mapless, localization-free flipper controller combining
   continuous roll+pitch stabilization with reactive anti-stuck recovery under a
   directional-priority blend.
-  \item We deploy \SAS{} on a real four-track robot (MARV) and evaluate it in simulation
-  and on real obstacles against \emph{manual}
-  teleoperation~\cite{larochelle2013,cihala2025} and \emph{autonomous} controllers, both
-  switching between reactive experts~\cite{cihala2025,zimmermann2014} and map-based
-  planners~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}.
+  \item We benchmark \emph{eleven} controllers head to head on a twelve-obstacle course,
+  spanning \emph{manual} teleoperation~\cite{larochelle2013,cihala2025} and
+  \emph{autonomous} control, both switching between reactive
+  experts~\cite{cihala2025,zimmermann2014} and map-based
+  planners~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}. In Gazebo every
+  controller drives the full course ten times against simulator ground truth, with the
+  perception stack reset at each obstacle; on the real four-track robot MARV the run is
+  automated and referenced to AprilTag localization, so repeats are comparable and the
+  operator is out of the loop.
 \end{enumerate}

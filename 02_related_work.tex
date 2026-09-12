@@ -6,11 +6,9 @@ geometry-based planning, hierarchical switching, and reinforcement learning.
 Table~\ref{tab:sensing} summarizes what each method must sense.
 
 \subsection{Manual and mode-based teleoperation}
-The baseline for everything below is direct teleoperation: the operator drives the
-flippers by hand~\cite{cihala2025}, or by switching between preset flipper
-modes~\cite{larochelle2013,azayev2022}. This needs no map, since the operator observes the terrain and
-closes the control loop by hand, and with an expert operator it remains the
-traversal-quality ceiling.
+In direct teleoperation the operator drives the flippers by hand~\cite{cihala2025}, or
+switches between preset flipper modes~\cite{larochelle2013,azayev2022}. Manual control
+needs no map: the operator observes the terrain and closes the control loop by hand.
 
 \subsection{Geometry-based / model-based planning}
 A family that plans flipper motion from an explicit terrain model, and is the
@@ -24,27 +22,22 @@ optimization over a simplified terrain sampled from a 3D occupancy map with FAST
 odometry~\cite{xu2024}; and, most recently, Zhang et al. plan the path and flipper
 maneuvers with RRT* over a contact-model pose predictor, using learned semantic
 segmentation of the elevation map only as a perception front-end~\cite{zhang2025}. Both
-Chen and Xu drive the left and right flippers as a symmetric pair, and Xu's model is planar outright, so they are confined to terrain with little lateral variation and cannot handle asymmetric obstacles, where the two sides must act differently.
+Chen and Xu drive the left and right flippers as a symmetric pair, and Xu's model is planar
+outright.
 
 \subsection{Hierarchical / switching / mixture-of-experts control}
 A family that composes low-level behaviors under a selector. The adaptive-traversability line~\cite{zimmermann2014} classifies
 terrain into discrete flipper modes from an elevation map, and for the selected mode a
-simple low-level controller drives the flippers. Azayev and Zimmermann~\cite{azayev2022}
-learn a state machine that switches among seven hand-crafted flipper templates. Both the
-state selection and the per-flipper observations are drawn from an elevation map built
-from an Ouster LiDAR with ICP-based localization~\cite{pomerleau2013icp}, so the map
-decides which template runs as well as how it is parameterized.
-The map is the one maintained by the CTU robot deployment system~\cite{roucek2022subt}.
+simple low-level controller drives the flippers. A learned state machine~\cite{azayev2022}
+switches among seven hand-crafted flipper templates, selected from an elevation map built
+from an Ouster LiDAR with ICP-based localization~\cite{pomerleau2013icp}.
 Crucially for us, each state overlays a \emph{roll}-stabilization term and a
 stagnation-triggered \emph{escape maneuver}, the origin of the anti-stuck recovery we
 adopt, which lowers both the front and the rear flippers to free the robot when it stalls.
 It is thus the one prior method that couples anti-stuck recovery with attitude
-stabilization, but it stabilizes roll only and overlays the two without the
-directional-priority blend we add to keep them from fighting
-(Sec.~\ref{sec:method-blend}).
+stabilization.
 
 \subsection{Monolithic model-free deep RL}
-This family trains one end-to-end policy to map sensing directly to flipper commands.
 FTR-Bench standardizes this setting, benchmarking SAC, PPO, TD3, DDPG, and TRPO on a
 flipper-track robot in Isaac Lab~\cite{ftrbench2025}. Pecka et al. learn a
 safety-constrained policy (Constrained REPS) whose state is body pitch plus the terrain
@@ -68,31 +61,23 @@ the perceptual input rather than reduce it, so the accuracy of the map built by 
 odometry bounds their performance at least as tightly as it bounds the earlier ones.
 
 \subsection{Attitude stabilization and mapless posture control}\label{sec:related-posture}
-Stabilizing body attitude with flippers is not new, but it has almost always been done
-on top of a map. Azayev and Zimmermann add a roll-only stabilization term inside their
-map-based state machine~\cite{azayev2022}; C-TRAC learns to level both roll and pitch,
-but from a reward computed on the map-based simulator state~\cite{ctrac2025}. The
-exception is Rocha et al.~\cite{rocha2023}, who regulate roll, pitch, and chassis height
-of an articulated tracked vehicle from the IMU and the flipper joints alone. The
-controller treats the four flipper anchor points as the legs of a Stewart platform,
-maps a desired chassis motion to flipper joint velocities through differential
-kinematics, keeps every flipper on the ground by watching the sign of its joint torque,
-and estimates ground clearance as the distance from the chassis to the plane through
-the four flipper contact points. It needs no exteroceptive sensor and no map, and it is
-the closest prior work to ours in what it senses.
+Flipper-based attitude stabilization has been studied before, but nearly always on top of
+an elevation map: a roll-only stabilization term inside a map-based state
+machine~\cite{azayev2022}, and C-TRAC levelling both roll and pitch from a reward computed
+on the map-based simulator state~\cite{ctrac2025}. Rocha et al.~\cite{rocha2023} regulate
+roll, pitch, and ground clearance of an articulated tracked vehicle from the IMU and the
+flipper joints alone, but the method is not designed for obstacle traversal. It needs no
+exteroceptive sensor and no map, and it is the closest prior work to ours in what it
+senses.
 
 It is not, however, an obstacle-crossing controller, and does not claim to be one. Its
 authors state the operating envelope explicitly: the method \emph{``assumes
 non-structured ground with the absence of major disruptions (e.g., steps, gaps,
 vertical obstacles) and slopes with inclinations up to \ang{30}''}~\cite{rocha2023}.
-That is the complement of our setting: steps, gaps, and vertical obstacles are the only
-terrain on our course. The map-free line of work stops where obstacle crossing begins, and
-\SAS{} carries it across that boundary by adding recovery to stabilization.
 
 \subsection{Evaluating traversal quality}
 We evaluate a controller by the quality of the traversal it produces, measured
-on the robot's body. The quantities used for this are physical rather than
-perceptual: mainly IMU-based smoothness such as pitch swing and vertical
+on the robot's body: IMU-based smoothness such as pitch swing and vertical
 shock~\cite{chen2023}, body attitude, and chassis-to-ground clearance.
 Following~\cite{cihala2025,zimmermann2014} we score shock, tilt, and clearance,
 and we compute all three against ground truth. In simulation the reference
