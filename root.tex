@@ -58,9 +58,9 @@ be measured directly; it must be estimated from earlier observations and odometr
 \emph{Stabilizing Anti-Stuck} (\SAS),
 a mapless, localization-free controller that stabilizes body roll and pitch and frees
 the robot when stuck. \SAS{} uses as input the IMU, the robot state, and a short-window
-motion cue. We deploy \SAS{} on a four-track robot
-MARV and evaluate it on real obstacles against manual teleoperation and prior expert
-flipper controllers. In simulation \SAS{} matches the best map-based controllers on
+motion cue. We deploy \SAS{} on the four-track robot MARV and evaluate it against manual
+teleoperation and prior expert flipper controllers in an ablation study run both in Gazebo
+and in a real automated obstacle arena. In simulation \SAS{} matches the best map-based controllers on
 traversal quality under both a ground-truth and an onboard elevation map, while using
 neither, though its anti-stuck term can still produce oscillatory dig-release behavior;
 its further value is that

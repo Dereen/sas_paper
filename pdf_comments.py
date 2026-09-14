@@ -41,6 +41,21 @@ def anchor_of(page, a):
     return max(frags, key=len) if frags else ''
 
 
+def anchor_full_of(page, a):
+    """The whole highlighted span, de-duplicated. A short fragment like
+    'Gazebo simulation' occurs many times in the paper and re-anchors onto the
+    wrong one; the full span is far likelier to be unique."""
+    q = a.vertices or []
+    if a.type[1] != 'Highlight' or not q:
+        return ''
+    out = []
+    for k in range(0, len(q), 4):
+        t = ' '.join(page.get_textbox(fitz.Quad(q[k:k + 4]).rect).split())
+        if t and (not out or out[-1] != t):
+            out.append(t)
+    return ' '.join(out)
+
+
 def collect(paths):
     store = json.load(open(STORE)) if os.path.exists(STORE) else []
     seen = {(c['note'], c['anchor']) for c in store}
@@ -61,6 +76,7 @@ def collect(paths):
                     continue
                 seen.add(key)
                 store.append({'note': note.strip(), 'anchor': key[1],
+                              'anchor_full': anchor_full_of(page, a),
                               'done': done.strip(), 'page_hint': i + 1,
                               'source': os.path.basename(p)})
                 added += 1
@@ -76,13 +92,21 @@ def restore(path):
     for c in store:
         body = c['note'] + (f"\n\nDONE: {c['done']}" if c['done'] else '')
         rects, pno = [], None
-        needle = re.sub(r'\s+', ' ', c['anchor']).strip()
-        for i, page in enumerate(d):
-            # long anchors get truncated: a fragment is enough to locate the line
-            for probe in (needle, needle[:60], needle[:32]):
-                if len(probe) < 8:
-                    continue
-                hits = page.search_for(probe)
+        probes = [re.sub(r'\s+', ' ', p).strip()
+                  for p in (c.get('anchor_full', ''), c.get('anchor', '')) if p]
+        # the page the comment was made on is tried first, so a short anchor that
+        # also occurs elsewhere does not drag the comment onto another page
+        hint = min(max(c.get('page_hint', 1), 1), d.page_count) - 1
+        # only the hinted page and its neighbours: text reflows across a page
+        # break, but a comment never belongs on the far side of the paper. If the
+        # anchor is gone from here it was edited away, so pin it rather than hunt
+        # for the same words somewhere else.
+        order = [p for p in (hint, hint - 1, hint + 1) if 0 <= p < d.page_count]
+        for probe in probes:
+            if len(probe) < 8:
+                continue
+            for i in order:
+                hits = d[i].search_for(probe)
                 if hits:
                     rects, pno = hits, i
                     break
@@ -99,7 +123,8 @@ def restore(path):
             an = page.add_text_annot(fitz.Point(page.rect.width - 26, y), '')
             an.set_colors(stroke=GREY)
             body += ('\n\n[the text this was attached to no longer appears -- '
-                     'it was changed in response. Pinned to the margin.]')
+                     'it was changed in response. Pinned to the margin.]'
+                     '\n\nIt referred to: ' + repr(c.get('anchor_full') or c.get('anchor') or '(none)'))
             drifted += 1
         an.set_info(content=body, title='review')
         an.update()
@@ -110,8 +135,9 @@ def restore(path):
           f'{len(store)} total -> {path}')
 
 
-cmd = sys.argv[1] if len(sys.argv) > 1 else 'restore'
-if cmd == 'collect':
-    collect(sys.argv[2:] or ['root.pdf'])
-else:
-    restore(sys.argv[2] if len(sys.argv) > 2 else 'root.pdf')
+if __name__ == '__main__':
+    cmd = sys.argv[1] if len(sys.argv) > 1 else 'restore'
+    if cmd == 'collect':
+        collect(sys.argv[2:] or ['root.pdf'])
+    else:
+        restore(sys.argv[2] if len(sys.argv) > 2 else 'root.pdf')

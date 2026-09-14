@@ -1237,5 +1237,513 @@
   "done": "",
   "page_hint": 3,
   "source": "root.pdf"
+ },
+ {
+  "note": "stuck which means",
+  "anchor": "",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "The rest of this section defines each term in",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "SAS consist of two regulation goals: 1. stabilization of body roll and pitch and 2. releasing the robot if stucked",
+  "anchor": "are formed independently: a stabilization term that drives the",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the IMU alone; how this relates to prior attitude control",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "reformulate into shorter sentences, and accomodate the removed previous sentence",
+  "anchor": "few degrees so that attitude noise near the set-point produces",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "commands",
+  "anchor": "actions",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "are those citation needed? Does the methods use icp for stuck detection or are the citations for implementation of the icp?",
+  "anchor": "[13], [22]",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "up",
+  "anchor": "forward",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "lift",
+  "anchor": "",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "), where the position limits of Sec. III-C hold",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add what each policy does, pose prediction,... read the pdfs for that",
+  "anchor": "What each flipper controller senses and stabilizes",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Put full name",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "release oscillation visible in the experiments",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "A hopeless",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "speed and passed through programmed position limits: each",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "make the first condition to be on one line, this looks like three conditions",
+  "anchor": "\uf8f1 \uf8f4 clamp \ufffd",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "over antistuck and anti-stuck command velocity",
+  "anchor": "priority",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "command",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "of Eq. (1),",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": ", so noise on a level robot",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "read the paper [1] it uses subt darpa simulator, use it here too is sound good",
+  "anchor": "Gazebo simulation",
+  "done": "same as the Gazebo/DARPA SubT comment: cited in the Simulation paragraph",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "algorithms, this is not about the robot but about the flipper control",
+  "anchor": "",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "cite the icp here, look for other occurences of the icp citation and remove it. Before that we was talking about general lidar icp. Now we are talking about norlab lidar icp. Cite the norlab lidar icp",
+  "anchor": "LiDAR-ICP odometry,",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "dont be specific, we will be specific in the next paragraphs",
+  "anchor": "robot both in Gazebo simulation [1],",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Cite the gazebo and talk about it as darpa subt virtual challange selected simulator, read paper [1] there should be precise sentence",
+  "anchor": "lation that models conveyor-belt behavior, and run it at a real-",
+  "done": "Simulation paragraph opens: 'We simulate in Gazebo~\\cite{gazebo2004}, the simulator selected for the virtual track of the DARPA Subterranean Challenge~\\cite{roucek2022subt}.' ([1] itself has no SubT sentence)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "In the sweeps reported here nobody",
+  "done": "'nobody is on the sticks' -> 'In all reported runs the robot is driven autonomously; no operator is in the loop.'",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "List of compared baselines",
+  "anchor": "What each flipper controller senses and stabilizes",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add TODO i dont know which mitriakov we did.",
+  "anchor": "Mitriakov",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove not evaluated baseline",
+  "anchor": "Rocha [4]",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the simulation. Automated ride will be for simulation and for irl experiments too",
+  "anchor": "fields; on entering it the flippers are flattened and the robot is",
+  "done": "neutral-strip / flatten / placement sentence moved into the Simulation paragraph",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Automated ride and sas override release mechanism",
+  "anchor": "Automated ride:",
+  "done": "paragraph renamed 'Automated ride and SAS override release'; the watchdog is described as overriding the flippers with SAS",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the simulation",
+  "anchor": "the start of the next obstacle field, so heading and speed",
+  "done": "heading-regulator sentence moved into the Simulation paragraph",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add column if the source code was used and where not.",
+  "anchor": "TABLE I:",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to simulation in two sentences.",
+  "anchor": "that probe different capabilities of the controllers, including",
+  "done": "arena described in two sentences inside the Simulation paragraph",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "rests on the terrain, which the six-track originals of Chen and",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "signed-distance field built from the same LiDAR. All other",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and adaptation to 4 belt robot",
+  "anchor": "l reimplementation",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Every map-based baseline is run under both the ground-",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the metrics",
+  "anchor": "simulator; on the real robot it comes from external localization",
+  "done": "ground-truth source sentence moved to Metrics ('All three are computed against ground truth: ...')",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Rewrite into one sentence instead of switching we added 2s stuck watchdog for front flippers.",
+  "anchor": "(iii) every map-based controller catalogued in Table I; and our",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Look into the robot .1, .2 and .5 how we update the geometric policies. Write one sentence for each.",
+  "anchor": "Mitriakov et al.\u2019s RL framework [20], [21], [26], and Oehler",
+  "done": "same as the provenance TODO comment: done, see it",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "automated obstacle",
+  "anchor": "l obstacles",
+  "done": "abstract: 'real obstacles' -> 'a real automated obstacle arena'",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Chen and Xu drive the left and right flippers as a symmetric",
+  "done": "removed (Chen/Xu symmetric-pair sentence)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "built from an Ouster LiDAR with ICP-based localization",
+  "done": "removed 'built from an Ouster LiDAR with ICP-based localization' and its ICP cite",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "using mapping ALOAM (add citation)",
+  "anchor": "from a LiDAR point-cloud map built by LiDAR odometry",
+  "done": "'built with A-LOAM~\\cite{loam2014,aloam}'; new @misc{aloam} bib entry",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "I dont understand is this all reward or penalty. Reformulate it as single sentence with pitch reward and stuck as terminal penalty",
+  "anchor": "the pitch for smoothness; roll is uncontrolled and \u201cstuck\u201d",
+  "done": "reward now one sentence: 'Their reward rewards smooth pitch only, and getting stuck is a terminal penalty.'",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "surveyed: the more recent methods enlarge the perceptual input",
+  "done": "removed the 'All of these consume an elevation map ... bounds the earlier ones' passage",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "It is not, however, an obstacle-crossing controller, and does",
+  "done": "removed the Rocha operating-envelope paragraph",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the simulation A paragraph",
+  "anchor": "that probe different capabilities of the controllers, including",
+  "done": "Obstacles subsection dissolved into the Simulation paragraph",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "cite the anybotics elevation map",
+  "anchor": "elevation-mapping",
+  "done": "'elevation-mapping~\\cite{fankhauser2018}' (the ANYbotics elevation_mapping paper)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ", so it accumulates exactly the drift we",
+  "done": "removed ', so it accumulates exactly the drift we study'",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "it was task for you do look into robot and spawn subagent for each method which will read the pdf and evaluate the implemenation change by one sentence.",
+  "anchor": "per geometric policy describing how it was adapted for",
+  "done": "five one-sentence adaptation notes written from the deployed code (robot .1 and .2 pulled and compared with cnuc; .5 carries no flipper code), one Opus subagent per method reading the paper PDF against the code; they replace the TODO in the provenance paragraph. Side findings applied: Yuan is a reimplementation verified against the released code (Table I and text), Zhang's and Oehler's Table I approach cells, FAST-LIO2 over an a priori map in related work.",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We perform ablation study in gazebo and in real automated arena",
+  "anchor": "against manual teleoperation and prior expert flipper controllers.",
+  "anchor_full": "We deploy SAS on a four-track robot MARV and evaluate it on real obstacles against manual teleoperation and prior expert flipper controllers.",
+  "done": "abstract: evaluation sentence now 'an ablation study run both in Gazebo and in a real automated obstacle arena'",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "perform ablation study",
+  "anchor": "benchmark",
+  "anchor_full": "benchmark",
+  "done": "contribution 3: 'We benchmark' -> 'We perform an ablation study of'",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "4. We performed ablation study on automated real live obstacle",
+  "anchor": "Contributions:",
+  "anchor_full": "Contributions:",
+  "done": "added contribution 4: the ablation study on a real, automated obstacle",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Make this as fourth contribution",
+  "anchor": "and referenced to AprilTag localization, so repeats are",
+  "anchor_full": "on the real four-track robot MARV the run is automated and referenced to AprilTag localization, so repeats are comparable and the operator is out of the loop.",
+  "done": "the real-robot MARV sentence is now contribution 4",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "to measure the degradation.",
+  "anchor": "obstacle",
+  "anchor_full": "obstacle",
+  "done": "appended 'to measure the degradation' after 'reset at each obstacle'",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Shorten this to two sentences that state overlay roll-stab and stagnation-triggered escape maneuver.",
+  "anchor": "the rear flippers to free the robot when it stalls. It is thus the",
+  "anchor_full": "Crucially for us, each state overlays a a roll l-stabilization term and a stagnation-triggered d escape maneuver r, the origin of the anti-stuck recovery we adopt, which lowers both the front and the rear flippers to free the robot when it stalls. It is thus the one prior method that couples anti-stuck recovery with attitude stabilization",
+  "done": "shortened to two sentences: each state overlays roll-stabilization and a stagnation-triggered escape maneuver; the one prior method coupling anti-stuck with stabilization, origin of ours",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "controller",
+  "anchor": "experts",
+  "anchor_full": "experts",
+  "done": "Table I: 'clearance + obstacle-aware experts' -> 'controllers'",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Rewrite into one sentence instead of switching we added 2s stuck watchdog for front flippers",
+  "anchor": "flipper between the two, here a stuck criterion identical to the",
+  "anchor_full": "(ii) the e GC/OA policy y [1] in its automated form: the rear flippers always run ground-clearance (GC), a a reactive controller that regulates chassis clearance from the local terrain height, and the front flippers start in obstacle-aware (OA), a geometric controller that plans flipper poses from the obstacle geometry ahead. Where the original had the operator toggle each front flipper between the two, here a stuck criterion identical to the watchdog\u2019s switches both fronts to GC after 2 2 s s o of no progress, holds them there for 2 s s, and returns them to OA; (iii) every map-based controller catalogued in Table I; and our r SAS .",
+  "done": "GC/OA baseline now one sentence: instead of the operator switching, a 2 s stuck watchdog on the front flippers",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "rate is not informative here: the stuck watchdog releases every",
+  "anchor_full": "A success rate is not informative here: the stuck watchdog releases every stalled controller, so nearly every field is traversed, and the cost of stalling appears instead in the watchdog\u2019s intervention count and in TQ.",
+  "done": "removed the success-rate sentence (and the dangling 'SR=0' at the end of Metrics)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "control uses ground clearance as a control target or planning",
+  "anchor_full": "Prior flipper control uses ground clearance as a control target or planning",
+  "done": "removed",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "enforce ground contact [3], [5]); we use it instead as a scored",
+  "anchor_full": "constraint (Rocha et al. regulate it [4]; geometry planners enforce ground contact [3], [5]); we use it instead as a scored quality",
+  "done": "removed",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "the obstacles numbers put them outside of the graphs.",
+  "anchor": "Conditioning of the three quality channels along the course, in Gazebo simulation",
+  "anchor_full": "Conditioning of the three quality channels along the course, in Gazebo simulation",
+  "done": "figure regenerated (experiments/.../scripts/signal_conditioning.py): obstacle numbers drawn above the top panel, outside the plot area",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Change the formulation low-pass may causes hiding of bad behaviour so we are using maximum",
+  "anchor": "low-pass that is implemented but disabled,",
+  "anchor_full": "Raw per-sample scores, the low-pass that is implemented but disabled,",
+  "done": "caption: 'A low-pass would hide short bad events, so we do not use it: each bin takes the worst sample it covers.'",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove this, replace the white stripes with red ones and just legend to the text where is described what is obstacle and what settling strip",
+  "anchor": "the settling strips between them are not scored, so no bins are drawn there.",
+  "anchor_full": "the settling strips between them are not scored, so no bins are drawn there.",
+  "done": "caption sentence removed; figure: settling strips shaded red, obstacle fields grey, both in the legend",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "second of averaging doubles the shock score and leaves the other two alone, because clearance and tilt are already smooth",
+  "anchor_full": "Scoring the low-passed signal instead of the raw one moves shock by y +0 .4 .417 7 and clearance and tilt by +0 .0 033 and d +0 0. .009 9: half a second of averaging doubles the shock score and leaves the other two alone, because clearance and tilt are already smooth while the shock channel is made of sub-second transients. [TODO: single SAS run from the hand-driven campaign, the only one with a per-sample timeline; regenerate from a sweep run once those are extracted.",
+  "done": "removed (the +0.417 numbers and the TODO)",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove",
+  "anchor": "sits at the worst sample it covers, so it lies on or below the raw trace, and the channel score is the mean of the bins.",
+  "anchor_full": "A bin sits at the worst sample it covers, so it lies on or below the raw trace, and the channel score is the mean of the bins.",
+  "done": "removed",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Because we are focusing on the traversal quality to protect the robot we used bining by distance to mitigate the time dependency so the graphs became better comparable between each other regardles of the policy duration over the obstacle. Size of the bin was used to suppress noise",
+  "anchor": "and the bins the score actually uses, each drawn across the stretch of aisle it covers",
+  "anchor_full": "and the bins the score actually uses, each drawn across the stretch of aisle it covers",
+  "done": "caption: bins cut by distance so profiles are comparable regardless of time spent on an obstacle; bin length suppresses noise",
+  "page_hint": 7,
+  "source": "root.pdf"
+ },
+ {
+  "note": "put the legend under the graphs",
+  "anchor": "",
+  "anchor_full": "Fig. 3",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
  }
 ]
