@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% MARV / ICRA 2027 -- Mapless Stabilized Anti-Stuck Flipper Control (mode 12)
+% ICRA 2027 -- Mapless Stabilizing Anti-Stuck Flipper Control (double-blind submission)
 % ICRA 2026/2027 format: standard IEEE conference template (IEEEtran),
 % US-letter, two-column, 8 pages incl. references.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,15 +38,9 @@
 % When the Map Fails: Mapless Flipper Control for Articulated Tracked Robots
 % Proprioceptive Flipper Control: Attitude-Stabilized Anti-Stuck Without a Terrain Map
 
-\author{\IEEEauthorblockN{Valent\'yn {\v C}\'ihala, Pavel Sarga, Martin Pecka, Tom\'a{\v s} Svoboda and Karel Zimmermann}
-\IEEEauthorblockA{Department of Cybernetics, Faculty of Electrical Engineering,
-Czech Technical University in Prague\\
-Corresponding author: \texttt{cihalval@fel.cvut.cz}}
-\thanks{This work was co-funded by the Czech Science Foundation under Project
-24-12360S, the Grant Agency of the CTU in Prague under Project
-SGS24/096/OHK3/2T/13, the European Union under the project ROBOPROX (reg. no.
-CZ.02.01.01/00/22\_008/0004590) and the EU Horizon Europe project XSCAVE (ID
-101189836). \TODO{reconcile grant numbers with final ICRA 2025 acknowledgements.}}}
+% Double-blind review: author block and funding acknowledgement removed.
+% Restore for the camera-ready version from git history (commit before the anonymization).
+\author{\IEEEauthorblockN{Anonymous Authors}}
 
 \maketitle
 
@@ -56,16 +50,15 @@ to an \emph{elevation map} of the ground under and in front of the robot. Becaus
 beneath the chassis is occluded from the robot's exteroceptive sensors, this map cannot
 be measured directly; it must be estimated from earlier observations and odometry integration, whose drift corrupts it. We present
 \emph{Stabilizing Anti-Stuck} (\SAS),
-a mapless, localization-free controller that stabilizes body roll and pitch and frees
-the robot when stuck. \SAS{} uses as input the IMU, the robot state, and a short-window
-motion cue. We deploy \SAS{} on the four-track robot MARV and evaluate it against manual
-teleoperation and prior expert flipper controllers in an ablation study run both in Gazebo
+a mapless, localization-free controller that combines a stabilization term for body roll
+and pitch with an anti-stuck term that frees the robot when it is stuck. \SAS{} uses as input the IMU, the flipper joint angles, the commanded
+velocity, and a short-window odometry cue. We deploy \SAS{} on a four-track robot and evaluate it against manual
+teleoperation and prior flipper controllers in a large comparison run both in Gazebo
 and in a real automated obstacle arena. In simulation \SAS{} matches the best map-based controllers on
-traversal quality under both a ground-truth and an onboard elevation map, while using
-neither, though its anti-stuck term can still produce oscillatory dig-release behavior;
-its further value is that
-it keeps the robot leveled and remains operational on terrain with obstacles hidden from
-its sensors, such as a rigid log buried in tall grass, where map-based control breaks down. \TODO{final quantitative headline once results are in.}
+traversal quality under both the ground-truth map and the onboard map, while using
+neither. The biggest difference is on obstacles unobservable to the robot's sensors, such
+as a rigid log buried in tall grass, where map-based control breaks down while \SAS{} keeps
+the robot stabilized and operational. \TODO{final quantitative headline once results are in.}
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -3,8 +3,7 @@ Tracked and wheeled robots cannot climb an obstacle taller than their leading wh
 \emph{Articulated} tracked robots address higher obstacles with \emph{flippers},
 independently actuated sub-tracks that reshape the robot's morphology on the fly: they
 reach beyond the leading wheel to climb what a rigid chassis cannot, and they free the
-robot when it gets \emph{stuck}, failing to advance despite a forward
-command~\cite{cihala2025,azayev2022,xu2024}.
+robot when it gets \emph{stuck}~\cite{azayev2022,xu2024,cihala2025}.
 
 The \emph{six-track} design keeps a main driven track on
 each side of the chassis and adds four smaller flippers for climbing and stabilizing, with
@@ -26,7 +25,7 @@ flippers alone~\cite{rocha2023}.
   \end{tikzpicture}
   \caption{\textbf{Obstacle traversal with the elevation map.} (a) The robot climbing a
   pallet obstacle. (b) The same pose, rendered from the data the robot observed there: the
-  map built by the onboard perception stack (blue) against the handcrafted ground-truth
+  onboard map (blue) against the handcrafted ground-truth
   map registered with AprilTags (transparent red), with the ground-truth robot pose drawn
   transparent. The offset between the two surfaces, and between the two bodies, is the map
   and localization error the perception stack introduces.}
@@ -40,17 +39,17 @@ an \emph{elevation map} of the ground under and in front of the robot. Geometric
 and learned policies alike take that map as their dominant
 input~\cite{chen2023,oehler2024,yuan2019,xu2024,pan2023icm,pan2023atd3qn,ctrac2025,azayev2022}.
 Fully manual teleoperation needs no map because the operator sees the terrain, but must
-drive all four flippers by hand. Mapless posture control~\cite{rocha2023} levels the
+drive all four flippers by hand. Mapless posture control~\cite{rocha2023} stabilizes the
 chassis from proprioception alone, but does not cross obstacles.
 
 \textbf{On a real robot, the map is a dead-reckoning artifact.}
-A flipper controller must know the geometry of the ground its tracks and flippers are about
-to contact. That ground lies directly beneath and immediately ahead of the chassis, and
-where the estimate of it drifts, the flipper angles the controller commands are computed
-for the wrong ground. Onboard sensors
+Most previous flipper controllers assume knowledge of the geometry of the ground their
+tracks and flippers are about to contact. That ground lies directly beneath and immediately ahead of the chassis, and
+where the estimate of it drifts, the commanded flipper angles are computed for a terrain
+surface that deviates from the true one. Onboard sensors
 observe what is ahead, but the body occludes their view of the terrain beneath it.
 Dedicated underbody sensors could recover it, but they are rarely fitted and have very
-low resolution. That terrain can therefore mainly be \emph{remembered}: observed earlier, accumulated into a robot-centric elevation
+low resolution. That terrain can therefore mainly be \emph{remembered}: observed earlier, accumulated into an elevation
 map, and carried beneath the robot as it advances by
 \emph{integrating wheel or LiDAR odometry}~\cite{fankhauser2018}. Every stage of this
 pipeline is a dead-reckoning process: point-cloud deskewing warps each scan by the estimated
@@ -72,31 +71,31 @@ practice.
 
 \textbf{Our contribution: control of the flippers without a map and without localization.}
 We present \emph{Stabilizing Anti-Stuck} (\SAS), a reactive controller that requires neither
-an elevation map nor an estimated localization of the robot. It keeps the robot body
-horizontal regardless of the terrain, whether it is climbing an obstacle or descending one,
-and has two parts: it stabilizes the body, and it frees the robot when it gets stuck, by
-driving the flippers down. It is not odometry-free, since a short-horizon motion cue tells it whether the
-body is advancing, but it never accumulates pose and therefore never inherits the drift that
-corrupts the map. It has no terrain preview, so it cannot anticipate an obstacle before
-contact, yet it keeps operating where every map-based baseline breaks down.
+an elevation map nor an estimated localization of the robot. It has two terms: a
+stabilization term that stabilizes the robot body regardless of the terrain, whether
+climbing or descending an obstacle, and an anti-stuck term that frees the robot when it
+gets stuck by driving the flippers down. It is not odometry-free, since a short-window odometry cue tells it whether
+the body is advancing, but it never accumulates pose and therefore never inherits the drift
+that corrupts the map. It has no terrain preview, so it cannot anticipate an obstacle before
+contact.
 
 \needspace{5\baselineskip}%
 \textbf{Contributions:}
 \nopagebreak
 \begin{enumerate}
   \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift degrades it in the field. 
-  We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard-estimated} map.
+  We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard} map.
   \item We propose \SAS, a mapless, localization-free flipper controller combining
-  continuous roll+pitch stabilization with reactive anti-stuck recovery under a
-  directional-priority blend.
-  \item We perform an ablation study of \emph{eleven} controllers head to head on a
-  twelve-obstacle course, spanning \emph{manual}
+  continuous roll and pitch stabilization with a reactive anti-stuck term under a
+  safe directional-priority blend.
+  \item We perform a large comparison in Gazebo of \SAS{} against \emph{thirteen} map-based
+  baselines and two manual baselines on a twelve-obstacle course, spanning \emph{manual}
   teleoperation~\cite{larochelle2013,cihala2025} and \emph{autonomous} control, both
-  switching between reactive experts~\cite{cihala2025,zimmermann2014} and map-based
-  planners~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}. In Gazebo every
+  switching between reactive controllers~\cite{cihala2025,zimmermann2014} and map-based
+  controllers~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}. Every
   controller drives the full course ten times against simulator ground truth, with the
   perception stack reset at each obstacle to measure the degradation.
-  \item We perform the ablation study on a real, automated obstacle: on the four-track
-  robot MARV the run is automated and referenced to AprilTag localization, so repeats are
-  comparable and the operator is out of the loop.
+  \item We perform the large comparison on a real, automated obstacle arena: on the
+  four-track robot each controller rides ten times over a pallet obstacle, referenced to
+  AprilTag localization, so repeats are comparable.
 \end{enumerate}

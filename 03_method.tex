@@ -1,30 +1,26 @@
 % ============================ METHOD ============================
-At every control step \SAS{} reads the body attitude and a motion cue and emits one
-velocity per flipper. It pursues two regulation goals: it stabilizes body roll and pitch,
-and it releases the robot when it is \emph{stuck}, which means it is commanded forward but
-is not advancing. The two terms are formed independently and combined by a
-directional-priority rule, so the anti-stuck term can reinforce the stabilization term but
-never reverse it.
-
-\SAS{} runs on the four flippers $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$
-and emits a per-flipper angular \emph{velocity} command $v_i$. Its inputs are the
-gravity-referenced body roll $r$ and pitch $p$ from
-the IMU, the four joint angles $\theta_i$, the commanded body velocity $v_\text{cmd}$,
-and a scalar motion cue $m$ derived from LiDAR-ICP odometry over a short window
-(Sec.~\ref{sec:method-antistuck}).
+At every control step \SAS{} reads the gravity-referenced body roll $r$ and pitch $p$ from
+the IMU, the four flipper joint angles $\theta_i$, the commanded body velocity
+$v_\text{cmd}$, and a scalar odometry cue $m$ derived from LiDAR-ICP odometry
+(Sec.~\ref{sec:method-antistuck}), and emits an angular \emph{velocity} command $v_i$ for
+each flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. It pursues two
+goals: a stabilization term stabilizes body roll and pitch, and an anti-stuck term frees the
+robot when it is \emph{stuck}, that is, commanded forward but not advancing. The two terms are formed
+independently and combined by a directional-priority blend, so the anti-stuck term can
+reinforce the stabilization term but never reverse it, which could cause a dangerous
+situation.
 
 The command superimposes a stabilization velocity $v^{\mathrm{s}}_i$ and an anti-stuck
-velocity $v^{\mathrm{d}}_i$, combined by a directional-priority rule and clamped:
+velocity $v^{\mathrm{d}}_i$, combined by the directional-priority blend and clamped:
 \begin{equation}
   v_i \;=\; \mathrm{limit}\big(\, v^{\mathrm{s}}_i \;+\; \mathrm{cap}(v^{\mathrm{d}}_i,\,v^{\mathrm{s}}_i)\,\big).
   \label{eq:overview}
 \end{equation}
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
-The dominant term regulates body attitude to level from the IMU alone. The setpoints
-$r_0,p_0$ are level, that is zero, and the deviations are $e_r=r_0-r$ and $e_p=p_0-p$. Each
-passes through a dead-band of a few degrees, so attitude noise near level produces no
-control action. From these we form proportional-integral commands
+The dominant term drives the IMU roll and pitch to zero. The errors $e_r=-r$ and $e_p=-p$
+are set to zero within a \ang{3} dead-band, and from them we form proportional-integral
+commands
 \begin{equation}
   u_r = K^r_{\mathrm P}\,e_r + K^r_{\mathrm I}\, I_r, \qquad
   u_p = K^p_{\mathrm P}\,e_p + K^p_{\mathrm I}\, I_p,
@@ -42,40 +38,33 @@ differential for pitch and a left/right differential for roll:
 \end{equation}
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
-The subordinate action follows the escape idea of~\cite{azayev2022}: when the robot is
-stuck, it drives the flippers to lift the body off the ground and free the robot from the
-stuck pose.
-It fires whenever the robot is commanded to move yet is not moving:
+The subordinate anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it
+drives the flippers to lift the body off the ground and free the robot. It is active, a
+state we call \emph{dig}, whenever the robot is commanded to move yet is not moving:
 \begin{equation}
   \text{dig} \;=\; \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
   \big(m<\tau_\text{stuck}\big).
   \label{eq:stuck}
 \end{equation}
-The motion cue $m$ is the standard deviation of the robot's short-horizon displacement
-over a sliding window, a \emph{local} measure of whether the body advances, not of where
-it is; the window cancels slow drift, so $m$ needs no integrated global pose. It must
-measure actual body motion: a track encoder will not do, because a stalled robot can
-spin its tracks without advancing. In the current deployment $m$ is the short-window
-variance of LiDAR-ICP odometry~\cite{libpointmatcher}. When digging, all
+The odometry cue $m$ is the standard deviation of the robot's position from LiDAR-ICP
+odometry~\cite{libpointmatcher} over a sliding \SI{0.5}{\second} window: a \emph{local}
+measure of whether the body advances that needs no integrated global pose and, unlike a
+track encoder, is not fooled by tracks spinning on a stalled robot. When digging, all
 four flippers are driven downward at a lift velocity $\lambda$ so they push against the
-terrain and lift the body up, out of the stuck pose; otherwise they retract slowly
-toward the flat pose ($-\lambda_\text{low}$):
+terrain and lift the body up, out of the stuck pose; otherwise they retract toward the flat pose with velocity
+$\lambda_\text{low}$:
 \begin{equation}
   v^{\mathrm{d}}_i = \begin{cases} +\lambda & \text{dig}\\ -\lambda_\text{low} & \text{otherwise.}\end{cases}
   \label{eq:spread}
 \end{equation}
-Digging alone can lock up. If the flippers reach their lower position limit without
-freeing the robot, the spread the limit permits is zero, the motion cue stays below
-$\tau_\text{stuck}$, and the robot would remain stuck indefinitely with its flippers fully
-down. A second, longer timer therefore watches the dig itself: after
+In simulation we use $\lambda=\SI{2.0}{\radian\per\second}$ and
+$\lambda_\text{low}=\SI{0.8}{\radian\per\second}$.
+Digging alone can lock up: if the flippers reach their lower position limit without
+freeing the robot, it would remain stuck indefinitely with its flippers fully down.
+Therefore we added a second, longer timer that watches the dig itself: after
 $T_\text{dig}=\SI{8}{\second}$ of continuous digging without release, the anti-stuck term
 is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are driven back up
-toward the climbing pose, after which digging is permitted again. A dig that cannot free
-the robot therefore terminates in a bounded dig--reset cycle rather than a permanent stall.
-The reset remains a subordinate demand, so
-stabilization still caps it. Stuck detection is armed only after the robot has been
-moving for \SI{2}{\second}, so a robot that is merely starting is not mistaken for one that
-is stuck.
+toward the climbing pose, after which digging is permitted again.
 
 \subsection{Directional-priority blend and limits}\label{sec:method-blend}
 Stabilization takes priority over anti-stuck: the anti-stuck command velocity may reinforce
