@@ -74,8 +74,7 @@ heightmap observation and in a hard legality-masked state instead of the soft be
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/gazebo_arena}
-  \caption{\textbf{Simulation arena.} The Gazebo warehouse course: a straight aisle of twelve numbered obstacles of variable
-  difficulty, each probing a different controller capability (pallets, stacked
+  \caption{\textbf{Simulation arena.} The Gazebo warehouse course: a straight aisle of twelve numbered obstacles of variable difficulty (pallets, stacked
   boxes, planks, and a staircase); the robot starts at the right. In the autonomous ride (Sec.~\ref{sec:experiments}) it is driven at a constant
   \SI{0.6}{\metre\per\second} through every section in turn, with a \SI{1}{\metre} settling strip between
   sections.}
@@ -106,11 +105,11 @@ saturates smoothly toward $1$, so small differences remain comparable while extr
 do not dominate the score.
 
 \noindent\textbf{Shock.} Shock measures the impacts transmitted to the body, which stress
-the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored
-with the scale $s_{\max}$, the largest acceleration the platform records. On the real robot
-$s_{\max}$ is the highest sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In
-Gazebo the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest
-\SI{0.1}{\second} mean of $s$ over all runs, \SI{376}{\metre\per\second\squared}.
+the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored with the scale $s_{\max}$, the
+largest acceleration the platform records. On the real robot $s_{\max}$ is the highest
+sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In Gazebo the rigid contacts
+of DART produce single-step spikes, so $s_{\max}$ is the highest \SI{0.1}{\second} mean of
+$s$ over all runs, \SI{376}{\metre\per\second\squared}.
 
 \noindent\textbf{Tilt.} Tilt measures how far the body departs from level; it is what the
 attitude stabilization regulates, and it measures how safely the policy rides. It is the angle
@@ -203,8 +202,8 @@ Table~\ref{tab:results} reports TQ and its three channels per controller in Gaze
 the ground-truth and the onboard map, and the share of obstacle distance the \SAS{}
 override held each controller. The manual rides remain the reference: manual control
 scores $0.89$, $0.05$ above the best controller, and the difference lies almost entirely in
-the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$ of
-the operator for the best controllers. Every controller loses quality under the onboard
+the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$
+of the operator for the best controllers. Every controller loses quality under the onboard
 map, by $0.01$ to $0.11$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
 The policies overall required the override for 7 to 14\% of the obstacle distance under
 either map to finish the obstacles. C-TRAC degrades the most under the onboard map, by $0.11$, and shows the highest
@@ -212,32 +211,30 @@ sensitivity to the elevated noise of the onboard map: never overridden under the
 ground-truth map, it is held for 7.5\% of the distance under the onboard map; in one C-TRAC
 run under the ground-truth map the robot also tipped over on obstacle~7, the only tip-over
 in either campaign, and that obstacle is scored as not traversed. For Yuan, Oehler and
-Mitriakov the override share dropped under the onboard map: the added noise helped them
-not to collapse to a fixed flipper position.
+Mitriakov the override share dropped under the onboard map: the added noise made them move their flippers, which resulted in successful traversals.
 
 \subsection{Real-robot results}
-On the real pallet (Table~\ref{tab:results}) the operator remains the reference: manual
-control and manual modes both score $0.81$, above every controller. Among the
-controllers, Yuan and \SAS{} lead under the onboard map at $0.70$--$0.72$, Mitriakov and Yuan
-under the ground-truth map at $0.71$, and with one ride per condition the difference between
-the two maps is within the spread over crossings for most of them. \SAS{} recovers from every stall by its own anti-stuck term and completes
-every crossing; the map-based controllers that stall are released
-by the \SAS{} override for up to 7\% of the crossing distance, and C-TRAC and ICM-D3QN
-abort crossings under either map. The largest degradations under the onboard map are
-ICM-D3QN ($-0.10$) and Mitriakov ($-0.08$). Unlike in Gazebo, the noise of the onboard map
-lowers the override share of most controllers on the real robot: C-TRAC from 7.1 to 3.4\%,
-AT-D3QN from 3.5 to 0.4\%, Oehler from 2.8 to 1.5\%, and Chen, Yuan, Xu and Zhang slightly;
-only ICM-D3QN and Mitriakov need more. The tilt channel, the target of
-the stabilization term, is where \SAS{} leads: $0.86$ in Gazebo, level with Chen and ahead of
-the rest ($0.75$--$0.85$), and on the real pallet its maximum tilt over the ride is
-\ang{11.5}, against \ang{12} to \ang{26} for the other controllers and \ang{36} for C-TRAC.
+On the real pallet (Table~\ref{tab:results}) the operator remains the reference: both manual
+rides score $0.81$, above every controller. Three findings stand out. First, the best
+controllers are Yuan under the onboard map ($0.72$) and Mitriakov under the ground-truth
+map ($0.71$), and the pallet does not separate the map-based controllers by their map: with
+one ride per condition, the difference between the two maps stays within the spread over
+the crossings for all but ICM-D3QN and Mitriakov, whose quality drops the most under the
+onboard map, by $0.10$ and $0.08$. Second, \SAS{} is among the best controllers on the real
+robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in Gazebo: the map-based controllers that stall
+are released by the \SAS{} override for at most 7\% of the crossing distance, and, unlike in
+Gazebo, the onboard map lowers that share for most of them, its noise making them move the
+flippers instead of holding a fixed posture; C-TRAC and ICM-D3QN abort crossings under
+either map. The tilt channel, the target of the stabilization term, is where \SAS{} leads
+on both platforms: the best tilt score in Gazebo, and on the real pallet the smallest
+maximum tilt of all controllers, less than a third of C-TRAC's.
 
-\noindent\textbf{Hidden obstacle.} Figure~\ref{fig:grass} shows an additional real
-experiment, a log hidden in tall grass, with Yuan, the best map-based policy on the pallet,
+\subsection{Hidden obstacle}
+Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based policy on the pallet,
 and with \SAS. The LiDAR does not penetrate the grass, so the onboard map shows the grass
-canopy and the log is absent from it. Yuan reads the gap the log opens in the grass as a
-drop, lowers the flippers to descend, and drives itself under the log, where it gets
-stuck. \SAS{} receives no such information, keeps its default posture, and crosses the log.
+canopy and the log is absent from it. Yuan interprets the gap that the log opens in the grass as a drop and lowers the front
+flippers to descend; the lowered flippers slide under the log and the robot stalls against
+it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
 
 \begin{figure*}[t]
   \centering
@@ -245,25 +242,30 @@ stuck. \SAS{} receives no such information, keeps its default posture, and cross
   \caption{\textbf{Traversal of an obstacle hidden in tall grass by the best map-based
   policy, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
   cloud during Yuan's crossing: the LiDAR does not penetrate the grass, so the map is
-  inaccurate and the obstacle is practically invisible to the onboard perception stack and
-  the policy. (b) Yuan~\cite{yuan2019} crossing the hidden obstacle: the policy expects a
-  drop, because the log opens a gap in the grass, and lowers the flippers to descend, which
-  drives it under the log, where it gets stuck. (c) \SAS{} crossing the hidden obstacle:
-  without the incorrect information of the onboard map it keeps its default posture, which
-  lets it cross the obstacle easily.}
+  inaccurate and the obstacle is practically invisible to the perception stack and the
+  policy. (b) Yuan~\cite{yuan2019}: the policy takes the gap the log opens in the grass for
+  a drop, lowers the flippers to descend, and gets stuck under the log. (c) \SAS{}: without
+  the incorrect information of the onboard map it keeps its default posture and crosses
+  the obstacle.}
   \label{fig:grass}
 \end{figure*}
 
 \subsection{Onboard-map error}
-Sampled over the body footprint (the chassis and \SI{1.5}{\metre} ahead, at
-\SI{5}{\centi\metre}) every \SI{0.25}{\second}, the height difference between the onboard
-and the ground-truth map has a median absolute value of \SI{0.9}{\centi\metre} and a median
-per-snapshot RMSE of \SI{2.6}{\centi\metre}, with 4\% of the cells off by more than
-\SI{10}{\centi\metre}.
-The onboard map also reports its own uncertainty, and in Gazebo it grows over every
-obstacle: the median bound width of the cells under the body rises from
-\SI{2.4}{\centi\metre} at the reset to \SIrange{4.5}{4.9}{\centi\metre} after
-\SI{8}{\second} on the obstacle, and its 90th percentile from \SI{3}{\centi\metre} to
-\SIrange{17}{20}{\centi\metre}, the occluded cells the controllers regulate on. On the real
-robot the mapper's per-cell variance shrinks with fusion, from \SI{1}{\centi\metre} to
-\SI{3}{\milli\metre}, and does not reflect the map error.
+Figure~\ref{fig:maperr} shows how the onboard map degrades over an obstacle, in simulation
+and on the real pallet. The onboard map is compared with the ground-truth map over the
+body footprint (the chassis and \SI{1.5}{\metre} ahead, at \SI{5}{\centi\metre}) at every
+map update, every \SI{0.25}{\second}. The error grows while the robot ascends the obstacle,
+where the ground under the body was last seen from the flat approach, and falls again on
+the descent, where the ground ahead comes back into view; on the real robot it is an order
+of magnitude larger than in simulation.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/map_error_progress}
+  \caption{\textbf{Onboard-map error over an obstacle in simulation and on the real pallet.}
+  Median over all rides against the progress through the obstacle. Top: the height difference between
+  the onboard and the ground-truth map over the body footprint. Bottom: the share of cells
+  off by more than \SI{10}{\centi\metre}. Both grow while the robot ascends the obstacle and
+  fall again on the descent.}
+  \label{fig:maperr}
+\end{figure} 
