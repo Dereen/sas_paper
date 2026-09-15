@@ -54,11 +54,11 @@ a mapless, localization-free controller that combines a stabilization term for b
 and pitch with an anti-stuck term that frees the robot when it is stuck. \SAS{} uses as input the IMU, the flipper joint angles, the commanded
 velocity, and a short-window odometry cue. We deploy \SAS{} on a four-track robot and evaluate it against manual
 teleoperation and prior flipper controllers in a large comparison run both in Gazebo
-and in a real automated obstacle arena. In simulation \SAS{} matches the best map-based controllers on
-traversal quality under both the ground-truth map and the onboard map, while using
-neither. The biggest difference is on obstacles unobservable to the robot's sensors, such
-as a rigid log buried in tall grass, where map-based control breaks down while \SAS{} keeps
-the robot stabilized and operational. \TODO{final quantitative headline once results are in.}
+and in a real automated obstacle arena. In simulation and on the real robot \SAS{} reaches
+traversal quality comparable to the map-based controllers evaluated under the same
+protocol, with either map, while using neither. In Gazebo \SAS{} reaches the highest traversal quality of the fifteen controllers under
+both the ground-truth and the onboard map; on the real pallet it ranks second under the
+onboard map, is never overridden, and keeps the smallest maximum tilt of all controllers.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

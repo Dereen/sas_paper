@@ -1,9 +1,9 @@
 % ============================ RELATED WORK ============================
 % Structure: manual + three autonomy families (reactive/geometry-based, hierarchical, RL).
 Flipper control ranges from manual control to three families of autonomy: reactive and
-geometry-based control, hierarchical control, and reinforcement learning.
-Table~\ref{tab:sensing} summarizes the compared controllers, their sensing requirements,
-and their traversal quality.
+geometry-based control, hierarchical imitation, and reinforcement learning.
+Table~\ref{tab:sensing} summarizes the compared controllers and their sensing
+requirements.
 
 \subsection{Manual control}
 In direct teleoperation the operator drives the flippers by hand~\cite{cihala2025}, or
@@ -24,7 +24,7 @@ FAST-LIO2 odometry~\cite{xu2024}; and, most recently, Zhang et al. plan the path
 maneuvers with RRT* over a contact-model pose predictor, using learned semantic
 segmentation of the elevation map only as a perception front-end~\cite{zhang2025}.
 
-\subsection{Hierarchical control}
+\subsection{Hierarchical imitation}
 A family that composes low-level behaviors under a selector. The adaptive-traversability line~\cite{zimmermann2014} classifies
 terrain into discrete flipper modes from an elevation map, and for the selected mode a
 simple low-level controller drives the flippers. A learned state machine~\cite{azayev2022}
@@ -32,7 +32,7 @@ switches among seven hand-crafted flipper morphologies selected from an elevatio
 state overlays a \emph{roll}-stabilization term and a stagnation-triggered
 \emph{anti-stuck} term that lowers all four flippers to free the robot. It is the one prior
 method that couples an anti-stuck term with attitude stabilization, and the origin of the
-anti-stuck term we adopt. \TODO{keep this in related work?}
+anti-stuck term we adopt.
 
 \subsection{Reinforcement learning}
 FTR-Bench~\cite{ftrbench2025} standardizes this setting, benchmarking SAC, PPO, TD3, DDPG,
@@ -70,47 +70,44 @@ shock~\cite{chen2023}, body attitude, and chassis-to-ground clearance.
 Following~\cite{cihala2025,zimmermann2014} we score shock, tilt, and clearance
 (Sec.~\ref{sec:metrics-block}).
 
-\begin{table*}[t]
+\begin{table}[t]
 \centering
-\caption{\textbf{Compared controllers and their traversal quality in Gazebo.} \emph{Map \&
-loc.}: needs an onboard map. \emph{Stab.}: attitude axes with an
-explicit stabilization objective (r roll, p pitch). \emph{Anti-stuck}: frees itself when
-stuck. TQ: mean $\pm$ s.d.\ over ten runs of the twelve-obstacle course under the
-ground-truth (GT) and the onboard map; $\Delta$: TQ change under the onboard map;
-\emph{Override}: share of obstacle distance the \SAS{} override held the flippers. Manual
-rides are driven by an operator at free speed. Best in bold, second best underlined.}
+\caption{\textbf{Compared controllers.} \emph{Map \& loc.}: needs an onboard map and
+localization. \emph{Stab.}: attitude axes with an explicit stabilization objective (r roll,
+p pitch). \emph{Anti-stuck}: frees itself when stuck. \emph{Code}: the authors' released
+implementation or our reimplementation.}
 \label{tab:sensing}
-\footnotesize
-\setlength{\tabcolsep}{2.2pt}
-\begin{tabular}{@{}llcccccccc@{}}
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llcccc@{}}
 \toprule
-Controller & Approach & Code & Map \& loc. & Stab. & Anti-stuck & \shortstack{TQ $\uparrow$\\GT map} & \shortstack{TQ $\uparrow$\\onboard map} & $\Delta$ $\uparrow$ & \shortstack{Override [\%] $\downarrow$\\GT / onboard} \\
+Controller & Approach & Code & \shortstack{Map \&\\loc.} & Stab. & \shortstack{Anti-\\stuck} \\
 \midrule
-\multicolumn{10}{@{}l}{\emph{Manual}} \\
-Manual control~\cite{cihala2025} & direct teleoperation & -- & \xmark & -- & \xmark & -- & 0.612 $\pm$ 0.100 & -- & -- \\
-Manual modes~\cite{azayev2022} & operator switches preset modes & -- & \xmark & -- & \xmark & -- & 0.568 $\pm$ 0.101 & -- & -- \\
+\multicolumn{6}{@{}l}{\emph{Manual}} \\
+Manual control~\cite{cihala2025} & direct teleoperation & -- & \xmark & -- & \xmark \\
+Manual modes~\cite{azayev2022} & operator switches preset modes & -- & \xmark & -- & \xmark \\
 \midrule
-\multicolumn{10}{@{}l}{\emph{Reactive and geometry-based}} \\
-{\v C}\'ihala \GC/\OA~\cite{cihala2025} & clearance + obstacle-aware control & released & \cmark & -- & \xmark & \textbf{0.529} $\pm$ 0.011 & 0.486 $\pm$ 0.015 & $-0.043$ & 0.4 / 0.0 \\
-Chen GFMP~\cite{chen2023} & pose prediction + dynamic prog. & reimpl. & \cmark & p & \xmark & 0.509 $\pm$ 0.010 & 0.481 $\pm$ 0.012 & $-0.027$ & 7.5 / 8.7 \\
-Yuan~\cite{yuan2019} & configuration-space planning & reimpl. & \cmark & -- & \xmark & \underline{0.522} $\pm$ 0.009 & \textbf{0.498} $\pm$ 0.010 & $\underline{-0.024}$ & 11.0 / 8.2 \\
-Oehler~\cite{oehler2024} & SDF pose prediction + margin search & released & \cmark & -- & \xmark & 0.499 $\pm$ 0.013 & 0.467 $\pm$ 0.013 & $-0.032$ & 9.9 / 7.1 \\
-Xu HTO~\cite{xu2024} & hybrid trajectory optimization & reimpl. & \cmark & p & \xmark & 0.465 $\pm$ 0.007 & 0.439 $\pm$ 0.009 & $-0.026$ & 8.9 / 9.8 \\
-Zhang~\cite{zhang2025} & contact-model pose prediction & reimpl. & \cmark & -- & \xmark & 0.493 $\pm$ 0.010 & 0.462 $\pm$ 0.012 & $-0.031$ & 12.7 / 15.2 \\
+\multicolumn{6}{@{}l}{\emph{Reactive and geometry-based}} \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025} & clearance + obstacle-aware control & released & \cmark & -- & \xmark \\
+Chen GFMP~\cite{chen2023} & pose prediction + dynamic prog. & reimpl. & \cmark & p & \xmark \\
+Yuan~\cite{yuan2019} & configuration-space planning & reimpl. & \cmark & -- & \xmark \\
+Oehler~\cite{oehler2024} & SDF pose prediction & released & \cmark & -- & \xmark \\
+Xu HTO~\cite{xu2024} & hybrid trajectory optimization & reimpl. & \cmark & p & \xmark \\
+Zhang~\cite{zhang2025} & contact-model pose prediction & reimpl. & \cmark & -- & \xmark \\
 \midrule
-\multicolumn{10}{@{}l}{\emph{Hierarchical}} \\
-Azayev~\cite{azayev2022} & learned template state machine & released & \cmark & r & \cmark & 0.436 $\pm$ 0.008 & 0.406 $\pm$ 0.017 & $-0.030$ & 7.1 / 6.7 \\
+\multicolumn{6}{@{}l}{\emph{Hierarchical imitation}} \\
+Azayev~\cite{azayev2022} & learned template state machine & released & \cmark & r & \cmark \\
 \midrule
-\multicolumn{10}{@{}l}{\emph{Reinforcement learning}} \\
-Pecka~\cite{pecka2016} & safety-constrained REPS & reimpl. & \cmark & p & \xmark & 0.458 $\pm$ 0.010 & 0.434 $\pm$ 0.010 & $\underline{-0.024}$ & 7.8 / 9.7 \\
-AT-D3QN~\cite{pan2023atd3qn} & dueling double-DQN & reimpl. & \cmark & p & \xmark & 0.473 $\pm$ 0.012 & 0.439 $\pm$ 0.012 & $-0.034$ & 11.4 / 12.7 \\
-ICM-D3QN~\cite{pan2023icm} & D3QN + intrinsic curiosity & reimpl. & \cmark & p & \xmark & 0.466 $\pm$ 0.011 & 0.443 $\pm$ 0.009 & $\mathbf{-0.023}$ & 11.2 / 12.9 \\
-Mitriakov~\cite{mitriakov2021} & policy-gradient stair climbing & released & \cmark & p & \xmark & 0.451 $\pm$ 0.009 & 0.408 $\pm$ 0.007 & $-0.044$ & 7.3 / 8.3 \\
-C-TRAC~\cite{ctrac2025} & contact-aware asymmetric SAC & reimpl. & \cmark & r\&p & \xmark & 0.480 $\pm$ 0.013 & 0.398 $\pm$ 0.008 & $-0.082$ & 0.0 / 7.0 \\
-PPO~\cite{sarga2026thesis} & PPO over a heightmap & ours & \cmark & r\&p & \xmark & 0.461 $\pm$ 0.008 & 0.438 $\pm$ 0.010 & $\mathbf{-0.023}$ & 11.7 / 13.7 \\
+\multicolumn{6}{@{}l}{\emph{Reinforcement learning}} \\
+Pecka~\cite{pecka2016} & safety-constrained REPS & reimpl. & \cmark & p & \xmark \\
+AT-D3QN~\cite{pan2023atd3qn} & dueling double-DQN & reimpl. & \cmark & p & \xmark \\
+ICM-D3QN~\cite{pan2023icm} & D3QN + intrinsic curiosity & reimpl. & \cmark & p & \xmark \\
+Mitriakov~\cite{mitriakov2021} & policy-gradient stair climbing & released & \cmark & p & \xmark \\
+C-TRAC~\cite{ctrac2025} & contact-aware asymmetric SAC & reimpl. & \cmark & r\&p & \xmark \\
+PPO~\cite{sarga2026thesis} & PPO over a heightmap & ours & \cmark & r\&p & \xmark \\
 \midrule
-\textbf{\SAS{} (ours)} & attitude stabilization + anti-stuck & ours & \xmark & r\&p & \cmark & \textbf{0.529} $\pm$ 0.008 & \underline{0.497} $\pm$ 0.013 & $-0.032$ & -- \\
+\textbf{\SAS{} (ours)} & stabilization + anti-stuck & ours & \xmark & r\&p & \cmark \\
 \bottomrule
 \end{tabular}
-\end{table*}
+\end{table}
 

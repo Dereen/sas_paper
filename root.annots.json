@@ -646,7 +646,7 @@
  {
   "note": "a",
   "anchor": "",
-  "done": "",
+  "done": "on a four-track robot (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -674,7 +674,7 @@
  {
   "note": "Remove this.",
   "anchor": "actuated just to stay upright, which gives them a low payload-",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -695,7 +695,7 @@
  {
   "note": "Remove this.",
   "anchor": "Either way,",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -709,28 +709,28 @@
  {
   "note": "Remove this.",
   "anchor": "Two things stand outside this pattern, and neither",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "control that manages the flippers without interven-",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "Higher autonomy asks less of the operator but shifts",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "an elevation map or point cloud [5], [6], or plan flipper motions",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -800,7 +800,7 @@
  {
   "note": "Remove this.",
   "anchor": "MARV and emits a per-flipper angular",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -835,21 +835,21 @@
  {
   "note": "Remove this.",
   "anchor": "The three operators are defined next.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "Its input needs no map and no odometry integration: the",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "per control spans a spectrum of operator involvement:",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -863,28 +863,28 @@
  {
   "note": "Remove this.",
   "anchor": "Two flipper layouts are common.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "larger, independently actuated flippers alone [4], which makes",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "foliage-penetrating radar.]",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "referenced and therefore drift-free",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
@@ -898,14 +898,14 @@
  {
   "note": "Remove this.",
   "anchor": "has precedence, so the anti-stuck part may reinforce a flipper\u2019s",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "control the flippers from onboard proprioception and a short-",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
@@ -947,7 +947,7 @@
  {
   "note": "Remove this.",
   "anchor": "[5], [9], [10], using success rate and traversal quality",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
@@ -961,28 +961,28 @@
  {
   "note": "Remove this.",
   "anchor": "4) We give an honest account of its limitations (residual",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "whether or not the tracks grip the ground.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "respect: they cannot climb an obstacle taller than their leading",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "(Sec. II-E)",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -1003,7 +1003,7 @@
  {
   "note": "Remove this.",
   "anchor": ". Vegetation, snow, water, and loose",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
@@ -1024,21 +1024,21 @@
  {
   "note": "Remove this.",
   "anchor": "then turn to the one line of work that controls flippers without",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": ", but it demands the operator\u2019s con-",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "are proprioceptive.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1052,7 +1052,7 @@
  {
   "note": "Remove this.",
   "anchor": "(b) The same obstacle in the Gazebo arena.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
  },
@@ -1115,14 +1115,14 @@
  {
   "note": "Remove this.",
   "anchor": "traversal-quality ceiling.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "so they are confined to terrain with little lateral variation and",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
  },
@@ -1136,14 +1136,14 @@
  {
   "note": "Remove this.",
   "anchor": "template runs as well as how it is parameterized.",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "Both the state selection and the per-flipper observations are",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1157,7 +1157,7 @@
  {
   "note": "Remove this.",
   "anchor": "the one maintained by the CTU robot deployment system [18].",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1192,14 +1192,14 @@
  {
   "note": "Remove this.",
   "anchor": "The exception is",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
   "anchor": "controller treats the four flipper anchor points as the legs of a",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1220,7 +1220,7 @@
  {
   "note": "Remove this.",
   "anchor": "obstacles are the only terrain on our course. The map-free line",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1248,7 +1248,7 @@
  {
   "note": "Remove this.",
   "anchor": "The rest of this section defines each term in",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1262,7 +1262,7 @@
  {
   "note": "Remove this.",
   "anchor": "the IMU alone; how this relates to prior attitude control",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1304,7 +1304,7 @@
  {
   "note": "Remove this.",
   "anchor": "), where the position limits of Sec. III-C hold",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -1325,7 +1325,7 @@
  {
   "note": "Remove this.",
   "anchor": "release oscillation visible in the experiments",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
  },
@@ -1339,7 +1339,7 @@
  {
   "note": "Remove this.",
   "anchor": "speed and passed through programmed position limits: each",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
  },
@@ -1367,7 +1367,7 @@
  {
   "note": "Remove this.",
   "anchor": "of Eq. (1),",
-  "done": "",
+  "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
  },
@@ -2408,6 +2408,438 @@
   "anchor_full": "S Signal conditioning.",
   "done": "Fig. 3 regenerated with the legend under the graph (scripts/signal_conditioning_small.py)",
   "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We are missing real life setup. We setup repeatable arena with april tag absolute localization. Point at figure 1.",
+  "anchor": "XPERIMENTS",
+  "anchor_full": "V. E XPERIMENTS",
+  "done": "new 'Real robot' paragraph after the automated ride: one pallet between two reset zones, AprilTag absolute localization registering the handcrafted map, pointing to Fig. 1",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "why we have a) if no b) is following?",
+  "anchor": "a) Implementation provenance.:",
+  "anchor_full": "a) Implementation provenance.:",
+  "done": "the lone paragraph heading removed; the provenance text continues the Baselines subsection",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We incorporated ROS2 and the nodes matches the real life setup.",
+  "anchor": "Simulation:",
+  "anchor_full": "Simulation:",
+  "done": "'The simulation runs the same ROS 2 nodes as the real robot, so the onboard-map condition runs the same ICP and elevation-mapping stack ...'",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Done",
+  "anchor": "[TODO: replace with an image of the current arena version.]",
+  "anchor_full": "[TODO: replace with an image of the current arena version.]",
+  "done": "TODO removed from the Fig. 2 caption",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "TODO: The elevation mapping propagets the uncertainty to the elevation map. Can we measure the overall increase over the obstacles in gazebo and irl.",
+  "anchor": "Results",
+  "anchor_full": "Results",
+  "done": "kept as a TODO in Results (measure the propagated uncertainty increase over the obstacles, Gazebo and real); the recomputed body-frame map error (2.5-3.1 cm median RMSE) is stated",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "which would make the policy fully proprioceptive",
+  "anchor": "",
+  "anchor_full": "motion",
+  "done": "'which would make the controller fully proprioceptive' added",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hierarchical imitation learning",
+  "anchor": "Hierarchical",
+  "anchor_full": "Hierarchical",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove",
+  "anchor": "GT / onboard",
+  "anchor_full": "Completed GT / onboard",
+  "done": "Column removed from Table II (14.9.2026).",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove",
+  "anchor": "onboard map",
+  "anchor_full": "Real \u2212 Gazebo onboard map",
+  "done": "Column removed from Table II (14.9.2026).",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove curved",
+  "anchor": "six-track",
+  "anchor_full": "six-track k",
+  "done": "\\emph removed from six-track, four-track, flippers (intro) (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove curved",
+  "anchor": "four-track",
+  "anchor_full": "e four-track",
+  "done": "\\emph removed from six-track, four-track, flippers (intro) (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove curved",
+  "anchor": "flippers",
+  "anchor_full": "flippers",
+  "done": "\\emph removed from six-track, four-track, flippers (intro) (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "i dont understand, keep single sentence",
+  "anchor": "cross obstacles.",
+  "anchor_full": ", but does not cross obstacles.",
+  "done": "Rocha sentence rewritten: levels the chassis from IMU and flipper joints, without a map, not designed to climb obstacles (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "which noise causes drift",
+  "anchor": "odometry",
+  "anchor_full": "odometry",
+  "done": "contribution 1: drift from track slip and scan-matching error (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "map-based controllers [1], [2], [5], [9], [10].",
+  "anchor_full": "spanning manual teleoperation [3], [14] and d autonomous control, both switching g between reactive controllers s [3], [15] ] and map-based controllers [1], [2], [5], [9], [10].",
+  "done": "removed (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "AprilTag localization, so repeats are comparable",
+  "anchor_full": "referenced to AprilTag localization, so repeats are comparable",
+  "done": "removed (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "with april tag gt",
+  "anchor": "",
+  "anchor_full": "arena:",
+  "done": "contribution 4: real arena with AprilTag ground truth (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hierarchical imitation",
+  "anchor": "Hierarchical",
+  "anchor_full": "Hierarchical",
+  "done": "heading, related-work intro and both table family labels renamed Hierarchical imitation (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "at the start of the next obstacle field, so heading is identical",
+  "anchor_full": "A proportional heading regulator aims the robot at the start of the next obstacle field, so heading is identical in every run and both map conditions.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Each obstacle probes a different capability of the",
+  "anchor_full": "Each obstacle probes a different capability of the controllers.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "and the robot is placed at the start of the following",
+  "anchor_full": "and the robot is placed at the start of the following field,",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Simulation comparison",
+  "anchor": "Simulation:",
+  "anchor_full": "Simulation:",
+  "done": "paragraph renamed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "comparison",
+  "anchor": "",
+  "anchor_full": "robot:",
+  "done": "paragraph renamed Real robot comparison (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "switch b) and c)",
+  "anchor": "Platform and onboard pipeline",
+  "anchor_full": "Platform and onboard pipeline",
+  "done": "subsections Baselines and Ground-truth map swapped (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the same pose, and each controller shuttles between the zones",
+  "anchor_full": "; the deploy UI levels the flippers and resets the onboard map in each zone, so every crossing starts from the same pose, and each controller shuttles between the zones ten times per ride",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "timer which switches between them on front flippers",
+  "anchor": "watchdog",
+  "anchor_full": "watchdog",
+  "done": "Baselines: a 2 s stuck timer switches the front flippers between OA and GC (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove this figure",
+  "anchor": "uses. Binning by distance scores every part of the obstacle",
+  "anchor_full": "Fig. 3: : Signal conditioning. The shock channel on obstacle 2: raw samples, the e 0. .5 s s low-pass (not used: it hides the ex- tremes), and the worst sample per r 0. .25 m m bin that the score uses. Binning by distance scores every part of the obstacle equally, whatever time each controller spends on it",
+  "done": "Fig. 3 (signal conditioning) and its reference removed (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "why?",
+  "anchor": "",
+  "anchor_full": "spikes",
+  "done": "Metrics: Gazebo peak explained by rigid contacts at the 2 ms step (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "on which obstacle and how did it happend",
+  "anchor": "platform records inside the scored obstacles",
+  "anchor_full": "platform records inside the scored obstacles",
+  "done": "Metrics: 742 landing after the stacked pallets of obstacle 4; 57.5 descending from the pallet (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "switch b with c",
+  "anchor": "Real robot comparison:",
+  "anchor_full": "Real robot comparison:",
+  "done": "paragraphs Real robot comparison and Automated ride swapped (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "no operator is in the loop.",
+  "anchor_full": "no operator is in the loop.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "is identical in every run and both map conditions; only the",
+  "anchor_full": ", so speed is identical in every run and both map conditions; only the flippers differ.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "0.25 irl for safety",
+  "anchor": "",
+  "anchor_full": "0. .6 6 m s",
+  "done": "0.6 m/s in simulation and, for safety, 0.25 m/s on the real robot (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "are counted and reported.",
+  "anchor_full": "; these interventions are counted and reported.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "The manual rides are separate and use the",
+  "anchor_full": "The manual rides are separate and use the same course.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "she was at camera stand",
+  "anchor": "ceiling",
+  "anchor_full": "ceiling",
+  "done": "camera on a stand (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "join this",
+  "anchor": "",
+  "anchor_full": "SAS S. Where",
+  "done": "Baselines paragraphs joined (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "adapted to one four-track platform; the results compare these",
+  "anchor_full": "The baselines are representative implementations adapted to one four-track platform; the results compare these implementations, not the original systems.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Oehler and von Stryk [6], [30], with the FTR-Bench suite [17],",
+  "anchor_full": "Released code: Azayev and Zimmermann\u2019s state machine [1], [28], Mitriakov et al.\u2019s RL framework [20], [21], [29], and the pose-predictor core of Oehler and von Stryk [6], [30], with the FTR-Bench suite [17], [31] as our RL substrate. Reimplemented from the paper: Chen\u2019s GFMP [5], Yuan\u2019s planner [7], verified numerically against the authors\u2019 code [32], Xu\u2019s HTO [2], Zhang\u2019s plan- ner [15], the D3QN variants [8], [9], C-TRAC [10], and Pecka et al. [18].",
+  "done": "removed (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "TODO finish conclusion",
+  "anchor": "is trustworthy and to SAS when it is not",
+  "anchor_full": "is trustworthy and to SAS when it is not",
+  "done": "closing paragraph drafted with a TODO marker (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "TODO should keep it? It feels too much but it was measured in the simulation.",
+  "anchor": "pallet:",
+  "anchor_full": "pallet: 742 m s \u2212 \u22122",
+  "done": "Gazebo s_max set to 200 (99.9th percentile within a run); 742 mentioned only as the spike level (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "with the ground-truth map placed in the perception base frame,",
+  "anchor_full": "Compared at the same points of the robot body, with the ground-truth map placed in the perception base frame,",
+  "done": "removed (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "the onboard map deviates from the ground truth by",
+  "anchor_full": "the onboard map deviates from the ground truth by 2. .5 5 cm to 3. .1 .1 cm",
+  "done": "map error stated as footprint sampling, median |e| 0.9 cm, median RMSE 2.6 cm, 4% cells > 10 cm (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the same for every controller.",
+  "anchor_full": "the same for every controller.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "both blocks rank the controllers mainly by clearance and tilt.",
+  "anchor_full": "The two blocks are not comparable in level: the shock channel is normalized by each platform\u2019s own n s sm smax x (Sec. IV-D) and scores 0 0. .9 .93 \u20130 \u20130. .9 96 i in Gazebo and d 0 0. .76 6\u20130 \u20130. .8 .80 o on the real robot for every controller, so both blocks rank the controllers mainly by clearance and tilt.",
+  "done": "removed (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the 99.9th percentile of the samples within a run, because",
+  "anchor_full": "the 99.9th percentile of the samples within a run, because the simulator\u2019s rigid contacts at its 2 ms s step produce isolated landing spikes of up to 742 m s \u2212 2 that no real track transmits",
+  "done": "removed (s_max justification) (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "197",
+  "anchor": "",
+  "anchor_full": "200",
+  "done": "Gazebo s_max = 197, sim rescored (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "somehow splitted in the middle by sentence",
+  "anchor": "recorded descending from the pallet; in Gazebo",
+  "anchor_full": "on the real robot 57 .5 .5 m s \u2212 \u22122 , the highest sample of the campaign, recorded descending from the pallet; in Gazebo o 200 m s \u2212 2",
+  "done": "s_max sentence rewritten as one clause (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add this to the results ctrac degrades the most in the gazebo.",
+  "anchor": "",
+  "anchor_full": "\u2212 0. .1 .110",
+  "done": "Results: C-TRAC degrades the most in Gazebo (-0.11) (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "in reality the biggest degradation as by icm and followed by mitriakov",
+  "anchor": "",
+  "anchor_full": "\u2212 0. 0.1 .104",
+  "done": "Results: real largest degradations ICM-D3QN -0.10, Mitriakov -0.08 (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remove the bold on the diff and the underscore too.",
+  "anchor": "",
+  "anchor_full": "060",
+  "done": "Delta columns no longer marked; caption says best TQ (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "add to results non gt caused increased requirements for override.",
+  "anchor": "",
+  "anchor_full": "7.5",
+  "done": "Results: onboard map raises override need in Gazebo (C-TRAC 0 -> 7.5%, Zhang, AT-D3QN, ICM-D3QN, PPO) (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "compare to simulation added noise ctrac helped to reduce dependency on override.",
+  "anchor": "7.1 / 3.4",
+  "anchor_full": "+0 .0 .020 7.1 / 3.4",
+  "done": "Results: real C-TRAC override 7.1 -> 3.4% (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Describe all methods which added noise in the map helped to decrease dependency on the override.",
+  "anchor": "GT / onboar",
+  "anchor_full": "GT / onboar",
+  "done": "Results: real override lower under onboard for C-TRAC, AT-D3QN, Oehler, Chen, Yuan, Xu, Zhang; higher for ICM-D3QN, Mitriakov (15.9.2026)",
+  "page_hint": 6,
   "source": "root.pdf"
  }
 ]

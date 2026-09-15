@@ -1,13 +1,13 @@
 % ============================ INTRODUCTION ============================
 Tracked and wheeled robots cannot climb an obstacle taller than their leading wheel.
-\emph{Articulated} tracked robots address higher obstacles with \emph{flippers},
+\emph{Articulated} tracked robots address higher obstacles with flippers,
 independently actuated sub-tracks that reshape the robot's morphology on the fly: they
 reach beyond the leading wheel to climb what a rigid chassis cannot, and they free the
 robot when it gets \emph{stuck}~\cite{azayev2022,xu2024,cihala2025}.
 
-The \emph{six-track} design keeps a main driven track on
+The six-track design keeps a main driven track on
 each side of the chassis and adds four smaller flippers for climbing and stabilizing, with
-the two tracks on each side coupled to a single velocity. The \emph{four-track} design
+the two tracks on each side coupled to a single velocity. The four-track design
 (Fig.~\ref{fig:robot}) drops the main tracks and drives four larger, independently actuated
 flippers alone~\cite{rocha2023}.
 
@@ -39,8 +39,9 @@ an \emph{elevation map} of the ground under and in front of the robot. Geometric
 and learned policies alike take that map as their dominant
 input~\cite{chen2023,oehler2024,yuan2019,xu2024,pan2023icm,pan2023atd3qn,ctrac2025,azayev2022}.
 Fully manual teleoperation needs no map because the operator sees the terrain, but must
-drive all four flippers by hand. Mapless posture control~\cite{rocha2023} stabilizes the
-chassis from proprioception alone, but does not cross obstacles.
+drive all four flippers by hand. Mapless posture control~\cite{rocha2023} levels the
+chassis from the IMU and the flipper joints alone, without a map, but it was not designed to
+climb obstacles.
 
 \textbf{On a real robot, the map is a dead-reckoning artifact.}
 Most previous flipper controllers assume knowledge of the geometry of the ground their
@@ -83,19 +84,17 @@ contact.
 \textbf{Contributions:}
 \nopagebreak
 \begin{enumerate}
-  \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift degrades it in the field. 
+  \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift, from track slip and scan-matching error,
+  degrades it in the field. 
   We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard} map.
   \item We propose \SAS, a mapless, localization-free flipper controller combining
   continuous roll and pitch stabilization with a reactive anti-stuck term under a
   safe directional-priority blend.
   \item We perform a large comparison in Gazebo of \SAS{} against \emph{thirteen} map-based
-  baselines and two manual baselines on a twelve-obstacle course, spanning \emph{manual}
-  teleoperation~\cite{larochelle2013,cihala2025} and \emph{autonomous} control, both
-  switching between reactive controllers~\cite{cihala2025,zimmermann2014} and map-based
-  controllers~\cite{azayev2022,chen2023,pan2023atd3qn,xu2024,ctrac2025}. Every
+  baselines and two manual baselines on a twelve-obstacle course. Every
   controller drives the full course ten times against simulator ground truth, with the
   perception stack reset at each obstacle to measure the degradation.
-  \item We perform the large comparison on a real, automated obstacle arena: on the
-  four-track robot each controller rides ten times over a pallet obstacle, referenced to
-  AprilTag localization, so repeats are comparable.
+  \item We perform the large comparison on a real, automated obstacle arena with AprilTag
+  ground truth: on a four-track robot each controller rides ten times over a pallet
+  obstacle.
 \end{enumerate}
