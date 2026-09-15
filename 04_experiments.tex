@@ -1,163 +1,259 @@
 % ============================ EXPERIMENTS ============================
 \subsection{Platform and onboard pipeline}
-We evaluate the flipper controllers both in simulation and on the real platform. The onboard perception pipeline that the map-based baselines
+The robot is a tracked robot with four independently actuated flippers
+(Fig.~\ref{fig:robot}). We evaluate the flipper controllers both in simulation and on the
+real platform. The onboard perception pipeline that the map-based baselines
 consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
 deskewing and LiDAR-ICP odometry~\cite{norlabicpmapper,libpointmatcher}, which drive elevation
 mapping~\cite{fankhauser2018} to produce a robot-centric
 elevation map, which we call the \emph{onboard map}.
 
-\paragraph{Simulation comparison} We simulate in Gazebo~\cite{gazebo2004}, the simulator selected
-for the virtual track of the DARPA Subterranean Challenge~\cite{roucek2022subt}. Unlike
+\paragraph{Simulation comparison} We simulate in Gazebo~\cite{gazebo2004}. Unlike
 typical simulators that approximate tracks with multiple wheels, we employ the track
 simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The sensors match the real payload: a simulated Ouster OS0
 ($1024\times64$ rays at \SI{10}{\hertz}, \SIrange{0.1}{50}{\metre}, \SI{1}{\centi\metre}
 Gaussian range noise) and a \SI{50}{\hertz} IMU with Gaussian noise and a slowly varying
-bias. The simulation runs the same ROS~2 nodes as the real robot, so the onboard-map condition
-runs the same ICP and elevation-mapping stack on these noisy streams; the ground-truth condition reads pose and map from the
+bias. The onboard-map condition runs the robot's ICP and elevation-mapping nodes on these
+simulated streams; the ground-truth condition takes the pose and the map from the
 simulator. The arena is the twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
 variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 
-\paragraph{Real robot comparison} The real arena repeats the protocol on one pallet obstacle between
-two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena,
-seen by a camera on a stand, give an absolute localization that registers the handcrafted
+\paragraph{Real robot comparison} The real arena repeats the simulation experiment on one pallet obstacle between
+two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena give an absolute localization that registers the handcrafted
 ground-truth map.
 
-\paragraph{Automated ride and \SAS{} override} In all reported runs the robot is
-driven autonomously. A ride node drives the robot at a constant
+\paragraph{Autonomous ride and \SAS{} override} In all reported runs the robot is
+driven autonomously, so the comparison is not biased by an operator's control. A ride node drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
-on the real robot. A controller that stalls inside a field is released
-by the \emph{\SAS{} override}, which hands the flippers to \SAS{} until the robot moves
-again, and the field is finished. A field not left
-within \SI{120}{\second} is scored as not traversed.
+on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
+hands the flippers to \SAS{} until the robot moves again, and the obstacle is finished. An
+obstacle that is not left within \SI{120}{\second} counts as not traversed, and a controller
+that fails to traverse an obstacle is scored zero on it.
 
 \subsection{Baselines}
-We compare against, in increasing autonomy: (i) \textbf{Manual control}, an expert
-operator driving all four flippers by hand (the traversal-quality
-ceiling~\cite{cihala2025}), and \textbf{Manual modes}, the operator switching between
-preset flipper modes by hand~\cite{azayev2022}; (ii) the \textbf{\GC/\OA{}
-controller}~\cite{cihala2025} in its automated form, where instead of the operator a
-\SI{2}{\second} stuck timer switches the front flippers between \OA{} and \GC{}; (iii) every map-based controller catalogued in
-Table~\ref{tab:sensing}; and our \textbf{\SAS}. Where the authors released code we run their
-implementation; where they did not, we use our reimplementation from the paper, adapted
-to a four-track robot. The geometry-based controllers were
-adapted to the four-track morphology as follows. Chen's GFMP~\cite{chen2023} keeps the
-exact two-contact solver and waypoint DP, but admits only flipper-supported contact cases,
+We evaluate \SAS{} together with two manual references, \textbf{Manual control}, an expert operator driving all four flippers by hand from a
+third-person view of the robot, and \textbf{Manual modes}, the same operator switching
+between preset flipper modes by hand~\cite{azayev2022}, and with every map-based
+controller catalogued in Table~\ref{tab:sensing}. Where the authors released code we run their
+implementation; where they did not, we use our reimplementation from the paper. The geometry-based
+controllers were adapted to the four-track morphology as follows. Chen's
+GFMP~\cite{chen2023} keeps the exact two-contact solver and waypoint dynamic programming, but admits only flipper-supported contact cases,
 since the chassis is passive, adds an absolute-pitch levelness cost, and uses the
-four-track geometry and elevation-map profile. Yuan's configuration-space
-planner~\cite{yuan2019} was reimplemented for the four-track link geometry, estimating step distance and height per tick from the onboard elevation
-map instead of motion capture, replanning closed-loop and holding where the model is
-undefined. Oehler and von Stryk's pose predictor~\cite{oehler2024}, given a four-flipper model
-with a passive belly, gains the selection stage it lacks: a
+four-track morphology and the onboard-map profile. Yuan's configuration-space
+planner~\cite{yuan2019} was reimplemented for the four-track morphology; it estimates the
+step distance and height at every control step from the onboard map instead of motion
+capture, replans continuously, and holds the flippers where its model is undefined. Oehler and von Stryk's pose predictor~\cite{oehler2024}, given a four-flipper model with a passive chassis, gains the selection stage it lacks: a
 43-candidate sweep commanding the highest-stability-margin configuration, holding when
-no configuration is stable. Xu's HTO~\cite{xu2024} assumes a driven belly that carries the step edge;
-with a passive belly the belly-contact regimes of its hybrid model are replaced on ascents by a
-double-prop flipper bridge with enforced belly clearance, plus rear-release and
+no configuration is stable. Xu's HTO~\cite{xu2024} assumes a driven chassis that carries the step edge; with a passive chassis the
+chassis-contact regimes of its hybrid model are replaced on ascents by a double-prop
+flipper bridge with enforced chassis clearance, plus rear-release and
 descent-preparation schedules. Zhang's planner~\cite{zhang2025} is reproduced only as its
 contact-model pose prediction and action cost, solved at a virtual station
-\SI{0.5}{\metre} ahead; chassis-supported poses are
-forbidden on the passive belly.
+\SI{0.5}{\metre} ahead; chassis-supported poses are forbidden on the passive chassis. The learned controllers were adapted as follows. Pan's
+AT-D3QN~\cite{pan2023atd3qn}: the flipper reward $R_{\text{flipper}}$ is mirrored onto the
+rear flippers and the target pitch is referenced to the ground rather than to the chassis,
+since on a four-track robot the rear flippers are part of the drivetrain and the ride
+height is a free variable; the contact reward $R_{\text{contact}}$ of ICM-D3QN is added and
+redefined around flipper-pair grounding and chassis clearance. Pan's
+ICM-D3QN~\cite{pan2023icm}: the same three changes, sharing the code with AT-D3QN;
+otherwise as published. C-TRAC~\cite{ctrac2025}: reward terms are added that incentivize
+movement and prevent convergence to a fixed pose; trained at a fixed forward velocity.
+Mitriakov~\cite{mitriakov2021}: the 2-DoF arm is dropped, so the center-of-gravity penalty
+reduces to a chassis-tilt proxy; one policy covers both driving directions, and the rule
+that the trailing flipper never goes below neutral is inverted, since on a four-track robot
+that flipper carries load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
+sign convention follows the authors' reference implementation rather than the paper, and
+safety is read from the same rollout; the real-robot training stage is omitted.
+Azayev~\cite{azayev2022}: faithful, with human gamepad demonstrations, a supervised
+classifier and a fixed decoder deployed on the real stack; it deviates only in the
+heightmap observation and in a hard legality-masked state instead of the soft belief.
+
+
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/gazebo_arena}
-  \caption{\textbf{Automated simulation arena.} The Gazebo warehouse course
-  of~\cite{cihala2025}: a straight aisle of twelve numbered obstacles of variable
+  \caption{\textbf{Simulation arena.} The Gazebo warehouse course: a straight aisle of twelve numbered obstacles of variable
   difficulty, each probing a different controller capability (pallets, stacked
-  boxes, planks, and a staircase); the robot starts at the right. In the automated
-  ride (Sec.~\ref{sec:experiments}) it is driven at a constant
-  \SI{0.6}{\metre\per\second} through every field in turn, with a \SI{1}{\metre}
-  settling strip between fields and a \SI{120}{\second} timeout per field.}
+  boxes, planks, and a staircase); the robot starts at the right. In the autonomous ride (Sec.~\ref{sec:experiments}) it is driven at a constant
+  \SI{0.6}{\metre\per\second} through every obstacle in turn, with a \SI{1}{\metre} settling strip between
+  obstacles.}
   \label{fig:obstacles}
 \end{figure*}
 
 \subsection{Ground-truth map for a fair baseline}
-Our claim is that the onboard map is the limiting input, so evaluating the map-based
-baselines under that map alone would conflate the controller with its perception. We
-therefore run each of them twice:
-once with the onboard map, and once with a \emph{ground-truth} map
-that removes odometry drift. The difference between a baseline's two scores measures its
+The map-based baselines depend on the onboard map, so scoring them under that map alone
+would mix the quality of the controller with the quality of its perception. We therefore
+run each of them twice: with the onboard map, and with a \emph{ground-truth} map that is
+free of odometry drift. The difference between the two scores is the baseline's
 sensitivity to onboard mapping.
 
 \subsection{Metrics}
 Following~\cite{cihala2025} we report \textbf{traversal quality} (TQ), the mean of three
-normalized sub-metrics: (a) \emph{acceleration/shock} $s$ from the IMU, (b) body
-\emph{tilt} (roll/pitch magnitude), and (c) \emph{ground clearance}. All three are
-computed against ground truth: in simulation the reference pose and map are read directly
-from the simulator; on the real robot they come from external localization and a
-handcrafted elevation map of the obstacle. The clearance score penalizes the deviation of the chassis clearance from its flat-ground
-value outside a dead-band, linearly up to belly contact and \SI{10}{\centi\metre} above.
-Rewarding raw clearance would favor baselines that freeze their flippers and coast in a
-high pose.
+normalized channel scores of a traversal, shock $q_s$, body tilt $q_t$, and ground
+clearance $q_c$,
+\begin{equation}
+  \mathrm{TQ}=\tfrac{1}{3}\,(q_s+q_t+q_c).
+  \label{eq:tq}
+\end{equation}
 \label{sec:metrics-block}%
-Each channel is reduced over a traversal by a \emph{distance-binned maximum}. We bin by distance because we compare quality across the
-obstacle, while each controller takes a different time to traverse it: every \SI{0.25}{\metre} of obstacle forms one bin, the
-worst normalized sample in each bin is taken, and the bins are averaged; a field not
-traversed scores $\mathrm{TQ}{=}0$. The raw streams are not low-pass filtered: shock is
-the acceleration magnitude $|a|$ from the IMU at \SI{21}{\hertz}, normalized by
-$N(s,s_{\max}/2)$~\cite{cihala2025}, with $s_{\max}=\SI{57.5}{\metre\per\second\squared}$
-on the real robot and $s_{\max}=\SI{197}{\metre\per\second\squared}$ in Gazebo; clearance is the
-closest ground point of a $10\times8$ grid on \SI{5}{\centi\metre} spacing under the
-chassis. The three channels measure different things: over the traversed Gazebo
-obstacles their pairwise Spearman correlations are $0.26$ (shock--clearance), $0.28$
-(shock--tilt) and $0.39$ (clearance--tilt), and over the real crossings $0.06$, $0.39$ and
-$-0.03$.
+
+\noindent\textbf{Normalization.} A sample of a non-negative quantity $x$ is scored as
+$q=1-N(x,x_{\max}/2)$, where $N$ from~\cite{cihala2025} rises from $0$ at $x=0$ toward $1$
+and reaches $0.46$ at half its scale $x_{\max}$. $N$ is close to linear for small $x$ and
+saturates smoothly toward $1$, so small differences remain comparable while extreme samples
+do not dominate the score.
+
+\noindent\textbf{Shock.} Shock measures the impacts transmitted to the body, which stress
+the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored
+with the scale $s_{\max}$, the largest acceleration the platform records. On the real robot
+$s_{\max}$ is the highest sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In
+Gazebo the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest
+\SI{0.1}{\second} mean of $s$ over all runs, \SI{376}{\metre\per\second\squared}.
+
+\noindent\textbf{Tilt.} Tilt measures how far the body departs from level; it is what the
+attitude stabilization regulates, and it measures how safely the policy rides. It is the angle
+$t$ between the body $z$ axis and the vertical, from the ground-truth pose, scored with
+$t_{\max}=\ang{50}$.
+
+\noindent\textbf{Ground clearance.} Clearance measures whether the chassis is kept off the terrain. We measure it as the
+closest ground point of a $10\times8$ grid with \SI{5}{\centi\metre}
+cells under the chassis, read from the ground-truth map. The score penalizes the deviation
+of the chassis clearance from its flat-ground value outside a dead-band, linearly up to
+chassis contact and \SI{10}{\centi\metre} above. Rewarding raw clearance would favor
+baselines that freeze their flippers and coast in a high pose.
+
+\noindent\textbf{Binning.} Each channel score of an obstacle is a \emph{distance-binned
+maximum} of the per-sample scores: the obstacle is divided into bins of \SI{0.25}{\metre}
+along the driving direction, the worst per-sample score in each bin is kept, and the
+channel score is the mean of these bin values. We bin by distance rather than by time
+because each controller takes a different time to traverse the same obstacle.
+
+Averaging the three channels in~\eqref{eq:tq} assumes that they carry different
+information, so they should not correlate strongly; their pairwise Spearman correlations
+over the traversed obstacles (Table~\ref{tab:spearman}) are at most $0.39$.
+
+\begin{table}[t]
+\centering
+\caption{\textbf{Spearman correlation of the channel scores} over the traversed simulated
+obstacles and real crossings.}
+\label{tab:spearman}
+\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Channel pair & Simulation & Real \\
+\midrule
+Shock -- clearance & $0.26$ & $0.06$ \\
+Shock -- tilt & $0.28$ & $0.39$ \\
+Clearance -- tilt & $0.39$ & $-0.03$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \begin{table*}[t]
 \centering
-\caption{\textbf{Traversal quality in Gazebo and on the real pallet.} Gazebo: mean over ten runs
-of the twelve-obstacle course. Real: one ride of ten crossings per controller and map, mean over
+\caption{\textbf{Traversal quality in simulation and on the real pallet.} Simulation: mean over
+ten runs of the twelve-obstacle course. Real: one ride of ten crossings per controller and map, mean over
 the crossings, a crossing not completed scoring zero. All channels are scored against ground
-truth, with $s_{\max}$ \SI{197}{\metre\per\second\squared} in Gazebo and
-\SI{57.5}{\metre\per\second\squared} on the real robot. $\Delta$: TQ change under the onboard
-map. \emph{Override}: share of distance the \SAS{} override held the flippers. Manual rides are
-hand-driven. Best TQ in bold, second best underlined.}
+truth, with $s_{\max}$ \SI{376}{\metre\per\second\squared} in simulation and
+\SI{57.5}{\metre\per\second\squared} on the real robot. Each cell gives the value under the ground-truth map / the onboard map. Shock,
+clearance and tilt are the three channel scores of~\eqref{eq:tq}. \emph{Override}: share of
+distance the \SAS{} override held the flippers. Manual rides are hand-driven. Per column and map condition, the best controllers are in bold
+and the second best underlined (ties share the mark).}
 \label{tab:results}
-\footnotesize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccccc@{}}
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc!{\vrule width 0.4pt}ccc!{\color{black!35}\vrule width 0.4pt}c!{\vrule width 0.4pt}c!{\vrule width 0.4pt}ccc!{\color{black!35}\vrule width 0.4pt}c@{}}
 \toprule
- & \multicolumn{4}{c}{Gazebo, twelve obstacles} & \multicolumn{4}{c}{Real pallet, one ride of ten crossings} \\
-\cmidrule(lr){2-5}\cmidrule(l){6-9}
-Controller & \shortstack{TQ $\uparrow$\\GT map} & \shortstack{TQ $\uparrow$\\onboard map} & $\Delta$ $\uparrow$ & \shortstack{Override [\%] $\downarrow$\\GT / onboard} & \shortstack{TQ $\uparrow$\\GT map} & \shortstack{TQ $\uparrow$\\onboard map} & $\Delta$ $\uparrow$ & \shortstack{Override [\%] $\downarrow$\\GT / onboard} \\
+ & \multicolumn{5}{c}{Simulation, twelve obstacles} & \multicolumn{5}{c}{Real pallet, one ride of ten crossings} \\
+\cmidrule(lr){2-6}\cmidrule(l){7-11}
+Controller & TQ $\uparrow$ & Shock $\uparrow$ & Clearance $\uparrow$ & Tilt $\uparrow$ & Override [\%] $\downarrow$ & TQ $\uparrow$ & Shock $\uparrow$ & Clearance $\uparrow$ & Tilt $\uparrow$ & Override [\%] $\downarrow$ \\
+ & \multicolumn{10}{c}{each cell: ground-truth map / onboard map} \\
 \midrule
-\multicolumn{9}{@{}l}{\emph{Manual}} \\
-Manual control~\cite{cihala2025} & -- & 0.867 & -- & -- & -- & 0.810 & -- & -- \\
-Manual modes~\cite{azayev2022} & -- & 0.825 & -- & -- & -- & 0.810 & -- & -- \\
+\multicolumn{11}{@{}l}{\emph{Manual}} \\
+Manual control~\cite{cihala2025} & -- / 0.888 & -- / 0.922 & -- / 0.866 & -- / 0.875 & -- & -- / 0.810 & -- / 0.775 & -- / 0.714 & -- / 0.942 & -- \\
+Manual modes~\cite{azayev2022} & -- / 0.846 & -- / 0.916 & -- / 0.788 & -- / 0.834 & -- & -- / 0.810 & -- / 0.766 & -- / 0.816 & -- / 0.848 & -- \\
 \midrule
-\multicolumn{9}{@{}l}{\emph{Reactive and geometry-based}} \\
-{\v C}\'ihala \GC/\OA~\cite{cihala2025} & 0.800 & 0.780 & $-0.020$ & 0.2 / 0.0 & 0.612 & 0.657 & $+0.045$ & 0.0 / 0.0 \\
-Chen GFMP~\cite{chen2023} & \underline{0.807} & \underline{0.787} & $-0.021$ & 9.0 / 9.2 & 0.660 & 0.661 & $+0.001$ & 3.1 / 3.0 \\
-Yuan~\cite{yuan2019} & 0.807 & 0.783 & $-0.024$ & 11.3 / 8.8 & \underline{0.710} & \textbf{0.721} & $+0.012$ & 1.3 / 1.2 \\
-Oehler~\cite{oehler2024} & 0.801 & 0.774 & $-0.028$ & 10.2 / 7.6 & 0.591 & 0.651 & $+0.060$ & 2.8 / 1.5 \\
-Xu HTO~\cite{xu2024} & 0.783 & 0.768 & $-0.014$ & 9.5 / 9.8 & 0.685 & 0.677 & $-0.008$ & 3.5 / 3.3 \\
-Zhang~\cite{zhang2025} & 0.790 & 0.774 & $-0.016$ & 11.6 / 14.4 & 0.689 & 0.693 & $+0.004$ & 3.4 / 3.1 \\
+\multicolumn{11}{@{}l}{\emph{Reactive and geometry-based}} \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025} & 0.820 / 0.801 & \textbf{0.918} / \textbf{0.916} & \textbf{0.745} / \textbf{0.703} & 0.798 / 0.783 & \underline{0.2} / \textbf{0.0} & 0.612 / 0.657 & 0.780 / \underline{0.794} & \underline{0.528} / 0.323 & 0.777 / 0.854 & \textbf{0.0} / \textbf{0.0} \\
+Chen GFMP~\cite{chen2023} & \underline{0.830} / \underline{0.810} & 0.909 / 0.905 & 0.726 / 0.667 & \underline{0.854} / \underline{0.857} & 9.0 / 9.2 & 0.660 / 0.661 & \underline{0.792} / 0.789 & 0.301 / 0.299 & \textbf{0.886} / \textbf{0.895} & 3.1 / 3.0 \\
+Yuan~\cite{yuan2019} & 0.828 / 0.803 & \underline{0.912} / \underline{0.911} & \underline{0.736} / 0.667 & 0.836 / 0.832 & 11.3 / 8.8 & \underline{0.710} / \textbf{0.721} & 0.776 / 0.783 & 0.471 / \underline{0.497} & \underline{0.883} / 0.883 & \underline{1.3} / 1.2 \\
+Oehler~\cite{oehler2024} & 0.825 / 0.797 & 0.904 / 0.902 & 0.733 / 0.658 & 0.837 / 0.832 & 10.2 / 7.6 & 0.591 / 0.651 & 0.785 / 0.787 & 0.500 / 0.312 & 0.854 / 0.854 & 2.8 / 1.5 \\
+Xu HTO~\cite{xu2024} & 0.807 / 0.794 & 0.899 / 0.898 & 0.690 / 0.652 & 0.833 / 0.833 & 9.5 / 9.8 & 0.685 / 0.677 & 0.779 / 0.776 & 0.404 / 0.387 & 0.872 / 0.868 & 3.5 / 3.3 \\
+Zhang~\cite{zhang2025} & 0.811 / 0.796 & 0.911 / 0.904 & 0.694 / 0.654 & 0.828 / 0.832 & 11.6 / 14.4 & 0.689 / 0.693 & 0.779 / 0.780 & 0.427 / 0.441 & 0.861 / 0.856 & 3.4 / 3.1 \\
 \midrule
-\multicolumn{9}{@{}l}{\emph{Hierarchical}} \\
-Azayev~\cite{azayev2022} & 0.763 & 0.746 & $-0.017$ & 7.6 / 7.1 & 0.662 & 0.694 & $+0.032$ & 0.0 / 0.0 \\
+\multicolumn{11}{@{}l}{\emph{Hierarchical imitation}} \\
+Azayev~\cite{azayev2022} & 0.797 / 0.781 & 0.865 / 0.858 & 0.698 / 0.655 & 0.828 / 0.831 & 7.6 / \underline{7.1} & 0.662 / 0.694 & 0.775 / 0.775 & 0.347 / 0.424 & 0.864 / 0.885 & \textbf{0.0} / \textbf{0.0} \\
 \midrule
-\multicolumn{9}{@{}l}{\emph{Reinforcement learning}} \\
-Pecka~\cite{pecka2016} & 0.781 & 0.765 & $-0.016$ & 10.0 / 10.3 & 0.642 & 0.640 & $-0.003$ & 0.0 / 0.0 \\
-Pan AT-D3QN~\cite{pan2023atd3qn} & 0.784 & 0.768 & $-0.016$ & 10.6 / 12.1 & 0.642 & 0.644 & $+0.002$ & 3.5 / 0.4 \\
-Pan ICM-D3QN~\cite{pan2023icm} & 0.779 & 0.770 & $-0.009$ & 10.2 / 12.2 & 0.652 & 0.548 & $-0.104$ & 4.7 / 6.1 \\
-Mitriakov~\cite{mitriakov2021} & 0.778 & 0.752 & $-0.026$ & 10.0 / 8.6 & \textbf{0.712} & 0.635 & $-0.077$ & 0.0 / 2.3 \\
-C-TRAC~\cite{ctrac2025} & 0.789 & 0.680 & $-0.110$ & 0.0 / 7.5 & 0.457 & 0.478 & $+0.020$ & 7.1 / 3.4 \\
-
+\multicolumn{11}{@{}l}{\emph{Reinforcement learning}} \\
+Pecka~\cite{pecka2016} & 0.807 / 0.792 & 0.896 / 0.888 & 0.700 / 0.660 & 0.827 / 0.829 & 10.0 / 10.3 & 0.642 / 0.640 & 0.765 / 0.764 & 0.411 / 0.398 & 0.751 / 0.757 & \textbf{0.0} / \textbf{0.0} \\
+Pan AT-D3QN~\cite{pan2023atd3qn} & 0.807 / 0.792 & 0.904 / 0.898 & 0.694 / 0.652 & 0.823 / 0.826 & 10.6 / 12.1 & 0.642 / 0.644 & 0.773 / 0.770 & 0.307 / 0.313 & 0.845 / 0.849 & 3.5 / \underline{0.4} \\
+Pan ICM-D3QN~\cite{pan2023icm} & 0.801 / 0.793 & 0.908 / 0.903 & 0.677 / 0.645 & 0.819 / 0.831 & 10.2 / 12.2 & 0.652 / 0.548 & 0.774 / 0.771 & 0.318 / 0.391 & 0.864 / 0.836 & 4.7 / 6.1 \\
+Mitriakov~\cite{mitriakov2021} & 0.807 / 0.783 & 0.885 / 0.876 & 0.716 / 0.653 & 0.821 / 0.820 & 10.0 / 8.6 & \textbf{0.712} / 0.635 & 0.781 / 0.776 & 0.501 / 0.323 & 0.855 / 0.806 & \textbf{0.0} / 2.3 \\
+C-TRAC~\cite{ctrac2025} & 0.816 / 0.702 & 0.887 / 0.895 & 0.722 / 0.608 & \underline{0.854} / 0.754 & \textbf{0.0} / 7.5 & 0.457 / 0.478 & 0.785 / 0.775 & \textbf{0.545} / \textbf{0.540} & 0.664 / 0.697 & 7.1 / 3.4 \\
 \midrule
-\textbf{\SAS{} (ours)} & \textbf{0.813} & \textbf{0.793} & $-0.020$ & -- & 0.680 & \underline{0.703} & $+0.023$ & -- \\
+\textbf{\SAS{} (ours)} & \textbf{0.836} / \textbf{0.817} & 0.901 / 0.903 & \textbf{0.745} / \underline{0.686} & \textbf{0.864} / \textbf{0.861} & -- & 0.680 / \underline{0.703} & \textbf{0.798} / \textbf{0.801} & 0.363 / 0.419 & 0.880 / \underline{0.889} & -- \\
 \bottomrule
 \end{tabular*}
 \end{table*}
 
-\subsection{Results}
-Table~\ref{tab:results} reports TQ per controller in Gazebo under the ground-truth and
-the onboard map, and the share of obstacle distance the \SAS{} override held each
-controller. Every controller, \SAS{} included, loses quality under the onboard map, by
-$0.01$ to $0.03$ (C-TRAC by $0.11$); \SAS{}, which reads no map, loses $0.020$ through its
-LiDAR-ICP odometry cue alone, and frees itself without the \SAS{} override, which holds the
-map-based controllers for 7 to 14\% of the obstacle distance under either map. C-TRAC
-degrades the most under the onboard map, by $0.11$, and shows most clearly that the onboard
-map raises the need for the override: never overridden under the ground-truth map, it is
-held for 7.5\% of the distance under the onboard map; Zhang, AT-D3QN and ICM-D3QN also need more override under the onboard map, Yuan, Oehler and Mitriakov less.
+\subsection{Simulation results}
+Table~\ref{tab:results} reports TQ and its three channels per controller in Gazebo under
+the ground-truth and the onboard map, and the share of obstacle distance the \SAS{}
+override held each controller. The manual rides remain the reference: manual control
+scores $0.89$, $0.05$ above the best controller, and the difference lies almost entirely in
+the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$ of
+the operator for the best controllers. Every controller loses quality under the onboard
+map, by $0.01$ to $0.11$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
+The policies overall required the override for 7 to 14\% of the obstacle distance under
+either map to finish the obstacles. C-TRAC degrades the most under the onboard map, by $0.11$, and shows the highest
+sensitivity to the elevated noise of the onboard map: never overridden under the
+ground-truth map, it is held for 7.5\% of the distance under the onboard map; in one C-TRAC
+run under the ground-truth map the robot also tipped over on obstacle~7, the only tip-over
+in either campaign, and that obstacle is scored as not traversed. For Yuan, Oehler and
+Mitriakov the override share dropped under the onboard map: the added noise helped them
+not to collapse to a fixed flipper position.
+
+\subsection{Real-robot results}
+On the real pallet (Table~\ref{tab:results}) the operator remains the reference: manual
+control and manual modes both score $0.81$, above every controller. Among the
+controllers, Yuan and \SAS{} lead under the onboard map at $0.70$--$0.72$, Mitriakov and Yuan
+under the ground-truth map at $0.71$, and with one ride per condition the difference between
+the two maps is within the spread over crossings for most of them. \SAS{} recovers from every stall by its own anti-stuck term and completes
+every crossing; the map-based controllers that stall are released
+by the \SAS{} override for up to 7\% of the crossing distance, and C-TRAC and ICM-D3QN
+abort crossings under either map. The largest degradations under the onboard map are
+ICM-D3QN ($-0.10$) and Mitriakov ($-0.08$). Unlike in Gazebo, the noise of the onboard map
+lowers the override share of most controllers on the real robot: C-TRAC from 7.1 to 3.4\%,
+AT-D3QN from 3.5 to 0.4\%, Oehler from 2.8 to 1.5\%, and Chen, Yuan, Xu and Zhang slightly;
+only ICM-D3QN and Mitriakov need more. The tilt channel, the target of
+the stabilization term, is where \SAS{} leads: $0.86$ in Gazebo, level with Chen and ahead of
+the rest ($0.75$--$0.85$), and on the real pallet its maximum tilt over the ride is
+\ang{11.5}, against \ang{12} to \ang{26} for the other controllers and \ang{36} for C-TRAC.
+
+\noindent\textbf{Hidden obstacle.} Figure~\ref{fig:grass} shows an additional real
+experiment, a log hidden in tall grass, with Yuan, the best map-based policy on the pallet,
+and with \SAS. The LiDAR does not penetrate the grass, so the onboard map shows the grass
+canopy and the log is absent from it. Yuan reads the gap the log opens in the grass as a
+drop, lowers the flippers to descend, and drives itself under the log, where it gets
+stuck. \SAS{} receives no such information, keeps its default posture, and crosses the log.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=\textwidth]{figures/grass_merged.jpg}
+  \caption{\textbf{Traversal of an obstacle hidden in tall grass by the best map-based
+  policy, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
+  cloud during Yuan's crossing: the LiDAR does not penetrate the grass, so the map is
+  inaccurate and the obstacle is practically invisible to the onboard perception stack and
+  the policy. (b) Yuan~\cite{yuan2019} crossing the hidden obstacle: the policy expects a
+  drop, because the log opens a gap in the grass, and lowers the flippers to descend, which
+  drives it under the log, where it gets stuck. (c) \SAS{} crossing the hidden obstacle:
+  without the incorrect information of the onboard map it keeps its default posture, which
+  lets it cross the obstacle easily.}
+  \label{fig:grass}
+\end{figure*}
+
+\subsection{Onboard-map error}
 Sampled over the body footprint (the chassis and \SI{1.5}{\metre} ahead, at
 \SI{5}{\centi\metre}) every \SI{0.25}{\second}, the height difference between the onboard
 and the ground-truth map has a median absolute value of \SI{0.9}{\centi\metre} and a median
@@ -169,22 +265,4 @@ obstacle: the median bound width of the cells under the body rises from
 \SI{8}{\second} on the obstacle, and its 90th percentile from \SI{3}{\centi\metre} to
 \SIrange{17}{20}{\centi\metre}, the occluded cells the controllers regulate on. On the real
 robot the mapper's per-cell variance shrinks with fusion, from \SI{1}{\centi\metre} to
-\SI{3}{\milli\metre}, and does not reflect the map error. In one
-C-TRAC run under the ground-truth map the robot tipped over on obstacle~7, the only
-tip-over in either campaign; that obstacle is scored as not traversed.
-
-On the real pallet (Table~\ref{tab:results}) the operator remains the reference: manual
-control and manual modes both score $0.81$, above every controller. Among the
-controllers, Yuan and \SAS{} lead under the onboard map at $0.70$--$0.72$, Mitriakov and Yuan
-under the ground-truth map at $0.71$, and with one ride per condition the difference between
-the two maps is within the spread over crossings for most of them. \SAS{} is never
-overridden and completes every crossing; the map-based controllers that stall are released
-by the \SAS{} override for up to 7\% of the crossing distance, and C-TRAC and ICM-D3QN
-abort crossings under either map. The largest degradations under the onboard map are
-ICM-D3QN ($-0.10$) and Mitriakov ($-0.08$). Unlike in Gazebo, the noise of the onboard map
-lowers the override share of most controllers on the real robot: C-TRAC from 7.1 to 3.4\%,
-AT-D3QN from 3.5 to 0.4\%, Oehler from 2.8 to 1.5\%, and Chen, Yuan, Xu and Zhang slightly;
-only ICM-D3QN and Mitriakov need more. The tilt channel, the target of
-the stabilization term, is where \SAS{} leads: $0.86$ in Gazebo, level with Chen and ahead of
-the rest ($0.75$--$0.85$), and on the real pallet its maximum tilt over the ride is
-\ang{11.5}, against \ang{12} to \ang{26} for the other controllers and \ang{36} for C-TRAC.
+\SI{3}{\milli\metre}, and does not reflect the map error.

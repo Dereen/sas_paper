@@ -2,18 +2,19 @@
 State-of-the-art flipper controllers depend on an elevation map of the occluded ground under
 the chassis, which drifts with odometry on exactly the terrain where flippers are needed.
 \SAS{} removes that dependency: its stabilization term regulates roll and pitch from the
-IMU, and its anti-stuck term, triggered by a short-window odometry cue, frees the robot when
-stuck; a directional-priority blend keeps stabilization in control. It cannot anticipate an obstacle before contact,
+IMU, and its anti-stuck term, triggered by a binary motion cue that is never accumulated,
+frees the robot when stuck; a directional-priority blend keeps stabilization in control. It cannot anticipate an obstacle before contact,
 but it keeps the robot stabilized and operational where the onboard map, and with it every
 map-based controller, breaks down.
 
-Future work targets a more robust odometry cue by fusing LiDAR-ICP odometry with camera
+Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
 odometry or integrated IMU motion, which would make the controller fully proprioceptive
 and should hold up in the occluded, feature-poor, or flat places where ICP alone struggles, and a fallback scheme that defers to a map-based
 controller when the onboard map is trustworthy and to \SAS{} when it is not.
 
 In the Gazebo comparison \SAS{} reaches the highest traversal quality of all controllers
 under both the ground-truth and the onboard map, with the best tilt channel, and on the real
-pallet it is among the leading controllers, is never overridden, and keeps the smallest
+pallet it is among the leading controllers, recovers from every stall by its own anti-stuck
+term, and keeps the smallest
 maximum tilt of the ride, without a map, a localization estimate, or an external recovery
 layer.

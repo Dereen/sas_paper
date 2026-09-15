@@ -22,7 +22,7 @@
  },
  {
   "note": "remove this text and add the colors to the legend. The colors next to the text with small color stripes the same as the bars.",
-  "anchor": "Colour is the controller family and hatching is the arm, so a controller’s two bars stay visibly one controller.",
+  "anchor": "Colour is the controller family and hatching is the arm, so a controller\u2019s two bars stay visibly one controller.",
   "done": "",
   "page_hint": 6,
   "source": "root_annotated_20260906_191820.pdf"
@@ -267,8 +267,8 @@
  },
  {
   "note": "Do it",
-  "anchor": "selection is built on – I could not find a published reference",
-  "done": "Cited the CTU deployment-system paper, Rouček et al., Field Robotics 2022 (roucek2022subt), as the map this selection is built on. Please confirm that is the RDS you mean.",
+  "anchor": "selection is built on \u2013 I could not find a published reference",
+  "done": "Cited the CTU deployment-system paper, Rou\u010dek et al., Field Robotics 2022 (roucek2022subt), as the map this selection is built on. Please confirm that is the RDS you mean.",
   "page_hint": 3,
   "source": "root.pdf"
  },
@@ -281,7 +281,7 @@
  },
  {
   "note": "remove everybody knows that",
-  "anchor": "than against the robot’s own estimate,",
+  "anchor": "than against the robot\u2019s own estimate,",
   "done": "Removed \"rather than against the robot's own estimate\".",
   "page_hint": 3,
   "source": "root.pdf"
@@ -589,14 +589,14 @@
  },
  {
   "note": "Remove this.",
-  "anchor": "is the signature the ablation shows—quality falls only a little",
+  "anchor": "is the signature the ablation shows\u2014quality falls only a little",
   "done": "Removed.",
   "page_hint": 8,
   "source": "root.pdf"
  },
  {
   "note": "Remove this.",
-  "anchor": "simulator’s pose. The drop is therefore the price of the one",
+  "anchor": "simulator\u2019s pose. The drop is therefore the price of the one",
   "done": "Removed, with its TODO.",
   "page_hint": 8,
   "source": "root.pdf"
@@ -610,7 +610,7 @@
  },
  {
   "note": "Done",
-  "anchor": "[TODO: C-TRAC’s ground-truth runs still to be collected.",
+  "anchor": "[TODO: C-TRAC\u2019s ground-truth runs still to be collected.",
   "done": "C-TRAC TODO removed.",
   "page_hint": 9,
   "source": "root.pdf"
@@ -630,7 +630,7 @@
   "source": "root.pdf"
  },
  {
-  "note": "Tady to pořadí mi přijde nějaké divné. Obrátil bych, nebo bych Mapless úplně vyjádřil jinak",
+  "note": "Tady to po\u0159ad\u00ed mi p\u0159ijde n\u011bjak\u00e9 divn\u00e9. Obr\u00e1til bych, nebo bych Mapless \u00fapln\u011b vyj\u00e1d\u0159il jinak",
   "anchor": "Mapless Stabilized",
   "done": "",
   "page_hint": 1,
@@ -749,14 +749,14 @@
   "source": "root.pdf"
  },
  {
-  "note": "co znamená integration free. To je divné. Také máme v názvu článku mapless, a tady je najednou localisation, integration, atp.",
+  "note": "co znamen\u00e1 integration free. To je divn\u00e9. Tak\u00e9 m\u00e1me v n\u00e1zvu \u010dl\u00e1nku mapless, a tady je najednou localisation, integration, atp.",
   "anchor": "integration-free,",
   "done": "",
   "page_hint": 2,
   "source": "root.pdf"
  },
  {
-  "note": "čtu ten text, který následuje a pořád moc nevím jak ta metoda funguje a jaké jsou vstupy. Text hodně popisuje co není, jaká data nepotřebujeme, atd atd.",
+  "note": "\u010dtu ten text, kter\u00fd n\u00e1sleduje a po\u0159\u00e1d moc nev\u00edm jak ta metoda funguje a jak\u00e9 jsou vstupy. Text hodn\u011b popisuje co nen\u00ed, jak\u00e1 data nepot\u0159ebujeme, atd atd.",
   "anchor": "Our contribution: control of the flippers without a map",
   "done": "",
   "page_hint": 2,
@@ -897,7 +897,7 @@
  },
  {
   "note": "Remove this.",
-  "anchor": "has precedence, so the anti-stuck part may reinforce a flipper’s",
+  "anchor": "has precedence, so the anti-stuck part may reinforce a flipper\u2019s",
   "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
@@ -1030,7 +1030,7 @@
  },
  {
   "note": "Remove this.",
-  "anchor": ", but it demands the operator’s con-",
+  "anchor": ", but it demands the operator\u2019s con-",
   "done": "removed (15.9.2026)",
   "page_hint": 2,
   "source": "root.pdf"
@@ -1345,7 +1345,7 @@
  },
  {
   "note": "make the first condition to be on one line, this looks like three conditions",
-  "anchor": "  clamp �",
+  "anchor": "\uf8f1 \uf8f4 clamp \ufffd",
   "done": "",
   "page_hint": 4,
   "source": "root.pdf"
@@ -1520,7 +1520,7 @@
  },
  {
   "note": "Look into the robot .1, .2 and .5 how we update the geometric policies. Write one sentence for each.",
-  "anchor": "Mitriakov et al.’s RL framework [20], [21], [26], and Oehler",
+  "anchor": "Mitriakov et al.\u2019s RL framework [20], [21], [26], and Oehler",
   "done": "same as the provenance TODO comment: done, see it",
   "page_hint": 5,
   "source": "root.pdf"
@@ -1555,7 +1555,7 @@
  },
  {
   "note": "I dont understand is this all reward or penalty. Reformulate it as single sentence with pitch reward and stuck as terminal penalty",
-  "anchor": "the pitch for smoothness; roll is uncontrolled and “stuck”",
+  "anchor": "the pitch for smoothness; roll is uncontrolled and \u201cstuck\u201d",
   "done": "reward now one sentence: 'Their reward rewards smooth pitch only, and getting stuck is a terminal penalty.'",
   "page_hint": 3,
   "source": "root.pdf"
@@ -1661,7 +1661,7 @@
  {
   "note": "Rewrite into one sentence instead of switching we added 2s stuck watchdog for front flippers",
   "anchor": "flipper between the two, here a stuck criterion identical to the",
-  "anchor_full": "(ii) the e GC/OA policy y [1] in its automated form: the rear flippers always run ground-clearance (GC), a a reactive controller that regulates chassis clearance from the local terrain height, and the front flippers start in obstacle-aware (OA), a geometric controller that plans flipper poses from the obstacle geometry ahead. Where the original had the operator toggle each front flipper between the two, here a stuck criterion identical to the watchdog’s switches both fronts to GC after 2 2 s s o of no progress, holds them there for 2 s s, and returns them to OA; (iii) every map-based controller catalogued in Table I; and our r SAS .",
+  "anchor_full": "(ii) the e GC/OA policy y [1] in its automated form: the rear flippers always run ground-clearance (GC), a a reactive controller that regulates chassis clearance from the local terrain height, and the front flippers start in obstacle-aware (OA), a geometric controller that plans flipper poses from the obstacle geometry ahead. Where the original had the operator toggle each front flipper between the two, here a stuck criterion identical to the watchdog\u2019s switches both fronts to GC after 2 2 s s o of no progress, holds them there for 2 s s, and returns them to OA; (iii) every map-based controller catalogued in Table I; and our r SAS .",
   "done": "GC/OA baseline now one sentence: instead of the operator switching, a 2 s stuck watchdog on the front flippers",
   "page_hint": 5,
   "source": "root.pdf"
@@ -1669,7 +1669,7 @@
  {
   "note": "Remove this.",
   "anchor": "rate is not informative here: the stuck watchdog releases every",
-  "anchor_full": "A success rate is not informative here: the stuck watchdog releases every stalled controller, so nearly every field is traversed, and the cost of stalling appears instead in the watchdog’s intervention count and in TQ.",
+  "anchor_full": "A success rate is not informative here: the stuck watchdog releases every stalled controller, so nearly every field is traversed, and the cost of stalling appears instead in the watchdog\u2019s intervention count and in TQ.",
   "done": "removed the success-rate sentence (and the dangling 'SR=0' at the end of Metrics)",
   "page_hint": 5,
   "source": "root.pdf"
@@ -1773,7 +1773,7 @@
  {
   "note": "remove the MARV, lets focus it on four belt robot",
   "anchor": "",
-  "anchor_full": "MARV’",
+  "anchor_full": "MARV\u2019",
   "done": "provenance sentences now speak of the four-track morphology / passive belly / four-flipper model instead of MARV",
   "page_hint": 5,
   "source": "root.pdf"
@@ -1781,15 +1781,15 @@
  {
   "note": "Simplify to previous sentences",
   "anchor": "samples long, and those transients are exactly what the channel",
-  "anchor_full": ". Signal conditioning The raw streams are noisy in different ways, and none of them is low-pass filtered before scoring. Shock k is the acceleration magnitude | |a| a| from the IMU at t 21 Hz z; contact with a track lug or a step edge appears as a transient a few samples long, and those transients are exactly what the channel exists to see, so averaging them away would change what is measured rather than clean it. . Clearance e is not read from a range sensor at all: it is a a 10 × 8 grid of points on n 5 cm spacing under the chassis, looked up in the elevation map and reduced to the e closest t ground point, i.e. the worst of eighty lookups. That reduction is deliberately conservative, and it",
+  "anchor_full": ". Signal conditioning The raw streams are noisy in different ways, and none of them is low-pass filtered before scoring. Shock k is the acceleration magnitude | |a| a| from the IMU at t 21 Hz z; contact with a track lug or a step edge appears as a transient a few samples long, and those transients are exactly what the channel exists to see, so averaging them away would change what is measured rather than clean it. . Clearance e is not read from a range sensor at all: it is a a 10 \u00d7 8 grid of points on n 5 cm spacing under the chassis, looked up in the elevation map and reduced to the e closest t ground point, i.e. the worst of eighty lookups. That reduction is deliberately conservative, and it",
   "done": "Signal conditioning subsection dissolved: shock (|a| at 21 Hz, N(s, s_max/2), s_max 20), clearance lookup (10x8 grid, 5 cm, inpainted layer) and tilt source folded into two sentences of Metrics",
   "page_hint": 5,
   "source": "root.pdf"
  },
  {
   "note": "Simplify into previous sentences",
-  "anchor": "from the pose rather than from the IMU’s reported orientation,",
-  "anchor_full": "means a single catastrophic map cell—the tail quantified in Sec. IV-G—propagates straight into the channel. . Tilt is taken from the pose rather than from the IMU’s reported orientation, which carries a fixed mounting offset that makes it unusable as an attitude directly. Rather than smooth the signals, we bound their influence at four points: 1) ) Hole filling. The terrain under the chassis is occluded, so the raw elevation layer has no data exactly where clearance is measured. The lookup reads the e inpainted layer of the mapping filter chain, so an occluded cell is interpolated rather than dropped; without it the channel would be undefined under the robot. 2) ) Deadband. . Deviations from the nominal ride height smaller than n 1 1 cm b below it or 2 2 cm a above score zero bad- ness. The band is asymmetric because the two directions are not equally dangerous: below the target the belly is close, above it is merely wasteful. Small disturbances are the robot working, not the robot failing. 3) ) Bounded d normalizers. Shock k passes s through N N( ( (s, s smax / 2) ) with h sm smax = 20 m s s− −2 , and clearance is clipped to [0 0, , 1 1] ], saturating at belly contact below and 10 cm m above. No single sample can dominate a bin, whatever the sensor does. 4) ) Bin n maximum, , then n mean. The e worst normalized sample in each spatial bin is taken and the bins averaged. Taking a rank statistic per bin and averaging those, rather than averaging samples, keeps a rare spike visible without letting the single worst instant of the ride stand for the whole traversal",
+  "anchor": "from the pose rather than from the IMU\u2019s reported orientation,",
+  "anchor_full": "means a single catastrophic map cell\u2014the tail quantified in Sec. IV-G\u2014propagates straight into the channel. . Tilt is taken from the pose rather than from the IMU\u2019s reported orientation, which carries a fixed mounting offset that makes it unusable as an attitude directly. Rather than smooth the signals, we bound their influence at four points: 1) ) Hole filling. The terrain under the chassis is occluded, so the raw elevation layer has no data exactly where clearance is measured. The lookup reads the e inpainted layer of the mapping filter chain, so an occluded cell is interpolated rather than dropped; without it the channel would be undefined under the robot. 2) ) Deadband. . Deviations from the nominal ride height smaller than n 1 1 cm b below it or 2 2 cm a above score zero bad- ness. The band is asymmetric because the two directions are not equally dangerous: below the target the belly is close, above it is merely wasteful. Small disturbances are the robot working, not the robot failing. 3) ) Bounded d normalizers. Shock k passes s through N N( ( (s, s smax / 2) ) with h sm smax = 20 m s s\u2212 \u22122 , and clearance is clipped to [0 0, , 1 1] ], saturating at belly contact below and 10 cm m above. No single sample can dominate a bin, whatever the sensor does. 4) ) Bin n maximum, , then n mean. The e worst normalized sample in each spatial bin is taken and the bins averaged. Taking a rank statistic per bin and averaging those, rather than averaging samples, keeps a rare spike visible without letting the single worst instant of the ride stand for the whole traversal",
   "done": "the four-point list dissolved: deadband numbers merged into the clearance-deviation sentence, hole filling into the clearance lookup clause, normalizer into the shock clause; bin-maximum item dropped as already stated",
   "page_hint": 6,
   "source": "root.pdf"
@@ -1892,8 +1892,8 @@
  },
  {
   "note": "Remove this.",
-  "anchor": ": the authors’ released implementation or our reimplementation.",
-  "anchor_full": "Code : the authors’ released implementation or our reimplementation.",
+  "anchor": ": the authors\u2019 released implementation or our reimplementation.",
+  "anchor_full": "Code : the authors\u2019 released implementation or our reimplementation.",
   "done": "removed from the caption",
   "page_hint": 4,
   "source": "root.pdf"
@@ -1956,8 +1956,8 @@
  },
  {
   "note": "Remove this.",
-  "anchor": "C-TRAC’s onboard arm has",
-  "anchor_full": "C-TRAC’s onboard arm has s n =4 .",
+  "anchor": "C-TRAC\u2019s onboard arm has",
+  "anchor_full": "C-TRAC\u2019s onboard arm has s n =4 .",
   "done": "removed",
   "page_hint": 4,
   "source": "root.pdf"
@@ -1981,7 +1981,7 @@
  {
   "note": "Can we rather generate image of the marv from side with the visualization of the clearance",
   "anchor": "rises linearly to one at belly contact (",
-  "anchor_full": "The clearance score is s 1 − b( (δ) ) ), where e δ = c − c0 0 is the deviation of the chassis clearance c c f from its flat-ground resting value e c0 , and the badness s b is zero for r δ ∈ [ [− −1, 1, 2 2] ] c cm and rises linearly to one at belly contact ( δ = − −c0 0 ) and at δ = 10 cm .",
+  "anchor_full": "The clearance score is s 1 \u2212 b( (\u03b4) ) ), where e \u03b4 = c \u2212 c0 0 is the deviation of the chassis clearance c c f from its flat-ground resting value e c0 , and the badness s b is zero for r \u03b4 \u2208 [ [\u2212 \u22121, 1, 2 2] ] c cm and rises linearly to one at belly contact ( \u03b4 = \u2212 \u2212c0 0 ) and at \u03b4 = 10 cm .",
   "done": "new Fig. (clearance_score.png, scripts/clearance_score_figure.py): side view of the robot with c and delta, and the score curve; the text sentence now points to it",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2013,7 +2013,7 @@
  {
   "note": "add sign",
   "anchor": "",
-  "anchor_full": "∆",
+  "anchor_full": "\u2206",
   "done": "Delta is signed (TQ change under the onboard map, negative = loss), header Delta with up arrow",
   "page_hint": 4,
   "source": "root.pdf"
@@ -2037,7 +2037,7 @@
  {
   "note": "Simple by one sentence clearance score is deviance of ... from deadband wide 10cm",
   "anchor": "is the deviation of the chassis clearance",
-  "anchor_full": "The clearance score (Fig. 4) is s 1 − b( δ) ) ), where e δ = c − c0 is the deviation of the chassis clearance e c from its flat-ground value e c0 ; the badness s b is zero inside a deadband and rises linearly to one at belly contact and at t δ = 10 cm .",
+  "anchor_full": "The clearance score (Fig. 4) is s 1 \u2212 b( \u03b4) ) ), where e \u03b4 = c \u2212 c0 is the deviation of the chassis clearance e c from its flat-ground value e c0 ; the badness s b is zero inside a deadband and rises linearly to one at belly contact and at t \u03b4 = 10 cm .",
   "done": "clearance now one sentence: penalizes the deviation from the flat-ground value outside a deadband, linearly up to belly contact and 10 cm above",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2053,7 +2053,7 @@
  {
   "note": "This is invalid, the elevation map is relative to the robot body, so we need to recompute the noise in the map so we will position the gt map with the gt base link to the perception base link, with translation and rotation. Also the gt base link oscilate (caused by the april tag solver), can you measure the oscilation and filter the position, before any usage of the tf.",
   "anchor": "the onboard map costs a controller occasional wrong flipper",
-  "anchor_full": "The loss comes from the map, not from localization: the incremental ICP error is s 1 1. 4 cm s − −1 1 (p95 5 3 3. 5) 5), which offsets the map frame by y 4. .6 .6 cm on the obstacles, yet undoing that offset changes the map RMSE against the simulator only from m 2. .2 20 to o 2. .18 cm m. The map error is heavy- tailed rather than uniform, median 0. 71 cm but p99 9 9. .1 cm with h 0. .8 .8% % of cells off by more than n 10 cm m, and about twice as large on the flat approaches as on the obstacles (RMSE 4 4. .35 against t 2 2. .20 cm m); such a cell is a phantom or a missing step, so the onboard map costs a controller occasional wrong flipper poses and stalls rather than roughness.",
+  "anchor_full": "The loss comes from the map, not from localization: the incremental ICP error is s 1 1. 4 cm s \u2212 \u22121 1 (p95 5 3 3. 5) 5), which offsets the map frame by y 4. .6 .6 cm on the obstacles, yet undoing that offset changes the map RMSE against the simulator only from m 2. .2 20 to o 2. .18 cm m. The map error is heavy- tailed rather than uniform, median 0. 71 cm but p99 9 9. .1 cm with h 0. .8 .8% % of cells off by more than n 10 cm m, and about twice as large on the flat approaches as on the obstacles (RMSE 4 4. .35 against t 2 2. .20 cm m); such a cell is a phantom or a missing step, so the onboard map costs a controller occasional wrong flipper poses and stalls rather than roughness.",
   "done": "the invalid map/localization noise numbers removed and replaced by a TODO describing the recomputation (GT map in the perception base frame via the full transform, after measuring and filtering the AprilTag pose oscillation); analysis itself not yet run",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2061,7 +2061,7 @@
  {
   "note": "remove back to explanation by one sentence, everybody knows what is exceedance",
   "anchor": "four-track robot, measured under the belly against the ground-",
-  "anchor_full": "Clearance score. Left: the chassis clearance c of the four-track robot, measured under the belly against the ground- truth map. Right: the score as a function of the deviation δ = c − −c c0 0 from the flat-ground clearance c0 0 : one inside the deadband δ ∈ [− − −1, , , 2 2] c cm, zero at belly contact ( (δ = − −c0 c0 ) and at δ = 10 cm , linear in between",
+  "anchor_full": "Clearance score. Left: the chassis clearance c of the four-track robot, measured under the belly against the ground- truth map. Right: the score as a function of the deviation \u03b4 = c \u2212 \u2212c c0 0 from the flat-ground clearance c0 0 : one inside the deadband \u03b4 \u2208 [\u2212 \u2212 \u22121, , , 2 2] c cm, zero at belly contact ( (\u03b4 = \u2212 \u2212c0 c0 ) and at \u03b4 = 10 cm , linear in between",
   "done": "clearance figure removed; back to the one-sentence explanation",
   "page_hint": 6,
   "source": "root.pdf"
@@ -2261,7 +2261,7 @@
  {
   "note": "Informations are here twice, join it into one paragraph.",
   "anchor": "rule, so the anti-stuck term can reinforce the stabilization term",
-  "anchor_full": "At every control step SAS reads the body attitude and a motion cue and emits one velocity per flipper. It pursues two regulation goals: it stabilizes body roll and pitch, and it releases the robot when it is s stuck , which means it is commanded forward but is not advancing. The two terms are formed independently and combined by a directional-priority rule, so the anti-stuck term can reinforce the stabilization term but never reverse it. SAS runs on the four flippers s i ∈{ {FL L, F FR R, , R RL , , R RR } and emits a per-flipper angular r velocity command vi i . Its inputs are the gravity-referenced body roll l r and pitch h p from the IMU, the four joint angles s θi i , the commanded body velocity vc vcmd , and a scalar motion cue e m m d derived from LiDAR-ICP odometry over a short window (Sec. III-B)",
+  "anchor_full": "At every control step SAS reads the body attitude and a motion cue and emits one velocity per flipper. It pursues two regulation goals: it stabilizes body roll and pitch, and it releases the robot when it is s stuck , which means it is commanded forward but is not advancing. The two terms are formed independently and combined by a directional-priority rule, so the anti-stuck term can reinforce the stabilization term but never reverse it. SAS runs on the four flippers s i \u2208{ {FL L, F FR R, , R RL , , R RR } and emits a per-flipper angular r velocity command vi i . Its inputs are the gravity-referenced body roll l r and pitch h p from the IMU, the four joint angles s \u03b8i i , the commanded body velocity vc vcmd , and a scalar motion cue e m m d derived from LiDAR-ICP odometry over a short window (Sec. III-B)",
   "done": "the two opening paragraphs of Method merged into one without the repeated information",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2277,7 +2277,7 @@
  {
   "note": "Reformulate it to be more rigorous.",
   "anchor": "The dominant term regulates body attitude to level from",
-  "anchor_full": "The dominant term regulates body attitude to level from the IMU alone. The setpoints s r r0 , p p0 0 are level, that is zero, and the deviations are e er = r 0 − r and d ep p = p0 0 − p p. .",
+  "anchor_full": "The dominant term regulates body attitude to level from the IMU alone. The setpoints s r r0 , p p0 0 are level, that is zero, and the deviations are e er = r 0 \u2212 r and d ep p = p0 0 \u2212 p p. .",
   "done": "'The dominant term drives the IMU roll and pitch to zero. The errors e_r=-r and e_p=-p are set to zero within a 3 deg dead-band ...'",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2317,7 +2317,7 @@
  {
   "note": "Fells the information is repeated and scattered over the sentences",
   "anchor": "will not do, because a stalled robot can spin its tracks without",
-  "anchor_full": "The motion cue e m is the standard deviation of the robot’s short-horizon displacement over a sliding window, a a local measure of whether the body advances, not of where it is; the window cancels slow drift, so m needs no integrated global pose. It must measure actual body motion: a track encoder will not do, because a stalled robot can spin its tracks without advancing. In the current deployment m is the short-window variance of LiDAR-ICP odometry [23]",
+  "anchor_full": "The motion cue e m is the standard deviation of the robot\u2019s short-horizon displacement over a sliding window, a a local measure of whether the body advances, not of where it is; the window cancels slow drift, so m needs no integrated global pose. It must measure actual body motion: a track encoder will not do, because a stalled robot can spin its tracks without advancing. In the current deployment m is the short-window variance of LiDAR-ICP odometry [23]",
   "done": "motion-cue description condensed into one sentence",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2325,7 +2325,7 @@
  {
   "note": "with velocity ...",
   "anchor": "toward the flat pose (",
-  "anchor_full": "toward the flat pose ( (− λ low )",
+  "anchor_full": "toward the flat pose ( (\u2212 \u03bb low )",
   "done": "'retract toward the flat pose with velocity lambda_low (in simulation lambda=2.0 rad/s, lambda_low=0.8 rad/s)'",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2333,7 +2333,7 @@
  {
   "note": "Remove this.",
   "anchor": "permits is zero, the motion cue stays below",
-  "anchor_full": ", the spread the limit permits is zero, the motion cue stays below τ τs stuck , and the robot",
+  "anchor_full": ", the spread the limit permits is zero, the motion cue stays below \u03c4 \u03c4s stuck , and the robot",
   "done": "removed",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2349,7 +2349,7 @@
  {
   "note": "Remove this.",
   "anchor": "stabilization still caps it. Stuck detection is armed only after",
-  "anchor_full": "A dig that cannot free the robot therefore terminates in a bounded dig–reset cycle rather than a permanent stall. The reset remains a subordinate demand, so stabilization still caps it. Stuck detection is armed only after the robot has been moving for r 2 s s, so a robot that is merely starting is not mistaken for one that is stuck",
+  "anchor_full": "A dig that cannot free the robot therefore terminates in a bounded dig\u2013reset cycle rather than a permanent stall. The reset remains a subordinate demand, so stabilization still caps it. Stuck detection is armed only after the robot has been moving for r 2 s s, so a robot that is merely starting is not mistaken for one that is stuck",
   "done": "removed",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2373,7 +2373,7 @@
  {
   "note": "put it to the text",
   "anchor": "(in simulation",
-  "anchor_full": "(in simulation λ = = 2. .0 0 rad s− − 1 and λ low = 0. .8 8 rad s− − 1 ):",
+  "anchor_full": "(in simulation \u03bb = = 2. .0 0 rad s\u2212 \u2212 1 and \u03bb low = 0. .8 8 rad s\u2212 \u2212 1 ):",
   "done": "values moved out of the parentheses into their own sentence after Eq. (5): 'In simulation we use lambda=2.0 rad/s and lambda_low=0.8 rad/s.'",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2477,7 +2477,7 @@
  {
   "note": "remove",
   "anchor": "onboard map",
-  "anchor_full": "Real − Gazebo onboard map",
+  "anchor_full": "Real \u2212 Gazebo onboard map",
   "done": "Column removed from Table II (14.9.2026).",
   "page_hint": 6,
   "source": "root.pdf"
@@ -2717,7 +2717,7 @@
  {
   "note": "Remove this.",
   "anchor": "Oehler and von Stryk [6], [30], with the FTR-Bench suite [17],",
-  "anchor_full": "Released code: Azayev and Zimmermann’s state machine [1], [28], Mitriakov et al.’s RL framework [20], [21], [29], and the pose-predictor core of Oehler and von Stryk [6], [30], with the FTR-Bench suite [17], [31] as our RL substrate. Reimplemented from the paper: Chen’s GFMP [5], Yuan’s planner [7], verified numerically against the authors’ code [32], Xu’s HTO [2], Zhang’s plan- ner [15], the D3QN variants [8], [9], C-TRAC [10], and Pecka et al. [18].",
+  "anchor_full": "Released code: Azayev and Zimmermann\u2019s state machine [1], [28], Mitriakov et al.\u2019s RL framework [20], [21], [29], and the pose-predictor core of Oehler and von Stryk [6], [30], with the FTR-Bench suite [17], [31] as our RL substrate. Reimplemented from the paper: Chen\u2019s GFMP [5], Yuan\u2019s planner [7], verified numerically against the authors\u2019 code [32], Xu\u2019s HTO [2], Zhang\u2019s plan- ner [15], the D3QN variants [8], [9], C-TRAC [10], and Pecka et al. [18].",
   "done": "removed (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
@@ -2733,7 +2733,7 @@
  {
   "note": "TODO should keep it? It feels too much but it was measured in the simulation.",
   "anchor": "pallet:",
-  "anchor_full": "pallet: 742 m s − −2",
+  "anchor_full": "pallet: 742 m s \u2212 \u22122",
   "done": "Gazebo s_max set to 200 (99.9th percentile within a run); 742 mentioned only as the spike level (15.9.2026)",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2765,7 +2765,7 @@
  {
   "note": "Remove this.",
   "anchor": "both blocks rank the controllers mainly by clearance and tilt.",
-  "anchor_full": "The two blocks are not comparable in level: the shock channel is normalized by each platform’s own n s sm smax x (Sec. IV-D) and scores 0 0. .9 .93 –0 –0. .9 96 i in Gazebo and d 0 0. .76 6–0 –0. .8 .80 o on the real robot for every controller, so both blocks rank the controllers mainly by clearance and tilt.",
+  "anchor_full": "The two blocks are not comparable in level: the shock channel is normalized by each platform\u2019s own n s sm smax x (Sec. IV-D) and scores 0 0. .9 .93 \u20130 \u20130. .9 96 i in Gazebo and d 0 0. .76 6\u20130 \u20130. .8 .80 o on the real robot for every controller, so both blocks rank the controllers mainly by clearance and tilt.",
   "done": "removed (15.9.2026)",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2773,7 +2773,7 @@
  {
   "note": "Remove this.",
   "anchor": "the 99.9th percentile of the samples within a run, because",
-  "anchor_full": "the 99.9th percentile of the samples within a run, because the simulator’s rigid contacts at its 2 ms s step produce isolated landing spikes of up to 742 m s − 2 that no real track transmits",
+  "anchor_full": "the 99.9th percentile of the samples within a run, because the simulator\u2019s rigid contacts at its 2 ms s step produce isolated landing spikes of up to 742 m s \u2212 2 that no real track transmits",
   "done": "removed (s_max justification) (15.9.2026)",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2789,7 +2789,7 @@
  {
   "note": "somehow splitted in the middle by sentence",
   "anchor": "recorded descending from the pallet; in Gazebo",
-  "anchor_full": "on the real robot 57 .5 .5 m s − −2 , the highest sample of the campaign, recorded descending from the pallet; in Gazebo o 200 m s − 2",
+  "anchor_full": "on the real robot 57 .5 .5 m s \u2212 \u22122 , the highest sample of the campaign, recorded descending from the pallet; in Gazebo o 200 m s \u2212 2",
   "done": "s_max sentence rewritten as one clause (15.9.2026)",
   "page_hint": 5,
   "source": "root.pdf"
@@ -2797,7 +2797,7 @@
  {
   "note": "Add this to the results ctrac degrades the most in the gazebo.",
   "anchor": "",
-  "anchor_full": "− 0. .1 .110",
+  "anchor_full": "\u2212 0. .1 .110",
   "done": "Results: C-TRAC degrades the most in Gazebo (-0.11) (15.9.2026)",
   "page_hint": 6,
   "source": "root.pdf"
@@ -2805,7 +2805,7 @@
  {
   "note": "in reality the biggest degradation as by icm and followed by mitriakov",
   "anchor": "",
-  "anchor_full": "− 0. 0.1 .104",
+  "anchor_full": "\u2212 0. 0.1 .104",
   "done": "Results: real largest degradations ICM-D3QN -0.10, Mitriakov -0.08 (15.9.2026)",
   "page_hint": 6,
   "source": "root.pdf"
@@ -2852,8 +2852,8 @@
  },
  {
   "note": "two of three are our citations, lets use other authors to give them credit",
-  "anchor": "[1]–[3].",
-  "anchor_full": "[1]–[3].",
+  "anchor": "[1]\u2013[3].",
+  "anchor_full": "[1]\u2013[3].",
   "done": "cites yuan2019, chen2023, xu2024 (15.9.2026)",
   "page_hint": 1,
   "source": "root.pdf"
@@ -2893,7 +2893,7 @@
  {
   "note": "wouldn't _{r, p} be clearer?",
   "anchor": "",
-  "anchor_full": "I( (· )",
+  "anchor_full": "I( (\u00b7 )",
   "done": "I_r, I_p with sat (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2908,8 +2908,8 @@
  },
  {
   "note": "various terms for clipping",
-  "anchor": "limit �",
-  "anchor_full": "limit �",
+  "anchor": "limit \ufffd",
+  "anchor_full": "limit \ufffd",
   "done": "one operator sat(x,c) defined after Eq. 1 and used everywhere (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -2932,8 +2932,8 @@
  },
  {
   "note": "various terms for clipping",
-  "anchor": "� clamp",
-  "anchor_full": "� clamp",
+  "anchor": "\ufffd clamp",
+  "anchor_full": "\ufffd clamp",
   "done": "one operator sat(x,c) defined after Eq. 1 and used everywhere (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
@@ -2957,7 +2957,7 @@
  {
   "note": "if \\alpha is parameter i'd say \"the fraction alpha\". not completely sure about the grammar but it seems like alpha is not just \"a\" fraction. just a thought.\nalso how do we set it? what impact does it have? Needs more explanation",
   "anchor": "",
-  "anchor_full": "α",
+  "anchor_full": "\u03b1",
   "done": "the fraction alpha; effect explained; alpha = 0.5, beta = 0.05 rad/s (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
@@ -2973,7 +2973,7 @@
  {
   "note": "m\\cdot s^{-1} (missing dot in equation)",
   "anchor": "",
-  "anchor_full": "0. 6 m s− − −1",
+  "anchor_full": "0. 6 m s\u2212 \u2212 \u22121",
   "done": "siunitx inter-unit product set to cdot globally (15.9.2026)",
   "page_hint": 4,
   "source": "root.pdf"
@@ -3053,7 +3053,7 @@
  {
   "note": "Remove this.",
   "anchor": "PPO over a heightmap",
-  "anchor_full": "PO [21] ] PPO over a heightmap ours ✓ r&p ×",
+  "anchor_full": "PO [21] ] PPO over a heightmap ours \u2713 r&p \u00d7",
   "done": "removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3061,7 +3061,7 @@
  {
   "note": "is this propriate arrow?",
   "anchor": "",
-  "anchor_full": "⇐⇒",
+  "anchor_full": "\u21d0\u21d2",
   "done": "dig now defined with coloneqq (mathtools) (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3108,8 +3108,8 @@
  },
  {
   "note": "Remove this.",
-  "anchor": "Anonymous, “Bachelor’s thesis, anonymized for double-blind review,”",
-  "anchor_full": "Anonymous, “Bachelor’s thesis, anonymized for double-blind review,” 2026.",
+  "anchor": "Anonymous, \u201cBachelor\u2019s thesis, anonymized for double-blind review,\u201d",
+  "anchor_full": "Anonymous, \u201cBachelor\u2019s thesis, anonymized for double-blind review,\u201d 2026.",
   "done": "removed (15.9.2026)",
   "page_hint": 7,
   "source": "root.pdf"
@@ -3125,7 +3125,7 @@
  {
   "note": "Remove this.",
   "anchor": "are set to zero within a",
-  "anchor_full": "are set to zero within a a 3◦ o. 3◦ dead-band,",
+  "anchor_full": "are set to zero within a a 3\u25e6 o. 3\u25e6 dead-band,",
   "done": "3 deg dead-band removed (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3133,7 +3133,7 @@
  {
   "note": "join those two sentences together. Attitude stabilization stabilizes roll and pitch to zero. Return the set points and use greek character for the angles.",
   "anchor": "The dominant term drives the IMU roll and pitch to zero.",
-  "anchor_full": "The dominant term drives the IMU roll and pitch to zero. The errors s er r = − −r and d ep p = − p",
+  "anchor_full": "The dominant term drives the IMU roll and pitch to zero. The errors s er r = \u2212 \u2212r and d ep p = \u2212 p",
   "done": "roll phi, pitch theta, set points phi*=theta*=0, one sentence; flipper joint angles renamed q_i (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3157,7 +3157,7 @@
  {
   "note": "Simplify",
   "anchor": "and a positive pitch lowers the front; a positive flipper velocity",
-  "anchor_full": "With the body axes x forward, y left and d z up, a positive roll lifts the left side and a positive pitch lowers the front; a positive flipper velocity drives that flipper down under the robot and lifts its corner. A positive roll gives s u uϕ ϕ < 0 and must lower the left side and raise the right: the left flippers receive e + +u uϕ (up) and the right flippers s − u ϕ (down). A positive pitch gives s u uθ θ < 0 and must raise the front: the front flippers receive e − −u uθ θ (down) and the rear flippers s + u uθ (up).",
+  "anchor_full": "With the body axes x forward, y left and d z up, a positive roll lifts the left side and a positive pitch lowers the front; a positive flipper velocity drives that flipper down under the robot and lifts its corner. A positive roll gives s u u\u03d5 \u03d5 < 0 and must lower the left side and raise the right: the left flippers receive e + +u u\u03d5 (up) and the right flippers s \u2212 u \u03d5 (down). A positive pitch gives s u u\u03b8 \u03b8 < 0 and must raise the front: the front flippers receive e \u2212 \u2212u u\u03b8 \u03b8 (down) and the rear flippers s + u u\u03b8 (up).",
   "done": "mapping explanation shortened (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3165,7 +3165,7 @@
  {
   "note": "use rather greak char with _0 with saying zero setpoints",
   "anchor": "0: from the errors",
-  "anchor_full": "set points s ϕ ϕ∗ iz ϕ∗ = θ θ∗ ∗ n ∗ = 0 0: from the errors eϕ = ϕ ∗ pi ∗ ∗− − −ϕ ϕ and eθ θ = θ∗ ∗ et ∗ ∗ − −θ θ",
+  "anchor_full": "set points s \u03d5 \u03d5\u2217 iz \u03d5\u2217 = \u03b8 \u03b8\u2217 \u2217 n \u2217 = 0 0: from the errors e\u03d5 = \u03d5 \u2217 pi \u2217 \u2217\u2212 \u2212 \u2212\u03d5 \u03d5 and e\u03b8 \u03b8 = \u03b8\u2217 \u2217 et \u2217 \u2217 \u2212 \u2212\u03b8 \u03b8",
   "done": "zero set points phi_0, theta_0 (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3237,7 +3237,7 @@
  {
   "note": "use _retract",
   "anchor": "",
-  "anchor_full": "λlow",
+  "anchor_full": "\u03bblow",
   "done": "lambda_retract (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3245,7 +3245,7 @@
  {
   "note": "_dig",
   "anchor": "",
-  "anchor_full": "λ",
+  "anchor_full": "\u03bb",
   "done": "lambda_dig (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
@@ -3264,6 +3264,1038 @@
   "anchor_full": "longer timer",
   "done": "T_dig = 8 s at the timer definition (15.9.2026)",
   "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "which can be later used for regulating to target roll pitch setpoint",
+  "anchor": "zero set points",
+  "anchor_full": "zero set points s \u03d5 0 and d \u03b80 0",
+  "done": "set points: can later regulate to a target attitude (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": ", which results in mapping:",
+  "anchor": "for positive tilts, this is",
+  "anchor_full": "p. Since e u u\u03d5 , u u\u03b8 \u03b8 < 0 for positive tilts, this is",
+  "done": "this results in the mapping (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "is commanded while the odometry cue",
+  "anchor_full": "It is active in the state e dig g, entered when a body velocity above \u03c4m move is commanded while the odometry cue m stays below w \u03c4s \u03c4stuck",
+  "done": "dig sentence simplified: commanded to move but does not advance (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "toward the climbing pose",
+  "anchor_full": "toward the climbing pose",
+  "done": "toward the climbing pose removed (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "use ^a everywhere",
+  "anchor": "",
+  "anchor_full": "d i",
+  "done": "anti-stuck velocity superscript a everywhere (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "of the stabilization velocity v^d",
+  "anchor": "stabilization demand",
+  "anchor_full": "of the stabilization demand",
+  "done": "of the stabilization velocity (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "v^a = v^s",
+  "anchor": "",
+  "anchor_full": "cancel",
+  "done": "|v^a| = |v^s| stated (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "v^a = 0",
+  "anchor": "yields completely,",
+  "anchor_full": "yields completely,",
+  "done": "v^a = 0 stated (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "use the < equation",
+  "anchor": "",
+  "anchor_full": "v i s i vs i [ s i 0",
+  "done": "|v^s| > beta as an inequality (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "merge these two sentences, unless it is important to distinguish between all AFC and geometric: \"they consume an elevation\nmap of the ground under and in front of the robot as their\ndominant input.\"",
+  "anchor": "Across the literature, autonomous and semi-autonomous flip-",
+  "anchor_full": "Across the literature, autonomous and semi-autonomous flip- per controllers share a precondition: they consume an n e elevation map p of the ground under and in front of the robot. Geometric planners and learned policies alike take that map as their dominant input [1]\u2013[8]",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "\"Most previous controllers assume knowledge of the ground directly beneath and immediately ahead of the chassis, and where the estimate of it drifts, due to body occlusion, the commanded flipper angles are computed for a incorrect terrain.\"",
+  "anchor": "ahead of the chassis, and where the estimate of it drifts, the",
+  "anchor_full": "Most previous flipper controllers assume knowledge of the geometry of the ground their tracks and flippers are about to contact. That ground lies directly beneath and immediately ahead of the chassis, and where the estimate of it drifts, the commanded flipper angles are computed for a terrain surface that deviates from the true one.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "is recover the right word? maybe just help? or solve or observe, measure?",
+  "anchor": "recover",
+  "anchor_full": "recover",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "A. Already said that in previous paragraph. remove it and start with the next sentence which says the same thing but in context of the grass canopy.",
+  "anchor": "the surface its sensors observe, which is not in general the",
+  "anchor_full": "Mapping reports the surface its sensors observe, which is not in general the",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "automated",
+  "anchor_full": "automated",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "TODO regenerate the elevation map without the peak",
+  "anchor": "Obstacle traversal with the elevation map.",
+  "anchor_full": "Obstacle traversal with the elevation map.",
+  "done": "",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "continuation of A",
+  "anchor": "surface the tracks will bear on, so a controller planning on it",
+  "anchor_full": "surface the tracks will bear on, so a controller planning on it commands flipper angles for a surface that will not bear the load.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "you cannot say ranges and then not have a range but categories. the families of autonomy are not more or less autonomous than the others so there is no progression.",
+  "anchor": "",
+  "anchor_full": "ranges",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Put it after the equation 6, where it will be explanatory of it",
+  "anchor": "anti-stuck term may weaken stabilization on a conflicting",
+  "anchor_full": "This is enforced by the e cap p operator: when v i a i va i a opposes v i s i s i [ s 0 it saturates the anti-stuck command to the fraction n \u03b1 \u2208 [0 0, , 1 1] ] of the stabilization velocity, \u03b1 | |v i s i vs i s i| | |. The fraction sets how much the anti-stuck term may weaken stabilization on a conflicting flipper: with \u03b1 = 0 0 it yields completely, , v i a i va i a i = 0 0; with h \u03b1 \u2192 1 it may reach | |v i a i va i a i | = | |v i s i vs i s i| | and cancel, but never reverse, the stabilization command; we use e \u03b1 = 0 0. .5, , so a conflicting dig is allowed at half strength. The cap applies only while | |v i s i vs i s i| | | > > \u03b2 , \u03b2 = 0 0. .05 rad d\u00b7s \u00b7s\u2212 s\u2212 \u22121 , so that attitude noise on a level robot cannot suppress the anti-stuck term; otherwise it passes v i a i va i a i through:",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "he simulator selected for the virtual track of the DARPA",
+  "anchor_full": "he simulator selected for the virtual track of the DARPA Subterranean Challenge [24].",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "nodes as the real robot, so the onboard-map condition runs the",
+  "anchor_full": "The simulation runs the same ROS 2 nodes as the real robot, so the onboard-map condition runs the same ICP and elevation-mapping stack on these noisy streams",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "simulation experiment",
+  "anchor": "protocol",
+  "anchor_full": "protocol",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "by a camera on a stand,",
+  "anchor_full": ", seen by a camera on a stand,",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "is scored as not traversed",
+  "anchor_full": "A field not left within n 120 s is scored as not traversed",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "(the traversal-quality ceiling [13]),",
+  "anchor_full": "(the traversal-quality ceiling [13]),",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "This screams that gc oa is our previous paper. Remove it",
+  "anchor": "flippers between OA and GC; (iii) every map-based controller",
+  "anchor_full": "(ii) the GC/OA controller [13] in its automated form, where instead of the operator a a 2 s stuck timer switches the front flippers between OA and GC; (iii) every map-based controller catalogued in Table I",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add sentence about the robot with reference to the figure 1. It is four track robot.",
+  "anchor": "Platform and onboard pipeline",
+  "anchor_full": "Platform and onboard pipeline",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Duplicate information",
+  "anchor": "track robot. The geometry-based controllers were adapted to",
+  "anchor_full": "adapted to a four- track robot. The geometry-based controllers were adapted to the four-track morphology as follows.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "what is DP? expand",
+  "anchor": "",
+  "anchor_full": "DP,",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "some where we use morphology and some where geometry. Check I want to use morphology everywhere.",
+  "anchor": "geometry",
+  "anchor_full": "geometry",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "too",
+  "anchor": "geometry,",
+  "anchor_full": "geometry,",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "dont we use \"onboard map\" only check other occurences.",
+  "anchor": "onboard elevation map",
+  "anchor_full": "onboard elevation map",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "closed-loop and holding where the model is undefined.",
+  "anchor_full": "instead of motion capture, replanning closed-loop and holding where the model is undefined.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "",
+  "anchor_full": "belly,",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "belly the belly-contact",
+  "anchor_full": "belly the belly-contact",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "belly clearance",
+  "anchor_full": "belly clearance",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "passive belly.",
+  "anchor_full": "passive belly.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "would conflate the controller with its perception. We therefore",
+  "anchor_full": "Our claim is that the onboard map is the limiting input, so evaluating the map-based baselines under that map alone would conflate the controller with its perception. We therefore run each of them twice: once with the onboard map, and once with a ground-truth h map that removes odometry drift",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Some where we use onboard map. Stick to it after the definition.",
+  "anchor": "elevation map",
+  "anchor_full": "elevation map",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Already presented what is ground truht",
+  "anchor": "localization and a handcrafted elevation map of the obstacle.",
+  "anchor_full": "All three are computed against ground truth: in simulation the reference pose and map are read directly from the simulator; on the real robot they come from external localization and a handcrafted elevation map of the obstacle.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "belly contact",
+  "anchor_full": "belly contact",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Disconnected from previous text",
+  "anchor": "Each channel is reduced over a traversal",
+  "anchor_full": "Each channel is reduced over a traversal",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "obstacle",
+  "anchor": "",
+  "anchor_full": "field",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "The raw streams are not low-pass filtered:",
+  "anchor_full": "The raw streams are not low-pass filtered:",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We need to explain how did we obtained it.",
+  "anchor": "on the real robot and",
+  "anchor_full": "with h sm max x = 57 .5 .5 m m\u00b7 \u00b7s\u2212 \u2212 \u22122 on the real robot and d sm max x = 197 m m\u00b7 \u00b7s\u2212 s\u2212 \u22122 2 in Gazebo;",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "from the IMU at",
+  "anchor_full": "from the IMU at 21 Hz",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "there is a and later there is s in N(s",
+  "anchor": "",
+  "anchor_full": "| a|",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "ground clearance",
+  "anchor": "clearance",
+  "anchor_full": "clearance",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "spacing?",
+  "anchor": "spacing",
+  "anchor_full": "spacing",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Check for synonyms and unite",
+  "anchor": "chassis.",
+  "anchor_full": "chassis.",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "This is not explained. We are computing mean, add equation of the mean. Then we need to explain why we compute the Spearman correlations so we can say they dont correlate significantly",
+  "anchor": "The three channels measure different things",
+  "anchor_full": "The three channels measure different things",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Recompute the value from the gazebo. Instead of maximum from the all simulations use maximal mean over 0.1s time sliding window.",
+  "anchor": "",
+  "anchor_full": "197",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "of [13]:",
+  "anchor_full": "of [13]:",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "timeout per field",
+  "anchor_full": "s and a a 120 s timeout per field",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We need to split the results to simulation, real, noise (where will be the map noise identification)",
+  "anchor": "Results",
+  "anchor_full": "Results",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "fuse the tq to gt/onboard format. Add max shock, tilt and gc score in / format too",
+  "anchor": "TABLE II",
+  "anchor_full": "TABLE II",
+  "done": "applied in the 47-comment round (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Split this to three subsections a), b), c) which each explained quality",
+  "anchor": "Metrics",
+  "anchor_full": "Metrics",
+  "done": "Metrics split into paragraphs Shock, Tilt, Ground clearance (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Put this to the previous sentence",
+  "anchor": "",
+  "anchor_full": "qs s , q qt , q c \u2208 [0 , 1 1]",
+  "done": "q_s, q_t, q_c named in the TQ sentence (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Switch F and G",
+  "anchor": "Onboard-map error",
+  "anchor_full": "Onboard-map error",
+  "done": "Real-robot results now before Onboard-map error (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "shock q_s, tilt q_t ...",
+  "anchor": "ground clearance",
+  "anchor_full": "(a) shock k, (b) body y tilt t, and (c) ground clearance",
+  "done": "channel symbols in the sentence (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this after the metrics. Distinc it like Binning.",
+  "anchor": "Each channel score is obtained from the per-sample normal-",
+  "anchor_full": "Each channel score is obtained from the per-sample normal- ized values by a d distance-binned maximum m. We bin by distance because we compare quality across the obstacle, while each controller takes a different time to traverse it: every 0. .25 m of obstacle forms one bin, the worst normalized sample in each bin is taken, and the bins are averaged",
+  "done": "Binning paragraph after the channels (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this belongs to the simulation setup. Something like if policy fails to travers then it is scored by zero. Dont mention tq, because we havent defined it yet.",
+  "anchor": "not traversed scores",
+  "anchor_full": "an obstacle not traversed scores TQ=0",
+  "done": "moved to the Automated ride paragraph (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Distinc it as normalization with bold",
+  "anchor": "of [13] maps a non-negative quantity",
+  "anchor_full": "The per-sample normalization N N( ( x, x xmax / 2) ) o of [13] maps a non-negative quantity y x x x t to o [ [0 , , 1 1) and reaches s 0 0. .46 6 a at half its scale e x x max ; a sample scores s 1 1 \u2212 N .",
+  "done": "Normalization paragraph, bold (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Bold",
+  "anchor": "",
+  "anchor_full": "Shock:",
+  "done": "bold run-in headings (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "of DART",
+  "anchor": "contacts",
+  "anchor_full": "contacts",
+  "done": "rigid contacts of DART (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "per platform from the recorded data: on the real robot it is the",
+  "anchor_full": "The acceleration magnitude e s = | a| | from the IMU, scored as q = 1 \u2212 \u2212N N N( ( s, s max / /2) ). The scale e sm smax is set per platform from the recorded data: on the real robot it is the highest sample of the campaign, 5 57 7. 5 m \u00b7s \u00b7s\u2212 s\u2212 2 ; in Gazebo, whose rigid contacts produce single-step spikes, it is the highest 0. 1 s mean of f s over all runs, 376 m \u00b7s",
+  "done": "shock paragraph rewritten (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Why we did it?",
+  "anchor": "",
+  "anchor_full": "Tilt:",
+  "done": "purpose sentence added to Shock and Tilt (15.9.2026)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "q =",
+  "anchor": "",
+  "anchor_full": "s 1 1 \u2212 \u2212 \u2212N N N( ( (x, x xmax / /2)",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Allows \"linear\" (think better naming) comparability with fluent saturation to 1.",
+  "anchor": "from [13] rises from",
+  "anchor_full": "where e N from [13] rises from 0 at t x = 0 toward d 1 and reaches s 0. .4 .46 at half its scale x max .",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and measures how safely the policy rides.",
+  "anchor": "precedes a rollover.",
+  "anchor_full": "and a large tilt precedes a rollover.",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "We measure it",
+  "anchor": "It is the closest ground point of",
+  "anchor_full": "It is the closest ground point of",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Simulation",
+  "anchor": "Gazebo,",
+  "anchor_full": "Gazebo,",
+  "done": "Table II: Simulation (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "simulation",
+  "anchor": "",
+  "anchor_full": "Gazebo",
+  "done": "Table II: simulation (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "simulation",
+  "anchor": "Gazebo:",
+  "anchor_full": "Gazebo:",
+  "done": "Table II: simulation (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "imitation learning",
+  "anchor": "imitation",
+  "anchor_full": "imitation",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "we want to",
+  "anchor": "",
+  "anchor_full": "we",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "obstacle forms one bin, the worst sample in each bin is taken,",
+  "anchor_full": ": every y 0. .2 25 m m of obstacle forms one bin, the worst sample in each bin is taken, and the bins are averaged.",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Make it table",
+  "anchor": "Spearman correlations over the traversed Gazebo obstacles,",
+  "anchor_full": "Spearman correlations over the traversed Gazebo obstacles, 0. 26 6 (shock\u2013clearance), , 0. .2 .28 (shock\u2013tilt) and 0. .3 39 (clearance\u2013 tilt), and over the real crossings s 0. .06 6, 0. .3 .39 and d \u2212 0. .03 3: none of the channels is redundant",
+  "done": "applied (15.9.2026, rounds 37-38)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "The onboard map suffers on reflected or invalid measurement which can be seen as spike behind the robot.",
+  "anchor": "and between the two bodies, is the map and localization error",
+  "anchor_full": "The offset between the two surfaces, and between the two bodies, is the map and localization error the perception stack introduces",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Also describe reflection which create fake obstacles see fig 1. spike",
+  "anchor": "needed, odometry is least reliable: tracks slip, and the chassis",
+  "anchor_full": "On the loose, deformable, step-like terrain where flippers are needed, odometry is least reliable: tracks slip, and the chassis pitches and drops abruptly, saturating the IMU, and inertial integration cannot recover the estimate either [12].",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "they can be used to",
+  "anchor": "",
+  "anchor_full": "they",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "TODO add reference to image from hidden log experiment",
+  "anchor": "When a rigid",
+  "anchor_full": "When a rigid obstacle is s hidden n,",
+  "done": "TODO marker placed in the text (15.9.2026 evening round)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "cheeky, it is overriden but it is part of the policy",
+  "anchor": "never overridden",
+  "anchor_full": "never overridden",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "resolve",
+  "anchor": "resolves",
+  "anchor_full": "resolves",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "Flipper control falls into manual control and three families",
+  "anchor_full": "Flipper control falls into manual control and three families of autonomous control: reactive and geometry-based control, hierarchical imitation learning, and reinforcement learning.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "what do you mean by priori?",
+  "anchor": "",
+  "anchor_full": "priori",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "i wouldn't put FTR-Bench into related work, it doesn't have any functional AFC. i'd only mention it as a framework or sim where the rl baselines were trained but not as a valid controller",
+  "anchor": "FTR-Bench [17] standardizes this setting, benchmarking",
+  "anchor_full": "FTR-Bench [17] standardizes this setting, benchmarking SAC, PPO, TD3, DDPG, and TRPO on a flipper-track robot in Isaac Lab.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ", trained in a 2D simulation and sampled on the robot",
+  "anchor_full": ", trained in a 2D simulation and sampled on the robot from a LiDAR point-cloud map built with A-LOAM",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "latent what?",
+  "anchor": "",
+  "anchor_full": "latent",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "unusually",
+  "anchor_full": "unusually",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "exteroceptive sensor and no map, and it is the closest prior",
+  "anchor_full": "It needs no exteroceptive sensor and no map, and it is the closest prior work to ours in what it senses.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "released",
+  "anchor": "",
+  "anchor_full": "reimpl",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "up; a positive flipper velocity drives the flipper down",
+  "anchor_full": "(body axes s x forward, y left, , z up; a positive flipper velocity drives the flipper down and lifts its corner). A",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "right flippers go down and the left flippers up; a positive pitch",
+  "anchor_full": "A positive roll lifts the left side, so the right flippers go down and the left flippers up; a positive pitch lowers the front, so the front flippers go down and the rear flippers up. Since u \u03d5 , u u\u03b8 < 0 for positive tilts, this results in the mapping",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "flippers by the geometry of the tilt",
+  "anchor_full": "The two commands map to the four flippers by the geometry of the tilt",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow, better define the dig state",
+  "anchor": "g: the robot is commanded to",
+  "anchor_full": "It is active in the state dig g: the robot is commanded to move but does not advance",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "simulation",
+  "anchor_full": "simulation",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "I would rather use correlate formulation",
+  "anchor": "is redundant, and checked this with their pairwise",
+  "anchor_full": "; we want to make sure that none of them is redundant, and checked this with their pairwise",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "range but in ( ) you says that ctrac much more, should it be 0.01 to 0.11?",
+  "anchor": "",
+  "anchor_full": "0. .0 .01 to 0. .03",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "which reads no map,",
+  "anchor_full": "which reads no map,",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ", SAS included,",
+  "anchor_full": ", SAS included,",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": ", and frees itself without the SAS override",
+  "anchor_full": ", and frees itself without the SAS override",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Policies overall required 7 to 14% override under either map.",
+  "anchor": "which holds the map-based controllers for 7 to 14% of the",
+  "anchor_full": "which holds the map-based controllers for 7 to 14% of the obstacle distance under either map.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "show highest sensitivity to elevated  noise in the onboard map",
+  "anchor": "that the onboard map raises the need for the override",
+  "anchor_full": "most clearly that the onboard map raises the need for the override",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "ICM-D3QN also need more override under the onboard map",
+  "anchor_full": "; Zhang, AT-D3QN and ICM-D3QN also need more override under the onboard map",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the previous sentence of ctrac",
+  "anchor": "only tip-over in either campaign; that obstacle is scored as not",
+  "anchor_full": "In one C-TRAC run under the ground-truth map the robot tipped over on obstacle 7, the only tip-over in either campaign; that obstacle is scored as not traversed.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Policies which override dropped helped the added noise so they havent collapsed to fixed position",
+  "anchor": "Yuan, Oehler and Mitriakov less.",
+  "anchor_full": "Yuan, Oehler and Mitriakov less.",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "(C-TRAC by",
+  "anchor_full": "(C-TRAC by y 0. .11 1);",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Comment the manual too but says where the policies performed much worse/better comparatively to the manual",
+  "anchor": "Simulation results",
+  "anchor_full": "Simulation results",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "add the bold and underscore to each column even for gt=0 gt=1",
+  "anchor": "Traversal quality in simulation and on the real pallet",
+  "anchor_full": "Traversal quality in simulation and on the real pallet",
+  "done": "applied (15.9.2026 evening round)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this we will formulate it differently",
+  "anchor": "localization-free",
+  "anchor_full": "localization-free",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Put after this: The learned controllers were adapted as follows. Pan's AT-D3QN~\\cite{pan2023atd3qn}: $R_{\\text{flipper}}$ is mirrored onto the rear flipper and $\\theta^\\ast$ is referenced to the ground rather than the chassis since MARV's rear flipper is drivetrain and its ride height is a free variable. $R_{\\text{contact}}$ is added from ICM-D3QN and redefined around flipper-pair grounding and chassis clearance. Pan's ICM-D3QN~\\cite{pan2023icm}: the same three morphology changes (shared code with AT-D3QN); otherwise, as published. C-TRAC~\\cite{ctrac2025}: Reward terms are added to incentivize movement and prevent convergence to a fixed pose. Trained with fixed forward velocity. Mitriakov~\\cite{mitriakov2021}: The 2-DoF arm dropped, so the COG penalty degrades to a chassis-tilt proxy; one policy covers both directions, and the ``trailing flipper never below neutral'' limit is inverted since, on MARV, that flipper carries load. Trained with fixed forward velocity.  Pecka~\\cite{pecka2016}: dual sign convention follows the authors' reference implementation rather than the paper, and safety is read from the same rollout. We omit the real robot training. Azayev~\\cite{azayev2022}: faithful --- human gamepad demonstrations, supervised classifier, fixed decoder, deployed on the real stack; deviates only in the heightmap observation and a hard legality-masked state instead of the soft SDSM belief. polish it and make it double blind",
+  "anchor": "chassis",
+  "anchor_full": "chassis",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this is baseline, remove it",
+  "anchor": "GC/OA controller",
+  "anchor_full": "(ii) the e GC/OA controller",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "we compare it not againts together with manual",
+  "anchor": "We compare against, in increasing autonomy:",
+  "anchor_full": "We compare against, in increasing autonomy:",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Change the formulation we have this baselines...",
+  "anchor": "(iii) every map-based controller catalogued in Table I; and our",
+  "anchor_full": "We compare against, in increasing autonomy: (i) ) Manual control l, an expert operator driving all four flippers by hand, and d Manual modes , the operator switching between preset flipper modes by hand [8]; (ii) the e GC/OA controller r [13]; (iii) every map-based controller catalogued in Table I; and our SAS S.",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "0.05 above the best ..",
+  "anchor": "above the controllers,",
+  "anchor_full": ".0 05 t to 0 0. .1 .11 a above the controllers,",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Self standing sentence",
+  "anchor": "LiDAR-ICP odometry cue alone.",
+  "anchor_full": "1; SAS loses 0 0. .020 0 t through its LiDAR-ICP odometry cue alone.",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "to finish the obstacle",
+  "anchor": "",
+  "anchor_full": "map.",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "helped",
+  "anchor": "",
+  "anchor_full": "kept",
+  "done": "applied (15.9.2026, round 40)",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "commanded velocity,",
+  "anchor_full": "the commanded velocity,",
+  "done": "removed from the abstract input list (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "does not inherits none of the odometry itegration drift that co...",
+  "anchor": "needs no localization and i",
+  "anchor_full": "needs no localization and i",
+  "done": "abstract: does not inherit the odometry-integration drift (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "evaluated under the same protocol, with either",
+  "anchor_full": "evaluated under the same protocol, with either map, while using neither.",
+  "done": "duplicate of the applied protocol-clause removal (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Simplify to one sentence. Add one sentence that we perfomed experiment on hidden obstacle and sas stayed operational",
+  "anchor": "traversal quality of all controllers under both the ground-truth",
+  "anchor_full": "In Gazebo SAS reaches the highest traversal quality of all controllers under both the ground-truth and the onboard map. On the real pallet, it ranks second under the onboard map, recovers from every stall by its own anti-stuck term, and keeps the smallest maximum tilt of all controllers",
+  "done": "abstract: protocol clause removed; results in one sentence; hidden-obstacle sentence added (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Simplify",
+  "anchor": "the chassis is occluded from the robot\u2019s exteroceptive sensors,",
+  "anchor_full": "Because the terrain beneath the chassis is occluded from the robot\u2019s exteroceptive sensors, this map cannot be measured directly; it must be estimated from earlier observations and odometry integration, whose drift corrupts it.",
+  "done": "abstract: protocol clause removed; results in one sentence; hidden-obstacle sentence added (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "ground-truth and the onboard map, and the second highest on the",
+  "anchor_full": "the highest of all controllers in Gazebo under both the ground-truth and the onboard map, and the second highest on the real pallet under the onboard map, with the smallest maximum tilt.",
+  "done": "abstract: results detail removed; occlusion sentence simplified (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "remembered",
+  "anchor": "carried forward",
+  "anchor_full": "carried forward",
+  "done": "abstract: remembered through odometry integration (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "experiment with an obstacle hidden from the sensors, SAS stayed",
+  "anchor_full": "In an additional experiment with an obstacle hidden from the sensors, SAS stayed operational",
+  "done": "abstract: hidden-obstacle sentence made specific (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "instead of automated say at the end of the paragraph that the traversal was autonomous and so the comparison is not biased by the operator control. autonomous obstacle arena doesn't really make sense. it's more like the obstacle moves autonomously or something like that. Fix it everywhere we talk about it.",
+  "anchor": ", automated",
+  "anchor_full": ", automated",
+  "done": "automated -> autonomous ride / arena wording; autonomy stated at the end of contribution 4 (15.9.2026)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Same problem with the automated",
+  "anchor": "automated",
+  "anchor_full": "automated",
+  "done": "automated -> autonomous ride / arena wording; autonomy stated at the end of contribution 4 (15.9.2026)",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "Automated",
+  "anchor_full": "Automated",
+  "done": "automated -> autonomous ride / arena wording; autonomy stated at the end of contribution 4 (15.9.2026)",
+  "page_hint": 6,
   "source": "root.pdf"
  }
 ]

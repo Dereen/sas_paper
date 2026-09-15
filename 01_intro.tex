@@ -2,8 +2,8 @@
 Tracked and wheeled robots cannot climb an obstacle taller than their leading wheel.
 \emph{Articulated} tracked robots address higher obstacles with flippers,
 independently actuated sub-tracks that reshape the robot's morphology on the fly: they
-reach beyond the leading wheel to climb what a rigid chassis cannot, and they free the
-robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
+can be used to reach beyond the leading wheel to climb what a rigid chassis cannot, and to
+free the robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
 
 
 
@@ -23,29 +23,27 @@ robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
   pallet obstacle. (b) The same pose, rendered from the data the robot observed there: the
   onboard map (blue) against the handcrafted ground-truth
   map registered with AprilTags (transparent red), with the ground-truth robot pose drawn
-  transparent. The offset between the two surfaces, and between the two bodies, is the map
-  and localization error the perception stack introduces.}
+  transparent. The offset between the two surfaces, and between the two bodies, is the map and localization error the perception stack introduces. The spike behind the robot in
+  the onboard map is a reflected, invalid LiDAR return.}
   \label{fig:robot}
 \end{figure}
 
 \textbf{Prior flipper controllers assume an elevation map.}
-Across the literature,
-autonomous and semi-autonomous flipper controllers share a precondition: they consume
-an \emph{elevation map} of the ground under and in front of the robot. Geometric planners
-and learned policies alike take that map as their dominant
+Across the literature, autonomous and semi-autonomous flipper controllers share a
+precondition: they consume an \emph{elevation map} of the ground under and in front of the
+robot as their dominant
 input~\cite{chen2023,oehler2024,yuan2019,xu2024,pan2023icm,pan2023atd3qn,ctrac2025,azayev2022}.
-Fully manual teleoperation needs no map because the operator sees the terrain, but must
-drive all four flippers by hand. Mapless posture control~\cite{rocha2023} levels the
+Fully manual teleoperation needs no map because the operator sees the terrain from a
+third-person view, but must drive all four flippers by hand. Map-less posture control~\cite{rocha2023} levels the
 chassis from the IMU and the flipper joints alone, without a map, but it was not designed to
 climb obstacles.
 
 \textbf{On a real robot, the map is a dead-reckoning artifact.}
-Most previous flipper controllers assume knowledge of the geometry of the ground their
-tracks and flippers are about to contact. That ground lies directly beneath and immediately ahead of the chassis, and
-where the estimate of it drifts, the commanded flipper angles are computed for a terrain
-surface that deviates from the true one. Onboard sensors
+Most previous controllers assume knowledge of the ground directly beneath and immediately
+ahead of the chassis, and where the estimate of it drifts, due to body occlusion, the
+commanded flipper angles are computed for an incorrect terrain. Onboard sensors
 observe what is ahead, but the body occludes their view of the terrain beneath it.
-Dedicated underbody sensors could recover it, but they are rarely fitted and have very
+Dedicated underbody sensors could measure it, but they are rarely fitted and have very
 low resolution. That terrain can therefore mainly be \emph{remembered}: observed earlier, accumulated into an elevation
 map, and carried beneath the robot as it advances by
 \emph{integrating wheel or LiDAR odometry}~\cite{fankhauser2018}. Every stage of this
@@ -54,26 +52,26 @@ sensor trajectory, and elevation mapping registers successive scans through the
 estimated motion~\cite{loam2014}. On the loose, deformable,
 step-like terrain where flippers are needed, odometry is least reliable: tracks slip, and
 the chassis pitches and drops abruptly, saturating the IMU, and inertial integration cannot
-recover the estimate either~\cite{woodman2007imu}.
+recover the estimate either~\cite{woodman2007imu}. Reflected returns add obstacles that do
+not exist, such as the spike behind the robot in Fig.~\ref{fig:robot}.
 
 \textbf{The hardest case is a hidden obstacle.}
-Mapping reports the surface its sensors observe, which is not in general the surface the
-tracks will bear on, so a controller planning on it commands flipper angles for a surface
-that will not bear the load.
-When a rigid obstacle is \emph{hidden}, optical sensors---LiDAR and cameras---return the
+When a rigid obstacle is \emph{hidden} (Fig.~\ref{fig:grass}), optical sensors---LiDAR and cameras---return the
 compliant canopy above it, and the load-bearing obstacle beneath stays invisible until the
 chassis stalls on it. Neither a dedicated underbody sensor, which the same vegetation
-blinds, nor foliage-penetrating radar, which is bulky and low-resolution, resolves this in
-practice.
+blinds, nor foliage-penetrating radar, which is bulky and low-resolution, resolve this in practice.
 
-\textbf{Our contribution: control of the flippers without a map and without localization.}
+\textbf{Our contribution: control of the flippers without a map and without an accumulated
+pose.}
 We present \emph{Stabilizing Anti-Stuck} (\SAS), a reactive controller that requires neither
-an elevation map nor an estimated localization of the robot. It has two terms: a
+an elevation map nor a localization of the robot. It has two terms: a
 stabilization term that stabilizes the robot body regardless of the terrain, whether
 climbing or descending an obstacle, and an anti-stuck term that frees the robot when it
-gets stuck by driving the flippers down. It is not odometry-free, since a short-window odometry cue tells it whether
-the body is advancing, but it never accumulates pose and therefore never inherits the drift
-that corrupts the map. It has no terrain preview, so it cannot anticipate an obstacle before
+gets stuck by driving the flippers down. To tell a stuck robot from a moving one, the
+anti-stuck term needs a motion cue, and only that: a binary answer to whether the robot is
+moving, which needs neither an accurate nor a metric estimate of the motion. Because the
+cue is computed over a short window and never accumulated, \SAS{} never holds a pose and
+therefore never inherits the drift that corrupts the map. It has no terrain preview, so it cannot anticipate an obstacle before
 contact.
 
 \needspace{5\baselineskip}%
@@ -83,14 +81,15 @@ contact.
   \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift, from track slip and scan-matching error,
   degrades it in the field. 
   We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard} map.
-  \item We propose \SAS, a mapless, localization-free flipper controller combining
-  continuous roll and pitch stabilization with a reactive anti-stuck term under a
-  safe directional-priority blend.
+  \item We propose \SAS, a map-less flipper controller that needs no localization, only a
+  binary motion cue, combining continuous roll and pitch stabilization with a reactive
+  anti-stuck term under a safe directional-priority blend.
   \item We perform a large comparison in Gazebo of \SAS{} against \emph{twelve} map-based
   baselines and two manual baselines on a twelve-obstacle course. Every
   controller drives the full course ten times against simulator ground truth, with the
   perception stack reset at each obstacle to measure the degradation.
-  \item We perform the large comparison on a real, automated obstacle arena with AprilTag
-  ground truth: on a four-track robot each controller rides ten times over a pallet
-  obstacle.
+  \item We perform the large comparison on a real obstacle arena with AprilTag ground
+  truth: on a four-track robot each controller rides ten times over a pallet obstacle. In
+  both arenas the traversals are autonomous, so the comparison is not biased by an
+  operator's control.
 \end{enumerate}
