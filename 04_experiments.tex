@@ -22,7 +22,7 @@ variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena provide absolute localization that registers
 the handcrafted ground-truth map.
 
-\paragraph{Autonomous ride and \SAS{} override} In all reported runs the robot is
+\paragraph{Autonomous ride and \SAS{} override} In all reported runs, the robot is
 driven autonomously, so the comparison is not biased by an operator's control. A drive node
 drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
@@ -45,7 +45,7 @@ planner~\cite{yuan2019} was reimplemented for the four-track morphology; it esti
 step distance and height at every control step from the onboard map instead of motion
 capture, replans continuously, and holds the flippers where its model is undefined. Oehler and von Stryk's pose predictor~\cite{oehler2024}, given a four-flipper model with a passive chassis, gains the selection stage it lacks: a
 43-candidate sweep commanding the highest-stability-margin configuration, holding when
-no configuration is stable. Xu's HTO~\cite{xu2024} assumes a driven chassis that carries the step edge; with a passive chassis the
+no configuration is stable. Xu's HTO~\cite{xu2024} assumes a driven chassis that carries the step edge; with a passive chassis, the
 chassis-contact regimes of its hybrid model are replaced on ascents by a double-prop
 flipper bridge with enforced chassis clearance, plus rear-release and
 descent-preparation schedules. Zhang's planner~\cite{zhang2025} is reproduced only as its
@@ -62,7 +62,7 @@ movement and prevent convergence to a fixed pose; trained at a fixed forward vel
 Mitriakov~\cite{mitriakov2021}: the 2-DoF arm is dropped, so the center-of-gravity penalty
 reduces to a chassis-tilt proxy; one policy covers both driving directions, and the rule
 that the trailing flipper never goes below neutral is inverted, since on a four-track robot
-that flipper carries load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
+that flipper carries a load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
 sign convention follows the authors' reference implementation rather than the paper, and
 safety is read from the same rollout; the real-robot training stage is omitted.
 Azayev~\cite{azayev2022}: faithful, with human gamepad demonstrations, a supervised
@@ -102,14 +102,13 @@ clearance $q_c$,
 \noindent\textbf{Normalization.} A sample of a non-negative quantity $x$ is scored as
 $q=1-N(x,x_{\max}/2)$, where $N$ from~\cite{cihala2025} rises from $0$ at $x=0$ toward $1$
 and reaches $0.46$ at half its scale $x_{\max}$. $N$ is close to linear for small $x$ and
-saturates smoothly toward $1$, so small differences remain comparable while extreme samples
-do not dominate the score.
+saturates smoothly toward $1$, so small differences remain comparable while extreme samples do not dominate the score.
 
 \noindent\textbf{Shock.} Shock measures the impacts transmitted to the body, which stress
 the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored
 with the scale $s_{\max}$, the largest acceleration the platform records. On the real robot
 $s_{\max}$ is the highest sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In
-Gazebo the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest
+Gazebo, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest
 \SI{0.1}{\second} mean of $s$ over all runs, \SI{376}{\metre\per\second\squared}.
 
 \noindent\textbf{Tilt.} Tilt measures how far the body departs from level; it is what the

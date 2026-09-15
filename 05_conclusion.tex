@@ -4,7 +4,7 @@ the chassis, which drifts with odometry on exactly the terrain where flippers ar
 \SAS{} removes that dependency: its stabilization term regulates roll and pitch from the
 IMU, and its anti-stuck term, triggered by a binary motion cue that is never accumulated,
 frees the robot when stuck; a directional-priority blend keeps stabilization in control. It cannot anticipate an obstacle before contact,
-but it keeps the robot stabilized and operational where the onboard map, and with it every
+but it keeps the robot stabilized and operational, where the onboard map, and with it every
 map-based controller, breaks down.
 
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
