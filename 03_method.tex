@@ -1,16 +1,13 @@
 % ============================ METHOD ============================
-At every control step \SAS{} reads the gravity-referenced body roll $\phi$ and pitch $\theta$ from
-the IMU, the four flipper joint angles $q_i$, the commanded body velocity
-$v_\text{cmd}$, and a scalar motion cue $m$ derived from LiDAR-ICP odometry
-(Sec.~\ref{sec:method-antistuck}), and emits an angular \emph{velocity} command $v_i$ for
-each flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. The command is
-composed of two terms: the stabilization term $v^{\mathrm{s}}_i$ stabilizes body roll and
-pitch, and the anti-stuck term $v^{\mathrm{a}}_i$ frees the robot when it is \emph{stuck},
-that is, commanded forward but not advancing. The stabilization term has priority: the
-$\mathrm{cap}$ operator (Sec.~\ref{sec:method-blend}) limits the anti-stuck term whenever
-it opposes the stabilization term on a flipper, to a fraction of the stabilization demand,
-so their sum keeps the sign of the stabilization term; the anti-stuck term can reinforce
-the stabilization term but never reverse it. The sum is saturated to the velocity limit
+At every control step \SAS{} emits an angular \emph{velocity} command $v_i$ for each
+flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. Its inputs are the
+gravity-referenced body roll $\phi$ and pitch $\theta$ from the IMU, the four flipper joint
+angles $q_i$, the commanded body velocity $v_\text{cmd}$, and a scalar motion cue $m$
+(Sec.~\ref{sec:method-antistuck}). The command is composed of two terms by the
+directional-priority blend (Sec.~\ref{sec:method-blend}): the stabilization term
+$v^{\mathrm{s}}_i$ stabilizes body roll and pitch, and the anti-stuck term $v^{\mathrm{a}}_i$
+frees the robot when it is \emph{stuck}. The blend, written as the $\mathrm{cap}$ operator,
+gives the stabilization term priority, and their sum is saturated to the velocity limit
 $v_{\max}$ of the flipper drives:
 \begin{equation}
   v_i \;=\; \operatorname{sat}\big(\, v^{\mathrm{s}}_i \;+\; \mathrm{cap}(v^{\mathrm{a}}_i,\,v^{\mathrm{s}}_i),\ v_{\max}\big),
@@ -42,7 +39,9 @@ on the lower side are driven down and lift that side:
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
 The anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it drives the
-flippers to lift the body off the ground, freeing the robot. It is active in the state \emph{dig}, defined as a commanded motion without progress,
+flippers to lift the body off the ground, freeing the robot. It is active in the state \emph{dig}, which is entered when the robot is commanded to move,
+$|v_\text{cmd}|>\tau_\text{move}$, while the motion cue stays below its threshold,
+$m<\tau_\text{stuck}$, that is, when a commanded motion produces no progress:
 \begin{equation}
     \text{dig} \coloneqq \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
   \big(m<\tau_\text{stuck}\big).
@@ -55,24 +54,25 @@ nor a metric estimate of the motion, and any scale-free motion signal would serv
 computed over the window and never accumulated, so it carries none of the drift of an
 integrated pose, and, unlike track odometry, it registers no progress when the tracks slip
 on a stuck robot. When digging,
-all four flippers are driven downward at the velocity $\lambda_\text{dig}$ so they push
-against the terrain and lift the body up; otherwise they retract with the velocity
-$\lambda_\text{retract}$:
+all four flippers are driven downward at the velocity
+$\lambda_\text{dig}=\SI{2.0}{\radian\per\second}$ so they push against the terrain and lift
+the body up; otherwise they retract with the velocity
+$\lambda_\text{retract}=\SI{0.8}{\radian\per\second}$:
 \begin{equation}
   v^{\mathrm{a}}_i = \begin{cases} +\lambda_\text{dig} & \text{dig}\\ -\lambda_\text{retract} & \text{otherwise.}\end{cases}
   \label{eq:spread}
 \end{equation}
-We use $\lambda_\text{dig}=\SI{2.0}{\radian\per\second}$ and
-$\lambda_\text{retract}=\SI{0.8}{\radian\per\second}$.
 Digging alone can lock up: if the flippers reach their lower position limit without
 freeing the robot, it would remain stuck indefinitely with its flippers fully down.
-Therefore we added a second, longer timer $T_\text{dig}=\SI{8}{\second}$ that watches the
-dig itself: after $T_\text{dig}$ of continuous digging without release, the anti-stuck term
+Therefore a timer $T_\text{dig}=\SI{8}{\second}$ watches the dig itself: after $T_\text{dig}$ of continuous digging without release, the anti-stuck term
 is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are driven back up, after which digging is permitted again.
 
 \subsection{Directional-priority blend and limits}\label{sec:method-blend}
-Stabilization takes priority over anti-stuck: the anti-stuck command velocity may reinforce
-the stabilization command but must not reverse its direction on any flipper. This is enforced by the $\mathrm{cap}$ operator:
+Stabilization takes priority over anti-stuck: the $\mathrm{cap}$ operator limits the
+anti-stuck term whenever it opposes the stabilization term on a flipper, to a fraction of
+the stabilization velocity, so their sum keeps the sign of the stabilization term. The
+anti-stuck term can therefore reinforce the stabilization command but never reverse its
+direction on any flipper:
 \begin{equation}
   \mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=
   \begin{cases}

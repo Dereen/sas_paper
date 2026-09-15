@@ -4537,5 +4537,165 @@
   "done": "real-robot results: best controllers and largest drops named; \"without a map\" removed (15.9.2026)",
   "page_hint": 5,
   "source": "root.pdf"
+ },
+ {
+  "note": "Mapless,",
+  "anchor": "Mapless",
+  "anchor_full": "Mapless",
+  "done": "title already merged from Overleaf: Mapless, Stabilizing, and Anti-Stuck (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "As input SAS uses",
+  "anchor": "SAS uses as input",
+  "anchor_full": "SAS uses as input",
+  "done": "applied (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "achieves",
+  "anchor": "reaches",
+  "anchor_full": "reaches",
+  "done": "applied (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "that of the",
+  "anchor": "",
+  "anchor_full": "the",
+  "done": "applied (15.9.2026)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "A1. Duplicate information",
+  "anchor": "Most previous controllers assume knowledge of the ground",
+  "anchor_full": "Most previous controllers assume knowledge of the ground directly beneath and immediately ahead of the chassis,",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "A2. Duplicate information",
+  "anchor": "of the ground under and in front of the robot as their",
+  "anchor_full": "they consume an n e elevation map p of the ground under and in front of the robot as their dominant input",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 1,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this was established in the introduction, maybe just keep the measurement part: \"We measure the degradation of the elevation map, caused by body occlusion and odometry drift, by evaluating ....\"\n\nnot sure just saying \"Hey look all of these need a map\" should be a contribution",
+  "anchor": "of-the-art flipper controllers: a requirement for an el-",
+  "anchor_full": "We identify and quantify a dependency shared by state- of-the-art flipper controllers: a requirement for an el- evation n map p of the e ground d under the robot, , which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift, from track slip and scan-matching error, degrades it in the field. We measure this degradation by evaluating map- based baselines under both a a ground-truth h map and the onboard map",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Merge this to contribution 1.",
+  "anchor": "truth, with the perception stack reset at each obstacle to",
+  "anchor_full": "We perform a large comparison in Gazebo of SAS against t twelve map-based baselines and two manual baselines on a twelve-obstacle course. Every controller drives the full course ten times against simulator ground truth, with the perception stack reset at each obstacle to measure the degradation.",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Imitation learning change it everywhere",
+  "anchor": "Hierarchical imitation",
+  "anchor_full": "Hierarchical imitation",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Hard to follow",
+  "anchor": "map-dependent of all. Chen et al. combine dynamic",
+  "anchor_full": "by planning, and is the most t map-dependent of all. Chen et al. combine dynamic programming",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "LiDAR?",
+  "anchor": "",
+  "anchor_full": "laser",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Change to Imitation learning",
+  "anchor": "Hierarchical imitation",
+  "anchor_full": "Hierarchical imitation",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "and therefore we do not evaluate it. but this needs to be said in the experiments",
+  "anchor": "is not designed for obstacle traversal.",
+  "anchor_full": "is not designed for obstacle traversal.",
+  "done": "applied (15.9.2026, round 66)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this would be a good place to define TQ explicitly with an equation instead of just saying the idea behind it",
+  "anchor": "attitude, and chassis-to-ground clearance from the ground-truth",
+  "anchor_full": "We evaluate a controller r by y the quality y of the e traver- sal it produces, measured on the robot’s body: IMU-based smoothness such as pitch swing and vertical shock [2], body attitude, and chassis-to-ground clearance from the ground-truth map. Following [13], [16] we score shock, tilt, and clearance (Sec. IV-D)",
+  "done": "TQ equation defined in related work F, Metrics refers to it (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to C paragrah. All used terms needs to be first defined and then used",
+  "anchor": "sign of the stabilization term; the anti-stuck term can reinforce",
+  "anchor_full": "The stabilization term has priority: the e cap operator (Sec. III-C) limits the anti-stuck term whenever it opposes the stabilization term on a flipper, to a fraction of the stabilization demand, so their sum keeps the sign of the stabilization term; the anti-stuck term can reinforce the stabilization term but never reverse it. The sum is saturated to the velocity limit t vm vmax x of the flipper drives: vi i = sat t � v m v v i s i vs i s i + cap( (v i a i va i a i , v s i vs i s ) ) ), v max , (1) where sat( (x, c c) = max( (− −c, m min( (x, c c))",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Too long and hard to follow",
+  "anchor": "At every control step SAS reads the gravity-referenced body",
+  "anchor_full": "At every control step SAS reads the gravity-referenced body roll l ϕ and pitch θ from the IMU, the four flipper joint angles qi i , the commanded body velocity y vc vcmd , and a scalar motion cue e m derived from LiDAR-ICP odometry (Sec. III-B), and emits an angular r velocity command d vi i for each flipper r i ∈ { {FL L, F FR R, , R RL , , R RR } }.",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "tohle neni nikde definovany, chtelo by ho to popsat... a co zaridi prepnuti do dig stavu? I think we need to flip the sentence upside down state dig is activated if applies following condition",
+  "anchor": "It is active in the state",
+  "anchor_full": "It is active in the state e dig , defined as a commanded motion without progress",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "move the values to the values definitions",
+  "anchor": "λretract",
+  "anchor_full": "We use λ λdig = 2 2. .0 rad ·s s− 1 and d λ λretract t = 0 0.8 .8 rad d· ·s− − −1",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "this is first timer so remove the second",
+  "anchor": "econd, longer timer",
+  "anchor_full": "econd, longer timer r T",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "composed by directional-priority blend",
+  "anchor": "composed",
+  "anchor_full": "composed",
+  "done": "method opening shortened, blend named and its priority explained in III-C, dig state flipped, lambda values at the definitions, timer no longer \"second\" (16.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
  }
 ]

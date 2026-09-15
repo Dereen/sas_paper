@@ -1,8 +1,7 @@
 % ============================ RELATED WORK ============================
 % Structure: manual + three autonomy families (reactive/geometry-based, hierarchical, RL).
 We group the flipper controllers into manual control and three families of autonomous
-control: reactive and geometry-based, hierarchical imitation learning, and reinforcement
-learning.
+control: reactive and geometry-based, imitation learning, and reinforcement learning.
 Table~\ref{tab:sensing} summarizes the compared controllers and their sensing
 requirements.
 
@@ -13,8 +12,8 @@ needs no map: the operator observes the terrain from a third-person view, closes
 loop by hand, and also stabilizes the robot.
 
 \subsection{Reactive and geometry-based control}
-A family that computes flipper commands from an explicit terrain model, reactively~\cite{cihala2025}
-or by planning, and is the \emph{most} map-dependent of all. Chen et al. combine dynamic programming with a
+These controllers compute the flipper commands from an explicit terrain model, either
+reactively~\cite{cihala2025} or by planning, and depend on the map the most. Chen et al. combine dynamic programming with a
 fast geometry-based pose predictor over the elevation
 point cloud~\cite{chen2023}; Yuan et al. plan in the flipper configuration space
 from known stair geometry with motion-capture ground truth~\cite{yuan2019}; Oehler
@@ -25,7 +24,7 @@ FAST-LIO2 odometry~\cite{xu2024}; and, most recently, Zhang et al. plan the path
 maneuvers with RRT* over a contact-model pose predictor, using learned semantic
 segmentation of the elevation map only as a perception front-end~\cite{zhang2025}.
 
-\subsection{Hierarchical imitation}
+\subsection{Imitation learning}
 A family that composes low-level behaviors under a selector. The adaptive-traversability line~\cite{zimmermann2014} classifies
 terrain into discrete flipper modes from an elevation map, and for the selected mode a
 simple low-level controller drives the flippers. 
@@ -39,8 +38,7 @@ anti-stuck term we adopt.
 \subsection{Reinforcement learning}
 Pecka et al. learn a
 safety-constrained policy (Constrained REPS) whose state is the body pitch and the terrain
-height \SI{20}{\centi\metre} ahead of the robot, read from an occupancy map built online from
-the laser scans~\cite{pecka2016}. Discrete-action variants dominate the
+height \SI{20}{\centi\metre} ahead of the robot, read from an occupancy map built online from the LiDAR scans~\cite{pecka2016}. Discrete-action variants dominate the
 flipper-specific literature: Pan et al. learn a dueling double-DQN over discrete
 front/rear flipper increments~\cite{pan2023atd3qn} and extend it with an
 intrinsic-curiosity module~\cite{pan2023icm}; both take the chassis pitch and the average
@@ -60,7 +58,8 @@ an elevation map: a roll-only stabilization term inside a map-based state
 machine~\cite{azayev2022}, and C-TRAC stabilizing both roll and pitch from a reward computed
 on the map-based simulator state~\cite{ctrac2025}. Rocha et al.~\cite{rocha2023} regulate
 roll, pitch, and ground clearance of an articulated tracked vehicle from the IMU and the
-flipper joints alone, but the method is not designed for obstacle traversal.
+flipper joints alone; in its inputs it is the closest prior work to ours, but the method is
+not designed for obstacle traversal, and we therefore do not evaluate it.
 
 \subsection{Evaluating traversal quality}
 We evaluate a controller by the quality of the traversal it produces, measured
@@ -78,7 +77,7 @@ p pitch). \emph{Anti-stuck}: frees itself when stuck. \emph{Code}: the authors' 
 implementation or our reimplementation.}
 \label{tab:sensing}
 \scriptsize
-\setlength{\tabcolsep}{2pt}
+\setlength{\tabcolsep}{1.3pt}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
 Controller & Approach & Code & \shortstack{Map \&\\loc.} & Stab. & \shortstack{Anti-\\stuck} \\
@@ -88,22 +87,22 @@ Manual control~\cite{cihala2025} & direct teleoperation & -- & \xmark & -- & \xm
 Manual modes~\cite{azayev2022} & operator switches preset modes & -- & \xmark & -- & \xmark \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{Reactive and geometry-based}} \\
-{\v C}\'ihala \GC/\OA~\cite{cihala2025} & clearance + obstacle-aware control & released & \cmark & -- & \xmark \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025} & clearance + obstacle-aware & released & \cmark & -- & \xmark \\
 Chen GFMP~\cite{chen2023} & pose prediction + dynamic prog. & reimpl. & \cmark & p & \xmark \\
 Yuan~\cite{yuan2019} & configuration-space planning & reimpl. & \cmark & -- & \xmark \\
 Oehler~\cite{oehler2024} & SDF pose prediction & released & \cmark & -- & \xmark \\
 Xu HTO~\cite{xu2024} & hybrid trajectory optimization & reimpl. & \cmark & p & \xmark \\
 Zhang~\cite{zhang2025} & contact-model pose prediction & reimpl. & \cmark & -- & \xmark \\
 \midrule
-\multicolumn{6}{@{}l}{\emph{Hierarchical imitation}} \\
-Azayev~\cite{azayev2022} & learned template state machine & released & \cmark & r & \cmark \\
+\multicolumn{6}{@{}l}{\emph{Imitation learning}} \\
+Azayev~\cite{azayev2022} & learned template state m. & released & \cmark & r & \cmark \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{Reinforcement learning}} \\
 Pecka~\cite{pecka2016} & safety-constrained REPS & released & \cmark & p & \xmark \\
 Pan AT-D3QN~\cite{pan2023atd3qn} & dueling double-DQN & reimpl. & \cmark & p & \xmark \\
 Pan ICM-D3QN~\cite{pan2023icm} & D3QN + intrinsic curiosity & reimpl. & \cmark & p & \xmark \\
 Mitriakov~\cite{mitriakov2021} & policy-gradient stair climbing & released & \cmark & p & \xmark \\
-C-TRAC~\cite{ctrac2025} & contact-aware asymmetric SAC & reimpl. & \cmark & r\&p & \xmark \\
+C-TRAC~\cite{ctrac2025} & contact-aware asym. SAC & reimpl. & \cmark & r\&p & \xmark \\
 
 \midrule
 \textbf{\SAS{} (ours)} & stabilization + anti-stuck & ours & \xmark & r\&p & \cmark \\

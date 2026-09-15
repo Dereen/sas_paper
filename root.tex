@@ -1,10 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ICRA 2027 -- Mapless Stabilizing Anti-Stuck Flipper Control (double-blind submission)
-% ICRA 2026/2027 format: standard IEEE conference template (IEEEtran),
-% US-letter, two-column, 8 pages incl. references.
+% ICRA format: the conference template (ieeeconf, US letter, 10 pt, two-column),
+% 8 pages incl. references. \overrideIEEEmargins gives the required 1 in top margin on
+% the first page and 0.75 in side margins; IEEEtran's own margins are too small for it.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass[conference]{IEEEtran}
+\documentclass[letterpaper, 10pt, conference]{ieeeconf}
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}   % for A4
 \IEEEoverridecommandlockouts
+\overrideIEEEmargins
 
 \usepackage{cite}               % IEEE-standard compressed multi-cites: sorted, consecutive collapse to ranges like [1]-[3]
 \usepackage{amsmath,amssymb,amsfonts}
@@ -42,7 +45,7 @@
 
 % Double-blind review: author block and funding acknowledgement removed.
 % Restore for the camera-ready version from git history (commit before the anonymization).
-\author{\IEEEauthorblockN{Anonymous Authors}}
+\author{Anonymous Authors}
 
 \maketitle
 
@@ -52,13 +55,12 @@ to an \emph{elevation map} of the ground under and in front of the robot. The te
 integration, whose drift corrupts it. We present
 \emph{Stabilizing Anti-Stuck} (\SAS),
 a mapless controller that combines a stabilization term for body roll
-and pitch with an anti-stuck term that frees the robot when it is stuck. \SAS{} uses as
-input the IMU, the flipper joint angles, and a motion cue that only
+and pitch with an anti-stuck term that frees the robot when it is stuck. As input, \SAS{} uses the IMU, the flipper joint angles, and a motion cue that only
 tells whether the robot is moving; the cue is computed over a short window and never
 accumulated, so \SAS{} does not inherit the odometry-integration drift that corrupts the
 map. We deploy \SAS{} on a tracked robot with four flippers and evaluate it against manual
 teleoperation and prior flipper controllers in a large comparison run, both in Gazebo
-and in a real obstacle arena. In simulation and on the real robot, \SAS{} reaches traversal quality comparable to the
+and in a real obstacle arena. In simulation and on the real robot, \SAS{} achieves traversal quality comparable to that of the
 map-based controllers. On a log hidden in tall grass, invisible to the LiDAR, the best map-based policy got stuck
 while \SAS{} crossed it.
 \end{abstract}

@@ -32,9 +32,9 @@ that fails to traverse an obstacle is scored zero on it.
 
 \subsection{Baselines}
 We evaluate \SAS{} together with two manual references, \textbf{Manual control}, an expert operator driving all four flippers by hand from a
-third-person view of the robot, and \textbf{Manual modes}, the same operator switching
-between preset flipper modes by hand~\cite{azayev2022}, and with every map-based
-controller catalogued in Table~\ref{tab:sensing}. Where the authors released code we run their
+third-person view of the robot, and \textbf{Manual modes}, the same operator switching between preset flipper modes by hand~\cite{azayev2022}, and with every map-based
+controller catalogued in Table~\ref{tab:sensing}. The mapless posture controller of Rocha
+et al.~\cite{rocha2023} is not evaluated, since it is not designed for obstacle traversal. Where the authors released code we run their
 implementation; where they did not, we use our reimplementation from the paper. The geometry-based
 controllers were adapted to the four-track morphology as follows. Chen's
 GFMP~\cite{chen2023} keeps the exact two-contact solver and waypoint dynamic programming, but admits only flipper-supported contact cases,
@@ -179,7 +179,7 @@ Oehler~\cite{oehler2024} & 0.825 / 0.797 & 0.904 / 0.902 & 0.733 / 0.658 & 0.837
 Xu HTO~\cite{xu2024} & 0.807 / 0.794 & 0.899 / 0.898 & 0.690 / 0.652 & 0.833 / 0.833 & 9.5 / 9.8 & 0.685 / 0.677 & 0.779 / 0.776 & 0.404 / 0.387 & 0.872 / 0.868 & 3.5 / 3.3 \\
 Zhang~\cite{zhang2025} & 0.811 / 0.796 & 0.911 / 0.904 & 0.694 / 0.654 & 0.828 / 0.832 & 11.6 / 14.4 & 0.689 / 0.693 & 0.779 / 0.780 & 0.427 / 0.441 & 0.861 / 0.856 & 3.4 / 3.1 \\
 \midrule
-\multicolumn{11}{@{}l}{\emph{Hierarchical imitation}} \\
+\multicolumn{11}{@{}l}{\emph{Imitation learning}} \\
 Azayev~\cite{azayev2022} & 0.797 / 0.781 & 0.865 / 0.858 & 0.698 / 0.655 & 0.828 / 0.831 & 7.6 / \underline{7.1} & 0.662 / 0.694 & 0.775 / 0.775 & 0.347 / 0.424 & 0.864 / 0.885 & \textbf{0.0} / \textbf{0.0} \\
 \midrule
 \multicolumn{11}{@{}l}{\emph{Reinforcement learning}} \\

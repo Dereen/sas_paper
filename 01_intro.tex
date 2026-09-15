@@ -38,9 +38,8 @@ chassis from the IMU and the flipper joints alone, without a map, but it was not
 climb obstacles.
 
 \textbf{On a real robot, the map is a dead-reckoning artifact.}
-Most previous controllers assume knowledge of the ground directly beneath and immediately
-ahead of the chassis, and where the estimate of it drifts, due to body occlusion, the
-commanded flipper angles are computed for incorrect terrain. Onboard sensors
+Where the estimate of that ground drifts, due to body occlusion, the commanded flipper
+angles are computed for incorrect terrain. Onboard sensors
 observe what is ahead, but the body occludes their view of the terrain beneath it.
 Dedicated underbody sensors could measure it, but they are rarely fitted and have very
 low resolution. That terrain can therefore mainly be \emph{remembered}: observed earlier, accumulated into an elevation
@@ -76,16 +75,14 @@ contact.
 \textbf{Contributions:}
 \nopagebreak
 \begin{enumerate}
-  \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift, from track slip and scan-matching error,
-  degrades it in the field. 
-  We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard} map.
+  \item We measure the degradation of the elevation map caused by body occlusion and
+  odometry drift by evaluating map-based baselines under both a \emph{ground-truth} map and
+  the \emph{onboard} map, in a large comparison in Gazebo of \SAS{} against \emph{twelve}
+  map-based baselines and two manual baselines on a twelve-obstacle course; every controller
+  drives the full course ten times, with the perception stack reset at each obstacle.
   \item We propose \SAS, a mapless flipper controller that needs no localization, only a
   binary motion cue, combining continuous roll and pitch stabilization with a reactive
   anti-stuck term under a safe directional-priority blend.
-  \item We perform a large comparison in Gazebo of \SAS{} against \emph{twelve} map-based
-  baselines and two manual baselines on a twelve-obstacle course. Every
-  controller drives the full course ten times against simulator ground truth, with the
-  perception stack reset at each obstacle to measure the degradation.
   \item We perform the large comparison on a real obstacle arena with AprilTag ground
   truth: on a four-track robot, each controller drives ten times over a pallet obstacle. In
   both arenas the traversals are autonomous, so the comparison is not biased by an
