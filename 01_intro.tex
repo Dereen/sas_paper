@@ -34,7 +34,7 @@ precondition: they consume an \emph{elevation map} of the ground under and in fr
 robot as their dominant
 input~\cite{chen2023,oehler2024,yuan2019,xu2024,pan2023icm,pan2023atd3qn,ctrac2025,azayev2022}.
 Fully manual teleoperation needs no map because the operator sees the terrain from a
-third-person view, but must drive all four flippers by hand. Map-less posture control~\cite{rocha2023} levels the
+third-person view, but must drive all four flippers by hand. Mapless posture control~\cite{rocha2023} levels the
 chassis from the IMU and the flipper joints alone, without a map, but it was not designed to
 climb obstacles.
 
@@ -81,7 +81,7 @@ contact.
   \item We identify and quantify a dependency shared by state-of-the-art flipper controllers: a requirement for an elevation map of the ground \emph{under} the robot, which is occluded from onboard sensing and can only be maintained by odometry integration, whose drift, from track slip and scan-matching error,
   degrades it in the field. 
   We measure this degradation by evaluating map-based baselines under both a \emph{ground-truth} map and the \emph{onboard} map.
-  \item We propose \SAS, a map-less flipper controller that needs no localization, only a
+  \item We propose \SAS, a mapless flipper controller that needs no localization, only a
   binary motion cue, combining continuous roll and pitch stabilization with a reactive
   anti-stuck term under a safe directional-priority blend.
   \item We perform a large comparison in Gazebo of \SAS{} against \emph{twelve} map-based

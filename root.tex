@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ICRA 2027 -- Map-less Stabilizing Anti-Stuck Flipper Control (double-blind submission)
+% ICRA 2027 -- Mapless Stabilizing Anti-Stuck Flipper Control (double-blind submission)
 % ICRA 2026/2027 format: standard IEEE conference template (IEEEtran),
 % US-letter, two-column, 8 pages incl. references.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -34,10 +34,10 @@
 
 \begin{document}
 
-\title{Map-less Stabilizing and Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
+\title{Mapless Stabilizing and Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
 % Alternative titles
 % Get Unstuck Without a Map: Proprioceptive Stabilized Anti-Stuck Flipper Control
-% When the Map Fails: Map-less Flipper Control for Articulated Tracked Robots
+% When the Map Fails: Mapless Flipper Control for Articulated Tracked Robots
 % Proprioceptive Flipper Control: Attitude-Stabilized Anti-Stuck Without a Terrain Map
 
 % Double-blind review: author block and funding acknowledgement removed.
@@ -51,7 +51,7 @@ Nearly every autonomous or semi-autonomous flipper controller assumes access
 to an \emph{elevation map} of the ground under and in front of the robot. The terrain beneath the chassis is occluded from the sensors, so this map is remembered through odometry
 integration, whose drift corrupts it. We present
 \emph{Stabilizing Anti-Stuck} (\SAS),
-a map-less controller that combines a stabilization term for body roll
+a mapless controller that combines a stabilization term for body roll
 and pitch with an anti-stuck term that frees the robot when it is stuck. \SAS{} uses as
 input the IMU, the flipper joint angles, and a motion cue that only
 tells whether the robot is moving; the cue is computed over a short window and never
@@ -59,9 +59,8 @@ accumulated, so \SAS{} does not inherit the odometry-integration drift that corr
 map. We deploy \SAS{} on a tracked robot with four flippers and evaluate it against manual
 teleoperation and prior flipper controllers in a large comparison run, both in Gazebo
 and in a real obstacle arena. In simulation and on the real robot, \SAS{} reaches traversal quality comparable to the
-map-based controllers. In an additional experiment, a log hidden in tall grass was invisible to the LiDAR and
-therefore absent from the map; the best map-based policy read the gap in the grass as a
-drop and got stuck under the log, while \SAS{} crossed it in its default posture.
+map-based controllers. On a log hidden in tall grass, invisible to the LiDAR, the best map-based policy got stuck
+while \SAS{} crossed it.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
