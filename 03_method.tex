@@ -1,19 +1,11 @@
 % ============================ METHOD ============================
-At every control step \SAS{} emits an angular \emph{velocity} command $v_i$ for each
-flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. Its inputs are the
-gravity-referenced body roll $\phi$ and pitch $\theta$ from the IMU, the four flipper joint
-angles $q_i$, the commanded body velocity $v_\text{cmd}$, and a scalar motion cue $m$
-(Sec.~\ref{sec:method-antistuck}). The command is composed of two terms by the
-directional-priority blend (Sec.~\ref{sec:method-blend}): the stabilization term
-$v^{\mathrm{s}}_i$ stabilizes body roll and pitch, and the anti-stuck term $v^{\mathrm{a}}_i$
-frees the robot when it is \emph{stuck}. The blend, written as the $\mathrm{cap}$ operator,
-gives the stabilization term priority, and their sum is saturated to the velocity limit
-$v_{\max}$ of the flipper drives:
-\begin{equation}
-  v_i \;=\; \operatorname{sat}\big(\, v^{\mathrm{s}}_i \;+\; \mathrm{cap}(v^{\mathrm{a}}_i,\,v^{\mathrm{s}}_i),\ v_{\max}\big),
-  \label{eq:overview}
-\end{equation}
-where $\operatorname{sat}(x,c)=\max(-c,\min(x,c))$.
+The output of \SAS{} is an angular \emph{velocity} command $v_i$ for each flipper
+$i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$, composed of two terms: the
+stabilization term $v^{\mathrm{s}}_i$, which stabilizes body roll and pitch, and the
+anti-stuck term $v^{\mathrm{a}}_i$, which frees the robot when it is \emph{stuck}. At every
+control step \SAS{} reads the gravity-referenced body roll $\phi$ and pitch $\theta$ from
+the IMU, the four flipper joint angles $q_i$, the commanded body velocity $v_\text{cmd}$,
+and a scalar motion cue $m$ (Sec.~\ref{sec:method-antistuck}).
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
 Attitude stabilization drives the body roll $\phi$ and pitch $\theta$ to the zero set points
@@ -39,9 +31,7 @@ on the lower side are driven down and lift that side:
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
 The anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it drives the
-flippers to lift the body off the ground, freeing the robot. It is active in the state \emph{dig}, which is entered when the robot is commanded to move,
-$|v_\text{cmd}|>\tau_\text{move}$, while the motion cue stays below its threshold,
-$m<\tau_\text{stuck}$, that is, when a commanded motion produces no progress:
+flippers to lift the body off the ground, freeing the robot. The state \emph{dig} is entered if the following condition applies:
 \begin{equation}
     \text{dig} \coloneqq \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
   \big(m<\tau_\text{stuck}\big).
@@ -68,11 +58,11 @@ Therefore a timer $T_\text{dig}=\SI{8}{\second}$ watches the dig itself: after $
 is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are driven back up, after which digging is permitted again.
 
 \subsection{Directional-priority blend and limits}\label{sec:method-blend}
-Stabilization takes priority over anti-stuck: the $\mathrm{cap}$ operator limits the
-anti-stuck term whenever it opposes the stabilization term on a flipper, to a fraction of
-the stabilization velocity, so their sum keeps the sign of the stabilization term. The
-anti-stuck term can therefore reinforce the stabilization command but never reverse its
-direction on any flipper:
+The two terms are combined by the directional-priority blend: the $\mathrm{cap}$ operator
+limits the anti-stuck term whenever it opposes the stabilization term on a flipper, to a
+fraction of the stabilization velocity, so their sum keeps the sign of the stabilization
+term. The anti-stuck term can therefore reinforce or weaken the stabilization command but
+never reverse its direction on any flipper:
 \begin{equation}
   \mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=
   \begin{cases}
@@ -90,5 +80,11 @@ reach $|v^{\mathrm{a}}_i|=|v^{\mathrm{s}}_i|$ and cancel, but never reverse, the
 command; we use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
 applies only while $|v^{\mathrm{s}}_i|>\beta=\SI{0.05}{\radian\per\second}$, so that
 attitude noise on a level robot cannot suppress the anti-stuck term; otherwise the
-anti-stuck command passes through unchanged.
+anti-stuck command passes through unchanged. The blended command is finally saturated to
+the velocity limit $v_{\max}$ of the flipper drives:
+\begin{equation}
+  v_i = \operatorname{sat}\big(\, v^{\mathrm{s}}_i + \mathrm{cap}(v^{\mathrm{a}}_i,\,v^{\mathrm{s}}_i),\ v_{\max}\big),
+  \label{eq:overview}
+\end{equation}
+where $\operatorname{sat}(x,c)=\max(-c,\min(x,c))$.
 
