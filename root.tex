@@ -8,6 +8,7 @@
 
 \usepackage{cite}               % IEEE-standard compressed multi-cites: sorted, consecutive collapse to ranges like [1]-[3]
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{pgfplots}\pgfplotsset{compat=1.18}
@@ -17,6 +18,7 @@
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage{siunitx}
+\sisetup{inter-unit-product=\ensuremath{{\cdot}}}
 \usepackage[hidelinks]{hyperref}
 \usepackage{needspace}          % keep "Contributions:" heading with its list across a column break
 
@@ -56,7 +58,7 @@ velocity, and a short-window odometry cue. We deploy \SAS{} on a four-track robo
 teleoperation and prior flipper controllers in a large comparison run both in Gazebo
 and in a real automated obstacle arena. In simulation and on the real robot \SAS{} reaches
 traversal quality comparable to the map-based controllers evaluated under the same
-protocol, with either map, while using neither. In Gazebo \SAS{} reaches the highest traversal quality of the fifteen controllers under
+protocol, with either map, while using neither. In Gazebo \SAS{} reaches the highest traversal quality of all controllers under
 both the ground-truth and the onboard map; on the real pallet it ranks second under the
 onboard map, is never overridden, and keeps the smallest maximum tilt of all controllers.
 \end{abstract}

@@ -3,13 +3,9 @@ Tracked and wheeled robots cannot climb an obstacle taller than their leading wh
 \emph{Articulated} tracked robots address higher obstacles with flippers,
 independently actuated sub-tracks that reshape the robot's morphology on the fly: they
 reach beyond the leading wheel to climb what a rigid chassis cannot, and they free the
-robot when it gets \emph{stuck}~\cite{azayev2022,xu2024,cihala2025}.
+robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
 
-The six-track design keeps a main driven track on
-each side of the chassis and adds four smaller flippers for climbing and stabilizing, with
-the two tracks on each side coupled to a single velocity. The four-track design
-(Fig.~\ref{fig:robot}) drops the main tracks and drives four larger, independently actuated
-flippers alone~\cite{rocha2023}.
+
 
 \begin{figure}[t]
   \centering
@@ -90,7 +86,7 @@ contact.
   \item We propose \SAS, a mapless, localization-free flipper controller combining
   continuous roll and pitch stabilization with a reactive anti-stuck term under a
   safe directional-priority blend.
-  \item We perform a large comparison in Gazebo of \SAS{} against \emph{thirteen} map-based
+  \item We perform a large comparison in Gazebo of \SAS{} against \emph{twelve} map-based
   baselines and two manual baselines on a twelve-obstacle course. Every
   controller drives the full course ten times against simulator ground truth, with the
   perception stack reset at each obstacle to measure the degradation.
