@@ -27,7 +27,8 @@ segmentation of the elevation map only as a perception front-end~\cite{zhang2025
 \subsection{Hierarchical imitation}
 A family that composes low-level behaviors under a selector. The adaptive-traversability line~\cite{zimmermann2014} classifies
 terrain into discrete flipper modes from an elevation map, and for the selected mode a
-simple low-level controller drives the flippers. A learned state machine~\cite{azayev2022}
+simple low-level controller drives the flippers. 
+A learned state machine~\cite{azayev2022}
 switches among seven hand-crafted flipper morphologies selected from an elevation map. Each
 state overlays a \emph{roll}-stabilization term and a stagnation-triggered
 \emph{anti-stuck} term that lowers all four flippers to free the robot. It is the one prior

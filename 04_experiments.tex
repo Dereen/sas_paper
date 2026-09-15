@@ -14,16 +14,16 @@ simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The s
 Gaussian range noise) and a \SI{50}{\hertz} IMU with Gaussian noise and a slowly varying
 bias. The simulation runs the same ROS~2 nodes as the real robot, so the onboard-map condition
 runs the same ICP and elevation-mapping stack on these noisy streams; the ground-truth condition reads pose and map from the
-simulator. The arena is the twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
+simulator. The arena is a twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
 variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 
 \paragraph{Real robot comparison} The real arena repeats the protocol on one pallet obstacle between
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena,
-seen by a camera on a stand, give an absolute localization that registers the handcrafted
+seen by a camera on a tripod provide absolute localization that registers the handcrafted
 ground-truth map.
 
 \paragraph{Automated ride and \SAS{} override} In all reported runs the robot is
-driven autonomously. A ride node drives the robot at a constant
+driven autonomously. A drive node drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls inside a field is released
 by the \emph{\SAS{} override}, which hands the flippers to \SAS{} until the robot moves
@@ -56,6 +56,8 @@ descent-preparation schedules. Zhang's planner~\cite{zhang2025} is reproduced on
 contact-model pose prediction and action cost, solved at a virtual station
 \SI{0.5}{\metre} ahead; chassis-supported poses are
 forbidden on the passive belly.
+The learned controllers were adapted as follows. Pan's AT-D3QN~\cite{pan2023atd3qn}: $R_{\text{flipper}}$ is mirrored onto the rear flipper and $\theta^\ast$ is referenced to the ground rather than the chassis since MARV's rear flipper is drivetrain and its ride height is a free variable. $R_{\text{contact}}$ is added from ICM-D3QN and redefined around flipper-pair grounding and belly clearance. Pan's ICM-D3QN~\cite{pan2023icm}: the same three morphology changes (shared code with AT-D3QN); otherwise, as published. C-TRAC~\cite{ctrac2025}: Reward terms are added to incentivize movement and prevent convergence to a fixed pose. Trained with fixed forward velocity. Mitriakov~\cite{mitriakov2021}: The 2-DoF arm dropped, so the COG penalty degrades to a chassis-tilt proxy; one policy covers both directions, and the ``trailing flipper never below neutral'' limit is inverted since, on MARV, that flipper carries load. Trained with fixed forward velocity.  Pecka~\cite{pecka2016}: dual sign convention follows the authors' reference implementation rather than the paper, and safety is read from the same rollout. We omit the real robot training. Azayev~\cite{azayev2022}: faithful --- human gamepad demonstrations, supervised classifier, fixed decoder, deployed on the real stack; deviates only in the heightmap observation and a hard legality-masked state instead of the soft SDSM belief.
+
 
 \begin{figure*}[t]
   \centering
@@ -65,8 +67,8 @@ forbidden on the passive belly.
   difficulty, each probing a different controller capability (pallets, stacked
   boxes, planks, and a staircase); the robot starts at the right. In the automated
   ride (Sec.~\ref{sec:experiments}) it is driven at a constant
-  \SI{0.6}{\metre\per\second} through every field in turn, with a \SI{1}{\metre}
-  settling strip between fields and a \SI{120}{\second} timeout per field.}
+  \SI{0.6}{\metre\per\second} through every section in turn, with a \SI{1}{\metre}
+  settling strip between sections and a \SI{120}{\second} timeout per field.}
   \label{fig:obstacles}
 \end{figure*}
 
@@ -74,7 +76,7 @@ forbidden on the passive belly.
 Our claim is that the onboard map is the limiting input, so evaluating the map-based
 baselines under that map alone would conflate the controller with its perception. We
 therefore run each of them twice:
-once with the onboard map, and once with a \emph{ground-truth} map
+once with the onboard map and localization, and once with a \emph{ground-truth} map
 that removes odometry drift. The difference between a baseline's two scores measures its
 sensitivity to onboard mapping.
 
@@ -157,7 +159,7 @@ LiDAR-ICP odometry cue alone, and frees itself without the \SAS{} override, whic
 map-based controllers for 7 to 14\% of the obstacle distance under either map. C-TRAC
 degrades the most under the onboard map, by $0.11$, and shows most clearly that the onboard
 map raises the need for the override: never overridden under the ground-truth map, it is
-held for 7.5\% of the distance under the onboard map; Zhang, AT-D3QN and ICM-D3QN also need more override under the onboard map, Yuan, Oehler and Mitriakov less.
+held for 7.5\% of the distance under the onboard map; Zhang, AT-D3QN and ICM-D3QN also need more override under the onboard map, Yuan, Oehler and Mitriakov are less affected.
 Sampled over the body footprint (the chassis and \SI{1.5}{\metre} ahead, at
 \SI{5}{\centi\metre}) every \SI{0.25}{\second}, the height difference between the onboard
 and the ground-truth map has a median absolute value of \SI{0.9}{\centi\metre} and a median

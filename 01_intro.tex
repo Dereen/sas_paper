@@ -2,7 +2,7 @@
 Tracked and wheeled robots cannot climb an obstacle taller than their leading wheel.
 \emph{Articulated} tracked robots address higher obstacles with flippers,
 independently actuated sub-tracks that reshape the robot's morphology on the fly: they
-reach beyond the leading wheel to climb what a rigid chassis cannot, and they free the
+reach beyond the leading wheel to climb what a rigid chassis cannot, and they can be used to free the
 robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
 
 
@@ -63,7 +63,7 @@ that will not bear the load.
 When a rigid obstacle is \emph{hidden}, optical sensors---LiDAR and cameras---return the
 compliant canopy above it, and the load-bearing obstacle beneath stays invisible until the
 chassis stalls on it. Neither a dedicated underbody sensor, which the same vegetation
-blinds, nor foliage-penetrating radar, which is bulky and low-resolution, resolves this in
+blinds, nor foliage-penetrating radar, which is bulky and low-resolution, resolve this in
 practice.
 
 \textbf{Our contribution: control of the flippers without a map and without localization.}
@@ -91,6 +91,6 @@ contact.
   controller drives the full course ten times against simulator ground truth, with the
   perception stack reset at each obstacle to measure the degradation.
   \item We perform the large comparison on a real, automated obstacle arena with AprilTag
-  ground truth: on a four-track robot each controller rides ten times over a pallet
+  ground truth: on a four-track robot each controller drives ten times over a pallet
   obstacle.
 \end{enumerate}
