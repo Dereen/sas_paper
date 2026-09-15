@@ -34,7 +34,7 @@
 
 \begin{document}
 
-\title{Mapless Stabilizing Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
+\title{Mapless Stabilizing and Anti-Stuck Flipper Control\\ for Articulated Tracked Robots}
 % Alternative titles
 % Get Unstuck Without a Map: Proprioceptive Stabilized Anti-Stuck Flipper Control
 % When the Map Fails: Mapless Flipper Control for Articulated Tracked Robots
@@ -54,12 +54,12 @@ be measured directly; it must be estimated from earlier observations and odometr
 \emph{Stabilizing Anti-Stuck} (\SAS),
 a mapless, localization-free controller that combines a stabilization term for body roll
 and pitch with an anti-stuck term that frees the robot when it is stuck. \SAS{} uses as input the IMU, the flipper joint angles, the commanded
-velocity, and a short-window odometry cue. We deploy \SAS{} on a four-track robot and evaluate it against manual
-teleoperation and prior flipper controllers in a large comparison run both in Gazebo
-and in a real automated obstacle arena. In simulation and on the real robot \SAS{} reaches
+velocity, and a short-window odometry cue. We deploy \SAS{} on a tracked robot with four flippers and evaluate it against manual
+teleoperation and prior flipper controllers in a large comparison run, both in Gazebo
+and in a real automated obstacle arena. In simulation and on the real robot, \SAS{} reaches
 traversal quality comparable to the map-based controllers evaluated under the same
 protocol, with either map, while using neither. In Gazebo \SAS{} reaches the highest traversal quality of all controllers under
-both the ground-truth and the onboard map; on the real pallet it ranks second under the
+both the ground-truth and the onboard map. On the real pallet, it ranks second under the
 onboard map, is never overridden, and keeps the smallest maximum tilt of all controllers.
 \end{abstract}
 

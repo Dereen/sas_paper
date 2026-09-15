@@ -44,7 +44,7 @@ rear flippers up. Since $u_\phi,u_\theta<0$ for positive tilts, this is
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
 The anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it drives the
-flippers to lift the body off the ground and free the robot. It is active in the state
+flippers to lift the body off the ground, freeing the robot. It is active in the state
 \emph{dig}, entered when a body velocity above $\tau_\text{move}$ is commanded while the
 odometry cue $m$ stays below $\tau_\text{stuck}$:
 \begin{equation}
