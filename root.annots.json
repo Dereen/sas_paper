@@ -3153,5 +3153,117 @@
   "done": "mapping derived for positive roll and pitch with stated sign conventions (REP-103 axes, positive flipper velocity = down) (15.9.2026)",
   "page_hint": 3,
   "source": "root.pdf"
+ },
+ {
+  "note": "Simplify",
+  "anchor": "and a positive pitch lowers the front; a positive flipper velocity",
+  "anchor_full": "With the body axes x forward, y left and d z up, a positive roll lifts the left side and a positive pitch lowers the front; a positive flipper velocity drives that flipper down under the robot and lifts its corner. A positive roll gives s u uϕ ϕ < 0 and must lower the left side and raise the right: the left flippers receive e + +u uϕ (up) and the right flippers s − u ϕ (down). A positive pitch gives s u uθ θ < 0 and must raise the front: the front flippers receive e − −u uθ θ (down) and the rear flippers s + u uθ (up).",
+  "done": "mapping explanation shortened (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "use rather greak char with _0 with saying zero setpoints",
+  "anchor": "0: from the errors",
+  "anchor_full": "set points s ϕ ϕ∗ iz ϕ∗ = θ θ∗ ∗ n ∗ = 0 0: from the errors eϕ = ϕ ∗ pi ∗ ∗− − −ϕ ϕ and eθ θ = θ∗ ∗ et ∗ ∗ − −θ θ",
+  "done": "zero set points phi_0, theta_0 (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Again one information said twice",
+  "anchor": "stabilizes body roll and pitch, and an anti-stuck term frees the",
+  "anchor_full": "It pursues two goals: a stabilization term stabilizes body roll and pitch, and an anti-stuck term frees the robot when it is s stuck k, that is, commanded forward but not advancing. The output velocity command is composed of two terms, the stabilization velocity y v i s i mm s i vs i s i and the anti-stuck velocity y v i ms d i",
+  "done": "the two-goal sentence merged into the two-term sentence (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "stabilization term",
+  "anchor": "stabilization",
+  "anchor_full": "stabilization",
+  "done": "stabilization term (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "... term",
+  "anchor": "anti-stuc",
+  "anchor_full": "anti-stuc",
+  "done": "anti-stuck term (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "subordinate",
+  "anchor_full": "subordinate",
+  "done": "removed (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "stucked?",
+  "anchor": "stalled",
+  "anchor_full": "stalled",
+  "done": "stuck robot (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Reformulate it to be more rigorous.",
+  "anchor": "the robot is commanded to move yet is not moving",
+  "anchor_full": "It is active, a state we call l dig g, whenever the robot is commanded to move yet is not moving",
+  "done": "dig state defined by the two thresholds (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Now it is stuck pose?",
+  "anchor": "stuck pose;",
+  "anchor_full": "stuck pose;",
+  "done": "out of the stuck pose removed (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "toward the",
+  "anchor_full": "toward the flat pose",
+  "done": "removed (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "use _retract",
+  "anchor": "",
+  "anchor_full": "λlow",
+  "done": "lambda_retract (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "_dig",
+  "anchor": "",
+  "anchor_full": "λ",
+  "done": "lambda_dig (15.9.2026)",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "move it to the longer timer definition",
+  "anchor": "",
+  "anchor_full": "Td dig g = 8 s",
+  "done": "T_dig = 8 s at the timer definition (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "here",
+  "anchor": "longer timer",
+  "anchor_full": "longer timer",
+  "done": "T_dig = 8 s at the timer definition (15.9.2026)",
+  "page_hint": 4,
+  "source": "root.pdf"
  }
 ]

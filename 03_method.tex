@@ -3,17 +3,15 @@ At every control step \SAS{} reads the gravity-referenced body roll $\phi$ and p
 the IMU, the four flipper joint angles $q_i$, the commanded body velocity
 $v_\text{cmd}$, and a scalar odometry cue $m$ derived from LiDAR-ICP odometry
 (Sec.~\ref{sec:method-antistuck}), and emits an angular \emph{velocity} command $v_i$ for
-each flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. It pursues two
-goals: a stabilization term stabilizes body roll and pitch, and an anti-stuck term frees the
-robot when it is \emph{stuck}, that is, commanded forward but not advancing.
-
-The output velocity command is composed of two terms, the stabilization velocity
-$v^{\mathrm{s}}_i$ and the anti-stuck velocity $v^{\mathrm{d}}_i$. Stabilization has
-priority: the $\mathrm{cap}$ operator (Sec.~\ref{sec:method-blend}) limits the anti-stuck
-term whenever it opposes the stabilization term on a flipper, to a fraction of the
-stabilization demand, so their sum keeps the sign of the stabilization command; the
-anti-stuck term can reinforce stabilization but never reverse it; the sum is saturated to the
-velocity limit $v_{\max}$ of the flipper drives:
+each flipper $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. The command is
+composed of two terms: the stabilization term $v^{\mathrm{s}}_i$ stabilizes body roll and
+pitch, and the anti-stuck term $v^{\mathrm{d}}_i$ frees the robot when it is \emph{stuck},
+that is, commanded forward but not advancing. The stabilization term has priority: the
+$\mathrm{cap}$ operator (Sec.~\ref{sec:method-blend}) limits the anti-stuck term whenever
+it opposes the stabilization term on a flipper, to a fraction of the stabilization demand,
+so their sum keeps the sign of the stabilization term; the anti-stuck term can reinforce
+the stabilization term but never reverse it. The sum is saturated to the velocity limit
+$v_{\max}$ of the flipper drives:
 \begin{equation}
   v_i \;=\; \operatorname{sat}\big(\, v^{\mathrm{s}}_i \;+\; \mathrm{cap}(v^{\mathrm{d}}_i,\,v^{\mathrm{s}}_i),\ v_{\max}\big),
   \label{eq:overview}
@@ -21,9 +19,8 @@ velocity limit $v_{\max}$ of the flipper drives:
 where $\operatorname{sat}(x,c)=\max(-c,\min(x,c))$.
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
-Attitude stabilization drives the body roll $\phi$ and pitch $\theta$ to their set points
-$\phi^\ast=\theta^\ast=0$: from the errors $e_\phi=\phi^\ast-\phi$ and
-$e_\theta=\theta^\ast-\theta$ we form the proportional-integral roll command $u_\phi$ and
+Attitude stabilization drives the body roll $\phi$ and pitch $\theta$ to the zero set points
+$\phi_0$ and $\theta_0$: from the errors $e_\phi=\phi_0-\phi$ and $e_\theta=\theta_0-\theta$ we form the proportional-integral roll command $u_\phi$ and
 pitch command $u_\theta$,
 \begin{equation}
   u_\phi = K^\phi_{\mathrm P}\,e_\phi + K^\phi_{\mathrm I}\, I_\phi, \qquad
@@ -32,13 +29,11 @@ pitch command $u_\theta$,
 \end{equation}
 where $I_\phi$ and $I_\theta$ are the anti-windup-limited integrals,
 $I_{\phi,\theta}\leftarrow\operatorname{sat}(I_{\phi,\theta}+e_{\phi,\theta}\Delta t,\ I_{\max})$.
-The two commands map to the four flippers through the geometry of the tilt. With the body
-axes $x$ forward, $y$ left and $z$ up, a positive roll lifts the left side and a positive
-pitch lowers the front; a positive flipper velocity drives that flipper down under the
-robot and lifts its corner. A positive roll gives $u_\phi<0$ and must lower the left side
-and raise the right: the left flippers receive $+u_\phi$ (up) and the right flippers
-$-u_\phi$ (down). A positive pitch gives $u_\theta<0$ and must raise the front: the front
-flippers receive $-u_\theta$ (down) and the rear flippers $+u_\theta$ (up). Together:
+The two commands map to the four flippers by the geometry of the tilt (body axes $x$
+forward, $y$ left, $z$ up; a positive flipper velocity drives the flipper down and lifts
+its corner). A positive roll lifts the left side, so the right flippers go down and the
+left flippers up; a positive pitch lowers the front, so the front flippers go down and the
+rear flippers up. Since $u_\phi,u_\theta<0$ for positive tilts, this is
 \begin{equation}
   \begin{bmatrix} v^{\mathrm{s}}_{\mathrm{FL}}\\ v^{\mathrm{s}}_{\mathrm{FR}}\\ v^{\mathrm{s}}_{\mathrm{RL}}\\ v^{\mathrm{s}}_{\mathrm{RR}} \end{bmatrix}
   =
@@ -48,9 +43,10 @@ flippers receive $-u_\theta$ (down) and the rear flippers $+u_\theta$ (up). Toge
 \end{equation}
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
-The subordinate anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it
-drives the flippers to lift the body off the ground and free the robot. It is active, a
-state we call \emph{dig}, whenever the robot is commanded to move yet is not moving:
+The anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it drives the
+flippers to lift the body off the ground and free the robot. It is active in the state
+\emph{dig}, entered when a body velocity above $\tau_\text{move}$ is commanded while the
+odometry cue $m$ stays below $\tau_\text{stuck}$:
 \begin{equation}
     \text{dig} \coloneqq \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
   \big(m<\tau_\text{stuck}\big).
@@ -59,20 +55,20 @@ state we call \emph{dig}, whenever the robot is commanded to move yet is not mov
 The odometry cue $m$ is the standard deviation of the robot's position from LiDAR-ICP
 odometry~\cite{libpointmatcher} over a sliding \SI{0.5}{\second} window: a \emph{local}
 measure of whether the body advances that needs no integrated global pose and, unlike
-track odometry, registers no progress when the tracks slip on a stalled robot. When digging, all
-four flippers are driven downward at a lift velocity $\lambda$ so they push against the
-terrain and lift the body up, out of the stuck pose; otherwise they retract toward the flat pose with velocity
-$\lambda_\text{low}$:
+track odometry, registers no progress when the tracks slip on a stuck robot. When digging,
+all four flippers are driven downward at the velocity $\lambda_\text{dig}$ so they push
+against the terrain and lift the body up; otherwise they retract with the velocity
+$\lambda_\text{retract}$:
 \begin{equation}
-  v^{\mathrm{d}}_i = \begin{cases} +\lambda & \text{dig}\\ -\lambda_\text{low} & \text{otherwise.}\end{cases}
+  v^{\mathrm{d}}_i = \begin{cases} +\lambda_\text{dig} & \text{dig}\\ -\lambda_\text{retract} & \text{otherwise.}\end{cases}
   \label{eq:spread}
 \end{equation}
-In simulation we use $\lambda=\SI{2.0}{\radian\per\second}$ and
-$\lambda_\text{low}=\SI{0.8}{\radian\per\second}$.
+In simulation we use $\lambda_\text{dig}=\SI{2.0}{\radian\per\second}$ and
+$\lambda_\text{retract}=\SI{0.8}{\radian\per\second}$.
 Digging alone can lock up: if the flippers reach their lower position limit without
 freeing the robot, it would remain stuck indefinitely with its flippers fully down.
-Therefore we added a second, longer timer that watches the dig itself: after
-$T_\text{dig}=\SI{8}{\second}$ of continuous digging without release, the anti-stuck term
+Therefore we added a second, longer timer $T_\text{dig}=\SI{8}{\second}$ that watches the
+dig itself: after $T_\text{dig}$ of continuous digging without release, the anti-stuck term
 is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are driven back up
 toward the climbing pose, after which digging is permitted again.
 
