@@ -15,15 +15,16 @@ simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The s
 Gaussian range noise) and a \SI{50}{\hertz} IMU with Gaussian noise and a slowly varying
 bias. The onboard-map condition runs the robot's ICP and elevation-mapping nodes on these
 simulated streams; the ground-truth condition takes the pose and the map from the
-simulator. The arena is the twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
+simulator. The arena is a twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
 variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 
 \paragraph{Real robot comparison} The real arena repeats the simulation experiment on one pallet obstacle between
-two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena give an absolute localization that registers the handcrafted
-ground-truth map.
+two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot and in the arena provide absolute localization that registers
+the handcrafted ground-truth map.
 
 \paragraph{Autonomous ride and \SAS{} override} In all reported runs the robot is
-driven autonomously, so the comparison is not biased by an operator's control. A ride node drives the robot at a constant
+driven autonomously, so the comparison is not biased by an operator's control. A drive node
+drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
 hands the flippers to \SAS{} until the robot moves again, and the obstacle is finished. An
@@ -76,16 +77,16 @@ heightmap observation and in a hard legality-masked state instead of the soft be
   \caption{\textbf{Simulation arena.} The Gazebo warehouse course: a straight aisle of twelve numbered obstacles of variable
   difficulty, each probing a different controller capability (pallets, stacked
   boxes, planks, and a staircase); the robot starts at the right. In the autonomous ride (Sec.~\ref{sec:experiments}) it is driven at a constant
-  \SI{0.6}{\metre\per\second} through every obstacle in turn, with a \SI{1}{\metre} settling strip between
-  obstacles.}
+  \SI{0.6}{\metre\per\second} through every section in turn, with a \SI{1}{\metre} settling strip between
+  sections.}
   \label{fig:obstacles}
 \end{figure*}
 
 \subsection{Ground-truth map for a fair baseline}
 The map-based baselines depend on the onboard map, so scoring them under that map alone
 would mix the quality of the controller with the quality of its perception. We therefore
-run each of them twice: with the onboard map, and with a \emph{ground-truth} map that is
-free of odometry drift. The difference between the two scores is the baseline's
+run each of them twice: with the onboard map and localization, and with a
+\emph{ground-truth} map that is free of odometry drift. The difference between the two scores is the baseline's
 sensitivity to onboard mapping.
 
 \subsection{Metrics}
