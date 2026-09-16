@@ -58,8 +58,8 @@ chassis stalls on it. Neither a dedicated underbody sensor, which is blinded by 
 
 \textbf{Our contribution: control of the flippers without a map and without an accumulated
 pose.}
-We present \emph{Stabilizing Anti-Stuck} (\SAS), a reactive controller that requires neither
-an elevation map nor localization of the robot. It has two terms: a
+We present \emph{Stabilizing Anti-Stuck} (\SAS), a reactive controller that requires no
+elevation map. It has two terms: a
 stabilization term that stabilizes the robot body regardless of the terrain, whether
 climbing or descending an obstacle, and an anti-stuck term that frees the robot when it
 gets stuck by driving the flippers down. To tell a stuck robot from a moving one, the
@@ -72,7 +72,7 @@ cue is computed over a short window and is never accumulated, \SAS{} never inher
 \textbf{Contributions:}
 \nopagebreak
 \begin{enumerate}
-  \item We propose \SAS, a mapless flipper controller that needs no localization, only a
+  \item We propose \SAS, a mapless flipper controller that needs only a
   binary motion cue, combining continuous roll and pitch stabilization with a reactive
   anti-stuck term under a safe directional-priority blend.
   \item We measure the degradation of the elevation map caused by body occlusion and
