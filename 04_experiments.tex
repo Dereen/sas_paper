@@ -89,7 +89,7 @@ $q_t$, and ground clearance $q_c$,
   \mathrm{TQ}=\tfrac{1}{3}\,(q_s+q_t+q_c)\in[0,1).
   \label{eq:tq}
 \end{equation}
-We also report the percentage of the obstacle distance for which the \SAS{} override held the flippers.
+We also report the percentage of the obstacle distance for which an anti-stuck dig drove the flippers.
 Traversal success and traversal time are not informative in this setting: the override
 releases every stall, so every obstacle is completed, and the drive node drives at a constant speed; therefore, the traversal time differs between controllers only by the time spent in the stall state before the override activates.
 \label{sec:metrics-block}%
@@ -107,15 +107,14 @@ $t_{\max}=\ang{50}$.
 
 \noindent\textbf{Ground clearance} measures whether the chassis is kept off the terrain. We measure it as the
 closest ground point of a $10\times8$ grid with \SI{5}{\centi\metre}
-cells under the chassis, read from the ground-truth map. The four-track morphology leaves a \SI{7.3}{\centi\metre} gap under the chassis on flat
-ground with level flippers, which the score takes as its reference: it penalizes the deviation of the clearance from that flat-ground gap outside a
-dead-band, linearly up to chassis contact and \SI{10}{\centi\metre} above. Rewarding raw clearance would favor
-baselines that freeze their flippers and coast in a high pose.
+cells under the chassis, covering its $50\times\SI{40}{\centi\metre}$ footprint, read from the ground-truth map. The four-track morphology leaves a \SI{7.3}{\centi\metre} gap under the chassis on flat
+ground with level flippers, which the score takes as its reference. This is the only channel not scored by~\eqref{eq:norm}: it is a linear ramp over that gap, $1$ while the closest ground point stays at or below the flat-ground level, falling over the \SI{7}{\centi\metre} to chassis contact, and $0$ at contact. Rewarding raw clearance would favor
+baselines that freeze their flippers and coast in a high pose, so the ramp saturates at $1$ and a higher pose earns nothing.
 
 \noindent\textbf{Normalization.} The three channels are physical quantities in different
-units, and each has to become a score in $[0,1)$ where $1$ is the best, so that they can be
-averaged in~\eqref{eq:tq} and compared across controllers. A non-negative sample $x$ is
-therefore mapped by the sigmoid of~\cite{cihala2025},
+units, and each has to become a score in $[0,1]$ where $1$ is the best, so that they can be
+averaged in~\eqref{eq:tq} and compared across controllers. Shock and tilt are unbounded above, so a non-negative sample $x$ is
+mapped by the sigmoid of~\cite{cihala2025},
 \begin{equation}
   N(x,\hat{x}) = 2 - \frac{2}{1 + e^{-x/\hat{x}}},
   \label{eq:norm}
@@ -123,7 +122,7 @@ therefore mapped by the sigmoid of~\cite{cihala2025},
 against a reference $\hat{x}$: $N=1$ at $x=0$, $N\approx0.54$ when the sample reaches
 $\hat{x}$, and $N\to0$ for large samples. Each channel is scored as $q=N(x,x_{\max}/2)$ with
 its own scale $x_{\max}$, so the score is close to linear for small samples and saturates
-smoothly; a single extreme sample cannot dominate the average.
+smoothly; a single extreme sample cannot dominate the average. Ground clearance is bounded by the chassis itself and uses the ramp above instead.
 
 \noindent\textbf{Distance binning} is used rather than time binning 
 because each controller takes a different amount of time to traverse the same obstacle. The measured data are divided into bins of \SI{0.25}{\metre}
@@ -204,7 +203,7 @@ scores $0.89$, $0.05$ above the best controller, and the difference lies almost 
 the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$
 of the operator for the best controllers. Every controller loses quality under the onboard
 map, by $0.008$ to $0.069$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
-The controllers overall required the override for 7 to 14\% of the obstacle distance under
+Most controllers required the override for 7 to 14\% of the obstacle distance under
 either map to finish the obstacles. The shock channel hardly separates the controllers,
 $0.86$ to $0.92$: all of them experienced a similar acceleration, dominated by the rigid
 contacts of the simulator rather than by the flipper motion. C-TRAC degrades the most under the onboard map, by $0.069$, and shows the highest
