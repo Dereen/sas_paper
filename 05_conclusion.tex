@@ -9,13 +9,13 @@ but it keeps the robot stabilized and operational, where the onboard map, and wi
 map-based controller, breaks down.
 
 In the simulation comparison \SAS{} reaches the highest traversal quality of all controllers
-under both the ground-truth and the onboard map, and on the real pallet it is among the leading controllers, recovers from every stall by its own anti-stuck
-term, and keeps the smallest
-maximum tilt of the ride, without a map, a localization estimate, or an external override. On a real log
+under both the ground-truth and the onboard map, and on the real pallet it is among the leading
+controllers. It recovers from every stall by its own anti-stuck term, and keeps the
+smallest maximum tilt of the ride, without a map, a localization estimate, or an external override. On a real log
 hidden in tall grass, invisible to the LiDAR and absent from the onboard map, the best map-based controller got stuck under the log while \SAS{} crossed it in its default
 posture.
 
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
 odometry or integrated IMU motion, which would make the controller fully proprioceptive
-and should hold up in the occluded, feature-poor, or flat places where ICP alone struggles, and a fallback scheme that defers to a map-based
+and should hold up in occluded, feature-poor, or flat places where ICP alone struggles, and a fallback scheme that defers to a map-based
 controller when the onboard map is trustworthy and to \SAS{} when it is not.
