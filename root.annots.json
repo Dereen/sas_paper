@@ -4865,5 +4865,45 @@
   "done": "",
   "page_hint": 5,
   "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "condition, the difference between the two maps stays within",
+  "anchor_full": "), and the pallet does not separate the map-based controllers by their map: with one ride per condition, the difference between the two maps stays within the spread over the crossings for all but ICM-D3QN and Mitriakov, whose quality drops the most under the onboard map, by y 0. .1 .10 and 0. .08 8.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "D3QN abort crossings under either map.",
+  "anchor_full": "C-TRAC C and d ICM- D3QN abort crossings under either map.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "real pallet the smallest maximum tilt of all controllers, less",
+  "anchor_full": "The tilt channel, the target of the stabilization term, is where SAS leads on both platforms: the best tilt score in simulation, and on the real pallet the smallest maximum tilt of all controllers, less than a third of C-TRAC\u2019s.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "grid resolution",
+  "anchor": "",
+  "anchor_full": "at 5 5 cm",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add the left and right axis name Sim and real",
+  "anchor": "Onboard-map error over an obstacle in simulation",
+  "anchor_full": "Onboard-map error over an obstacle in simulation and on the real pallet",
+  "done": "",
+  "page_hint": 7,
+  "source": "root.pdf"
  }
 ]
