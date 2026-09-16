@@ -4921,5 +4921,197 @@
   "done": "",
   "page_hint": 5,
   "source": "root.pdf"
+ },
+ {
+  "note": "thresholded",
+  "anchor": "",
+  "anchor_full": "binary",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "troller traversals are autonomous, so the comparison is",
+  "anchor_full": "In simulated and real experiments, the con- troller traversals are autonomous, so the comparison is not biased by an operator\u2019s control",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Move this to the method description",
+  "anchor": "couples an anti-stuck term with attitude stabilization, and",
+  "anchor_full": "It is the one prior method that couples an anti-stuck term with attitude stabilization, and the origin of the anti-stuck term we adopt.",
+  "done": "",
+  "page_hint": 2,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "finally",
+  "anchor_full": "finally",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
+ },
+ {
+  "note": "put it to the text where are the greek chars defined",
+  "anchor": "SAS runs at",
+  "anchor_full": "SAS runs at 20 Hz z with \u03d5 0 = \u03b80 0 = 0 , vm vmax x = 1 1. .0 rad d\u00b7 s\u2212 \u2212 1 , \u03c4m \u03c4move e = 0 0.1 .1 m m\u00b7 \u00b7s\u2212 \u2212 \u22121 1 and d \u03c4s stuck k = 2 mm",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "we call this the",
+  "anchor_full": "we call this the e four-track k robot.",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "four-track",
+  "anchor": "tracked",
+  "anchor_full": "tracked",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "ROS2 topics",
+  "anchor": "streams.",
+  "anchor_full": "streams.",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "baseline or some rigorous word",
+  "anchor": "",
+  "anchor_full": "bar",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "from third person view",
+  "anchor": "",
+  "anchor_full": "hand.",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "instead of motion capture",
+  "anchor_full": "instead of motion capture",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "replans what?",
+  "anchor": "replans",
+  "anchor_full": "replans",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "handcrafted ground",
+  "anchor": "ground-",
+  "anchor_full": "ground-",
+  "done": "",
+  "page_hint": 4,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Sas override dig, check other occurences if we correctly distinc between the antistuck and sas override dig",
+  "anchor": "anti-stuck dig",
+  "anchor_full": "anti-stuck dig",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "duplicate with previous comment",
+  "anchor": "override releases every stall,",
+  "anchor_full": "the override releases every stall,",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "stays at or below the flat-ground level, falling over the",
+  "anchor_full": "This is the only channel not scored by (8): it is a linear ramp over that gap, 1 while the closest ground point stays at or below the flat-ground level, falling over the 7 cm to chassis contact, and 0 a at contact.",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "e, so the ramp saturates at",
+  "anchor_full": "e, so the ramp saturates at t 1 and a higher pose earns nothing",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "is this correct?",
+  "anchor": "",
+  "anchor_full": "0. .54",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "baselines ...",
+  "anchor": "",
+  "anchor_full": "0. .61 1\u20130 0. . .75",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "7%",
+  "anchor": "",
+  "anchor_full": "7",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Oehler",
+  "anchor": "",
+  "anchor_full": "Yuan",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Mitriakov",
+  "anchor": "",
+  "anchor_full": "Oehler",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "probably the real robot is easier traverse the tested pallete on its own because of the flaps on the tracks.",
+  "anchor": "flippers instead of holding a fixed posture.",
+  "anchor_full": "its noise making them move the flippers instead of holding a fixed posture.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
+ },
+ {
+  "note": "Add more information from the table. Like the number of cells > 10 is order higher suggesting larger noise in the onboard map",
+  "anchor": "the body was last seen from the flat approach, and falls again",
+  "anchor_full": "Figure 4 shows how the onboard map degrades over an obstacle, in simulation and on the real pallet. The onboard map is compared with the ground-truth map over the body footprint (the chassis and d 1. .5 .5 m m ahead, at a grid resolution of f 5 cm m) at every map update, every y 0. 25 s . The error grows while the robot ascends the obstacle, where the ground under the body was last seen from the flat approach, and falls again on the descent, where the ground ahead comes back into view; on the real robot, it is an order of magnitude larger than in simulation.",
+  "done": "",
+  "page_hint": 6,
+  "source": "root.pdf"
  }
 ]

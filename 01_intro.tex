@@ -63,7 +63,7 @@ elevation map. It has two terms: a
 stabilization term that stabilizes the robot body regardless of the terrain, whether
 climbing or descending an obstacle, and an anti-stuck term that frees the robot when it
 gets stuck by driving the flippers down. To tell a stuck robot from a moving one, the
-anti-stuck term needs a motion cue: a binary answer to whether the robot is
+anti-stuck term needs a motion cue: a thresholded answer to whether the robot is
 moving, which requires neither an accurate nor a metric estimate of the motion. Because the
 cue is computed over a short window and is never accumulated, \SAS{} never inherits the drift that corrupts the map. 
 
@@ -81,7 +81,5 @@ cue is computed over a short window and is never accumulated, \SAS{} never inher
   map-based baselines and two manual baselines on a twelve-obstacle course; every controller
   drives the full course ten times, with the perception stack reset at each obstacle.
   \item We perform the large comparison on a real obstacle arena with AprilTag ground
-  truth: on a four-track robot, each controller drives ten times over a pallet obstacle. In
-  simulated and real experiments, the controller traversals are autonomous, so the comparison is not biased by an
-  operator's control.
+  truth: on a four-track robot, each controller drives ten times over a pallet obstacle.
 \end{enumerate}
