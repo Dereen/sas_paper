@@ -51,7 +51,7 @@
 
 \begin{abstract}
 Nearly every autonomous or semi-autonomous flipper controller assumes access
-to an \emph{elevation map} of the terrain under and in front of the robot. The terrain beneath the chassis is occluded from the sensors, so the map is remembered through odometry integration, whose drift corrupts it. We present
+to an \emph{elevation map} of the terrain under and in front of the robot. The terrain beneath the chassis is occluded in the sensors, so the map is remembered through odometry integration, whose drift corrupts it. We present
 \emph{Stabilizing Anti-Stuck} (\SAS),
 a mapless controller that combines a stabilization term for body roll
 and pitch with an anti-stuck term that frees the robot when it gets stuck. As input, \SAS{} uses the IMU, the flipper joint angles, and a motion cue that only
@@ -60,8 +60,8 @@ accumulated, so \SAS{} does not inherit the odometry-integration drift that corr
 map. We deploy \SAS{} on a tracked robot with four flippers and evaluate it against manual
 teleoperation and prior flipper controllers in a large comparison, both in
 simulation and on a real obstacle. In simulation and on the real robot, \SAS{} achieves traversal quality comparable to state-of-the-art
-map-based controllers. On a log hidden in tall grass, invisible to the LiDAR, the best map-based controller got stuck
-while \SAS{} traversed it.
+map-based controllers. On a log hidden in tall grass, invisible to the LiDAR, the best map-based controller gets stuck
+while \SAS{} traverses the hidden obstacle without a problem.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

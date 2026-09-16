@@ -1,7 +1,7 @@
 % ============================ METHOD ============================
-At every control step \SAS{} reads the gravity-referenced body roll $\phi$ and pitch $\theta$ from
+At every control step, $\Delta t=\SI{0.05}{\second}$ i.e. $f_{control}=20 ~\text{Hz}$, \SAS{} reads the gravity-referenced body roll $\phi$ and pitch $\theta$ from
 the IMU, the four flipper joint angles $q_i$, the commanded body velocity $v_\text{cmd}$,
-and a scalar motion cue $m$ (Sec.~\ref{sec:method-antistuck}), and runs at \SI{20}{\hertz}.
+and a scalar motion cue $m$ (Sec.~\ref{sec:method-antistuck}).
 
 The output of \SAS{} is an angular \emph{velocity} command $v_i$ for each flipper
 $i\in\{\mathrm{FL},\mathrm{FR},\mathrm{RL},\mathrm{RR}\}$. The command $v_i$ is composed of two terms: the
@@ -10,8 +10,8 @@ anti-stuck term $v^{\mathrm{a}}_i$, which frees the robot when it is \emph{stuck
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
 Attitude stabilization drives the body roll $\phi$ and pitch $\theta$ to the zero set points
-$\phi_0=\theta_0=0$, which can later be set to a target attitude: from the errors $e_\phi=\phi_0-\phi$ and $e_\theta=\theta_0-\theta$ we form the proportional-integral roll command $u_\phi$ and
-pitch command $u_\theta$,
+$\phi_0=\theta_0=0$, which can later be set to a target attitude: from the errors $e_\phi=\phi_0-\phi$ and $e_\theta=\theta_0-\theta$, we form the proportional-integral roll command $u_\phi$ and
+pitch command $u_\theta$.
 \begin{equation}
   u_\phi = K^\phi_{\mathrm P}\,e_\phi + K^\phi_{\mathrm I}\, I_\phi, \qquad
   u_\theta = K^\theta_{\mathrm P}\,e_\theta + K^\theta_{\mathrm I}\, I_\theta,
@@ -63,7 +63,7 @@ is suspended for $T_\text{reset}=\SI{2.5}{\second}$ while the flippers are drive
 The two terms are combined by the directional-priority blend: the $\mathrm{cap}$ operator
 limits the anti-stuck term whenever it opposes the stabilization term on a flipper to a
 fraction $\alpha\in[0,1]$ of the stabilization velocity, so their sum keeps the sign of the stabilization
-term. The anti-stuck term can therefore reinforce or weaken the stabilization command but
+term. The anti-stuck term can therefore reinforce or nullify the stabilization command but
 never reverse its direction on any flipper:
 \begin{equation}
   \mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=
@@ -82,8 +82,8 @@ the velocity limit $v_{\max}=\SI{1.0}{\radian\per\second}$ of the flipper drives
   \label{eq:overview}
 \end{equation}
 
-The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, i.e., when $v^{\mathrm{a}}_i$ has an opposing sign to $v^{\mathrm{s}}_i$, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$ wherever the cap applies, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term may
-reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=-v^{\mathrm{s}}_i$; therefore, $v_i=0$. This enforces that the anti-stuck command can never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
+The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$ and $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term can
+reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=v^{\mathrm{s}}_i$, and because of $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ that those two terms cancel each other out; therefore, equation~\eqref{eq:overview} simplifies to $v_i=0$. This enforces that the anti-stuck command can nullify, but never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
 applies only while $|v^{\mathrm{s}}_i|>\beta=\SI{0.05}{\radian\per\second}$, so that
 attitude noise on a level robot cannot suppress the anti-stuck term; otherwise, the
 anti-stuck command passes through unchanged.

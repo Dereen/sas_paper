@@ -22,7 +22,7 @@ variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot provide absolute localization in the handcrafted
 ground-truth map.
 
-\paragraph{Autonomous run and \SAS{} override} In all reported controller runs, the flippers are driven autonomously, ensuring that the comparison is not biased by an operator's control; in the two manual references, which set the reference level, the operator drives the flippers by hand from a third-person view. A drive node drives the robot in every run at a constant
+\paragraph{Autonomous run and \SAS{} override} In all reported controller runs, the robot is driven and steered autonomously, ensuring that the comparison is not biased by an operator's control; in the two manual references, which set the reference level, the operator drives the robot and all four flippers by hand from a third-person view. The autonomous run commands the robot forward at a constant velocity
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
 hands the flippers to \SAS{} anti-stuck dig mode until the robot moves again.
@@ -61,7 +61,7 @@ reduces to a chassis-tilt proxy; one policy covers both driving directions, and 
 that the trailing flipper never goes below neutral is inverted, since on a four-track robot
 that flipper carries a load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
 sign convention follows the authors' reference implementation rather than the paper, and
-safety is read from the same rollout; the real-robot training stage is omitted.
+safety is read from the same rollout.
 
 
 \begin{figure*}[t]
@@ -121,20 +121,20 @@ mapped by the sigmoid of~\cite{cihala2025},
 against a reference $\hat{x}$: $N=1$ at $x=0$, $N\approx0.54$ when the sample reaches
 $\hat{x}$, and $N\to0$ for large samples. Each channel is scored as $q=N(x,x_{\max}/2)$ with
 its own scale $x_{\max}$, so the score is close to linear for small samples and saturates
-smoothly; a single extreme sample cannot dominate the average. Ground clearance is bounded by the chassis itself and uses the ramp above instead.
+smoothly; a single extreme sample cannot dominate the average. 
 
 \noindent\textbf{Distance binning} is used rather than time binning 
-because each controller takes a different amount of time to traverse the same obstacle. The measured data are divided into bins of \SI{0.25}{\metre}
-along the driving direction of an obstacle; the worst per-sample score in each bin is kept, and the
+as each controller takes a different amount of time to traverse the same obstacle. The measured data are divided into bins of \SI{0.25}{\metre}
+along the driving direction of an obstacle; the worst per-sample score in each bin is kept, and the final
 channel score is the mean of these bin values. 
 
 Averaging the three channels in~\eqref{eq:tq} assumes that they carry different
-information, so they should not correlate strongly; their pairwise Spearman correlations
+information, so they should not correlate strongly; their pairwise correlations
 over the traversed obstacles (Table~\ref{tab:spearman}) are at most $0.39$, which suggests that none of our evaluation channels are redundant.
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Spearman correlation of the channel scores} over the traversed simulated
+\caption{\textbf{Correlation of the channel scores} over the traversed simulated
 obstacles and real crossings.}
 \label{tab:spearman}
 \footnotesize
@@ -211,11 +211,11 @@ ground-truth map, it is held for 7.5\% of the distance under the onboard map. Fo
 Mitriakov, the override share dropped under the onboard map: the added noise made them move their flippers, which resulted in successful traversals.
 
 \subsection{Real-robot results}
-On the real pallet (Table~\ref{tab:results}) the operator remains the reference: both manual
-rides score $0.81$, above every controller. Three findings stand out. First, the best
+On the real pallet (Table~\ref{tab:results}), the operator remains the reference: both manual
+rides score $0.81$, above every controller. Three findings stand out. \textbf{First}, the best
 controllers are Yuan under the onboard map ($0.72$) and Oehler and Mitriakov under the
-ground-truth map (both $0.71$). Second, \SAS{} is among the best controllers on the real
-robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in simulation: the map-based controllers that stall
+ground-truth map (both $0.71$). \textbf{Second}, \SAS{} is among the best controllers on the real
+robot as well, second under the onboard map behind Yuan. \textbf{Third}, stalls are rarer than in simulation: the map-based controllers that stall
 are released by the \SAS{} override for at most 7.1\% of the crossing distance, and, unlike in simulation, the onboard map lowers that share for most of them; the pallet is also easier to
 mount on the real robot, whose track flaps catch the edge. The shock channel again has a small spread, $0.76$ to
 $0.80$, so the controllers experienced a similar acceleration on the pallet as well. The two map
@@ -223,13 +223,13 @@ conditions separate the controllers far less here than in simulation because one
 the perception stack is reset before each of them, so the onboard map has little time to drift.
 
 \subsection{Hidden obstacle}
-Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan and with \SAS. The LiDAR does not penetrate the grass, which causes the onboard map to show the grass
+Figure~\ref{fig:grass} shows a real experiment: a crossing of a log hidden in tall grass, with Yuan and \SAS. The LiDAR does not penetrate the grass, which causes the onboard map to show the grass
 canopy, and the log is absent from it. Yuan interprets the gap that the log creates in the grass as a drop and lowers the front
 flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
 
 \begin{figure*}[t]
   \centering
-  \includegraphics[width=\textwidth]{figures/grass_merged.jpg}
+  \includegraphics[width=\textwidth]{figures/grass_merged.png}
   \caption{\textbf{Traversal of an obstacle hidden in tall grass by the map-based
   controller Yuan~\cite{yuan2019} and by \SAS.} (a) The onboard map built from the LiDAR point
   cloud during Yuan's crossing: the LiDAR does not penetrate the grass, and so the map shows only the canopy while the log remains obscured. (b) Yuan interprets the gap created by the log in the canopy as a drop and lowers the front flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. (c) \SAS{} does not rely on the LiDAR-derived map; therefore, it keeps its default posture and easily crosses the log.}
@@ -243,9 +243,9 @@ body footprint (the chassis and \SI{1.5}{\metre} ahead, at a grid resolution of
 \SI{5}{\centi\metre}) at every
 map update, every \SI{0.25}{\second}. The error grows while the robot ascends the obstacle,
 where the ground under the body was last seen from the flat approach, and falls again on
-the descent, where the ground ahead comes back into view. On the real robot the error peaks five
+the descent, where the ground ahead comes back into view. On the real robot, the error peaks five
 times higher than in simulation, and the share of cells off by more than \SI{10}{\centi\metre}
-fifteen times higher, so the onboard map is not merely shifted but far noisier.
+is fifteen times higher, so the onboard map is not merely shifted but far noisier.
 
 \begin{figure}[t]
   \centering

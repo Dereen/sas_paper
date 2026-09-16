@@ -12,7 +12,7 @@ needs no map: the operator observes the terrain from a third-person view, closes
 loop by hand, and also stabilizes the robot.
 
 \subsection{Reactive and geometry-based control}
-These controllers are the most dependent on an explicit terrain model, because they compute the flipper commands either
+These controllers are the most dependent on an explicit terrain model because they compute the flipper commands either
 reactively~\cite{cihala2025} or by planning. Chen et al. combine dynamic programming with a
 fast geometry-based pose predictor over the elevation
 point cloud~\cite{chen2023}; Yuan et al. plan in the flipper configuration space
@@ -20,7 +20,7 @@ from known stair geometry with motion-capture ground truth~\cite{yuan2019}; Oehl
 and von Stryk predict pose on a signed-distance field built from
 LiDAR~\cite{oehler2024}; Xu et al. solve a receding-horizon hybrid trajectory
 optimization over a simplified terrain sampled from a prebuilt 3D occupancy map with
-FAST-LIO2 odometry~\cite{xu2024}; and, most recently, Zhang et al. plan the path and flipper
+FAST-LIO2 odometry~\cite{xu2024}; and most recently, Zhang et al. plan the path and flipper
 maneuvers with RRT* over a contact-model pose predictor, using learned semantic
 segmentation of the elevation map only as a perception front-end~\cite{zhang2025}.
 
@@ -31,7 +31,7 @@ terrain into discrete flipper modes from an elevation map.
 A learned state machine~\cite{azayev2022}
 switches among seven hand-crafted flipper morphologies selected from an elevation map. In addition, each
 state overlays a \emph{roll}-stabilization term and a stagnation-triggered
-\emph{anti-stuck} term that lowers all four flippers to free the robot.
+\emph{anti-stuck} term that lowers all four flippers to free the robot~\cite{azayev2022}.
 
 \subsection{Reinforcement learning}
 Pecka et al. learn a

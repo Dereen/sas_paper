@@ -2,8 +2,7 @@
 State-of-the-art flipper controllers depend on an elevation map of the occluded ground under
 the robot chassis, which drifts with odometry on exactly the terrain where flippers are needed.
 The comparison shows which part of a traversal the choice of controller actually
-governs. Shock does not separate the controllers: over all thirteen of them it spans $0.865$ to
-$0.918$ in simulation and $0.765$ to $0.798$ on the real pallet. Every controller
+governs. Shock does not separate the controllers: over all thirteen of them, it spans $0.865$ to $0.918$ in simulation and $0.765$ to $0.798$ on the real pallet. Every controller
 transmits a similar acceleration to the body, set by the platform and the terrain rather
 than by the flipper motion.
 What separates them is how they stabilize the body: clearance and
@@ -16,10 +15,10 @@ under the ground-truth map, by $0.008$ to $0.069$, against $0.020$ for \SAS{} th
 motion cue alone.
 
 \SAS{} reaches the highest traversal quality of all autonomous controllers in simulation under both
-maps, and on the real pallet it is among the leading controllers, second under the onboard
-map. It recovers from every stall by its own anti-stuck term. Its weakest channel is on the real pallet where it holds a clearance of $0.363$ under the
-ground-truth map and $0.419$ under the onboard map, below the best map-based controllers,
-because without a terrain preview it can only raise the chassis once the obstacle is already
+maps, and on the real pallet, it is second under the onboard
+map and among the leading controllers under the ground-truth map. It recovers from every stall by its own anti-stuck term. Its weakest channel is on the real pallet, where it holds a clearance of $0.363$ under the
+ground-truth map and $0.419$ under the onboard map, below the best map-based controllers because,
+ without a terrain preview, it can only raise the chassis once the obstacle is already
 under it. 
 
 On a real log hidden in tall grass, invisible to the LiDAR and absent from the
@@ -27,9 +26,9 @@ onboard map, the map-based controller Yuan~\cite{yuan2019} got stuck under the l
 Two principles as simple as \emph{hold the body level} and \emph{dig out when motion
 stops} can reach the traversal quality of the map-based state of the art.
 
-Both comparisons reset the perception stack at each obstacle, which limits the drift the
-onboard map can accumulate, so the reported map degradation is a lower bound, and a long
-uninterrupted traversal remains to be tested.
+All comparisons reset the perception stack at each obstacle, which limits the drift the
+onboard map can accumulate; therefore, the reported map degradation is a lower bound, and a long
+, uninterrupted traversal remains to be tested.
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
 odometry, which should hold up in occluded, feature-poor, or flat places where ICP alone struggles, and a fallback scheme that defers to a map-based
 controller when the onboard map is trustworthy and to \SAS{} when it is not.
