@@ -38,7 +38,7 @@ flippers to lift the body off the ground, freeing the robot. The state \emph{dig
   \label{eq:stuck}
 \end{equation}
 where $\tau_\text{move}$ is the commanded velocity threshold and $\tau_\text{stuck}$ is the threshold of the motion cue $m$.
-The motion cue $m$ is the standard deviation of the robot's position from LiDAR-ICP
+The motion cue $m$ is the standard deviation of the robot's horizontal position from LiDAR-ICP
 odometry~\cite{libpointmatcher} over a sliding \SI{0.5}{\second} window. The cue only has
 to answer whether the robot is moving: it is thresholded, so it needs neither an accurate
 nor a metric estimate of the motion, and any scale-free motion signal would serve. It is

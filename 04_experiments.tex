@@ -22,7 +22,7 @@ variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot provide absolute localization in the handcrafted
 ground-truth map.
 
-\paragraph{Autonomous ride and \SAS{} override} In all reported runs, the robot is driven autonomously, ensuring that the comparison is not biased by an operator's control. A drive node drives the robot at a constant
+\paragraph{Autonomous ride and \SAS{} override} In all reported controller runs, the robot is driven autonomously, ensuring that the comparison is not biased by an operator's control; the two manual references set the bar. A drive node drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
 hands the flippers to \SAS{} anti-stuck dig mode until the robot moves again.
@@ -89,16 +89,16 @@ $q_t$, and ground clearance $q_c$,
   \mathrm{TQ}=\tfrac{1}{3}\,(q_s+q_t+q_c)\in[0,1).
   \label{eq:tq}
 \end{equation}
-We also report the percentage of the obstacle distance for which the \SAS{} override held the flippers.
+We also report the percentage of the obstacle distance for which an anti-stuck dig drove the flippers.
 Traversal success and traversal time are not informative in this setting: the override
 releases every stall, so every obstacle is completed, and the drive node drives at a constant speed; therefore, the traversal time differs between controllers only by the time spent in the stall state before the override activates.
 \label{sec:metrics-block}%
 
 \noindent\textbf{Shock} measures the impacts transmitted to the body, which stress
-the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, normalized with the scale $s_{\max}$, the
-largest acceleration the platform records. On the real robot $s_{\max}$ is the highest measured
-sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In simulation, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest measured \SI{0.1}{\second} mean of
-$s$ over all runs, \SI{376}{\metre\per\second\squared}.
+the robot and its payload. It is the gravity-removed acceleration magnitude $s=\big||a|-g\big|$ from the IMU, normalized with the scale $s_{\max}$, the
+largest acceleration the platform records; gravity is removed so that a stationary robot scores $1$. On the real robot $s_{\max}$ is the highest measured
+sample of the campaign, \SI{47.7}{\metre\per\second\squared}. In simulation, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest measured \SI{0.1}{\second} mean of
+$s$ over all runs, \SI{369}{\metre\per\second\squared}.
 
 \noindent\textbf{Tilt} measures how far the body departs from the gravity-aligned
 horizontal; it is what the attitude stabilization regulates, and it measures how safely the controller rides. It is the angle
@@ -107,15 +107,14 @@ $t_{\max}=\ang{50}$.
 
 \noindent\textbf{Ground clearance} measures whether the chassis is kept off the terrain. We measure it as the
 closest ground point of a $10\times8$ grid with \SI{5}{\centi\metre}
-cells under the chassis, read from the ground-truth map. The four-track morphology leaves a \SI{7.3}{\centi\metre} gap under the chassis on flat
-ground with level flippers, which the score takes as its reference: it penalizes the deviation of the clearance from that flat-ground gap outside a
-dead-band, linearly up to chassis contact and \SI{10}{\centi\metre} above. Rewarding raw clearance would favor
-baselines that freeze their flippers and coast in a high pose.
+cells under the chassis, covering the $50\times\SI{40}{\centi\metre}$ chassis footprint, read from the ground-truth map. The four-track morphology leaves a \SI{7.3}{\centi\metre} gap under the chassis on flat
+ground with level flippers, which the score takes as its reference. The clearance channel is the only one that is not scored by~\eqref{eq:norm} but by a linear ramp over that gap: it is $1$ while the closest ground point stays at or below the flat-ground level, falls linearly over the \SI{7}{\centi\metre} to chassis contact, and is $0$ at contact. Rewarding raw clearance would favor
+baselines that freeze their flippers and coast in a high pose, so the ramp saturates at $1$ and a higher pose earns nothing.
 
 \noindent\textbf{Normalization.} The three channels are physical quantities in different
-units, and each has to become a score in $[0,1)$ where $1$ is the best, so that they can be
-averaged in~\eqref{eq:tq} and compared across controllers. A non-negative sample $x$ is
-therefore mapped by the sigmoid of~\cite{cihala2025},
+units, and each has to become a score in $[0,1]$ where $1$ is the best, so that they can be
+averaged in~\eqref{eq:tq} and compared across controllers. The shock and tilt channels are unbounded above, so a non-negative sample $x$ is
+mapped by the sigmoid of~\cite{cihala2025},
 \begin{equation}
   N(x,\hat{x}) = 2 - \frac{2}{1 + e^{-x/\hat{x}}},
   \label{eq:norm}
@@ -123,7 +122,7 @@ therefore mapped by the sigmoid of~\cite{cihala2025},
 against a reference $\hat{x}$: $N=1$ at $x=0$, $N\approx0.54$ when the sample reaches
 $\hat{x}$, and $N\to0$ for large samples. Each channel is scored as $q=N(x,x_{\max}/2)$ with
 its own scale $x_{\max}$, so the score is close to linear for small samples and saturates
-smoothly; a single extreme sample cannot dominate the average.
+smoothly; a single extreme sample cannot dominate the average. Ground clearance is bounded by the chassis itself and uses the linear ramp above instead.
 
 \noindent\textbf{Distance binning} is used rather than time binning 
 because each controller takes a different amount of time to traverse the same obstacle. The measured data are divided into bins of \SI{0.25}{\metre}
@@ -153,75 +152,105 @@ Clearance -- tilt & $0.39$ & $-0.03$ \\
 
 \begin{table*}[t]
 \centering
-\caption{\textbf{Traversal quality in simulation and on the real pallet.} Simulation: mean over
-ten runs of the twelve-obstacle course. Real: one ride of ten crossings per controller and map, mean over
-the crossings, a crossing not completed scores zero. All channels are scored against ground
-truth, with $s_{\max}$ \SI{376}{\metre\per\second\squared} in simulation and
-\SI{57.5}{\metre\per\second\squared} on the real robot. Each cell gives the value under the ground-truth map / the onboard map. Shock,
-clearance and tilt are the three channel scores of~\eqref{eq:tq}. \emph{Override}: percentage of
-distance the \SAS{} override held the flippers. Manual rides are hand-driven from a third-person view. Per column and map condition, the best controllers are in bold and the second best underlined (ties share the mark).}
+\caption{\textbf{Traversal quality in simulation.} Mean $\pm$ s.d. over the ten runs of the twelve-obstacle course. All channels are scored against ground truth, with $s_{\max}$ \SI{369}{\metre\per\second\squared} in simulation and \SI{47.7}{\metre\per\second\squared} on the real robot. \emph{Anti-stuck}: percentage of distance the flippers were driven by an anti-stuck dig, by the \SAS{} override for the baselines and by its own term for \SAS{}. Manual rides are hand-driven from a third-person view and need no map. Per column, the best controllers are in bold and the second best underlined (ties share the mark).}
 \label{tab:results}
 \scriptsize
-\setlength{\tabcolsep}{1.5pt}
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lc!{\vrule width 0.4pt}ccc!{\color{black!35}\vrule width 0.4pt}c!{\vrule width 0.4pt}c!{\vrule width 0.4pt}ccc!{\color{black!35}\vrule width 0.4pt}c@{}}
+\setlength{\tabcolsep}{1.2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l!{\vrule width 0.4pt}cccc!{\color{black!35}\vrule width 0.4pt}c!{\vrule width 0.4pt}cccc!{\color{black!35}\vrule width 0.4pt}c@{}}
 \toprule
- & \multicolumn{5}{c}{Simulation, twelve obstacles} & \multicolumn{5}{c}{Real pallet, one ride of ten crossings} \\
+ & \multicolumn{5}{c}{Ground-truth map} & \multicolumn{5}{c}{Onboard map} \\
 \cmidrule(lr){2-6}\cmidrule(l){7-11}
-Controller & TQ $\uparrow$ & Shock $\uparrow$ & Clearance $\uparrow$ & Tilt $\uparrow$ & Override [\%] $\downarrow$ & TQ $\uparrow$ & Shock $\uparrow$ & Clearance $\uparrow$ & Tilt $\uparrow$ & Override [\%] $\downarrow$ \\
- & \multicolumn{10}{c}{each cell: ground-truth map / onboard map} \\
+Controller & TQ $\uparrow$ & Shock $\uparrow$ & Clear. $\uparrow$ & Tilt $\uparrow$ & \shortstack{Anti-\\stuck [\%]} $\downarrow$ & TQ $\uparrow$ & Shock $\uparrow$ & Clear. $\uparrow$ & Tilt $\uparrow$ & \shortstack{Anti-\\stuck [\%]} $\downarrow$ \\
 \midrule
 \multicolumn{11}{@{}l}{\emph{Manual}} \\
-Manual control~\cite{cihala2025} & -- / 0.888 & -- / 0.922 & -- / 0.866 & -- / 0.875 & -- & -- / 0.810 & -- / 0.775 & -- / 0.714 & -- / 0.942 & -- \\
-Manual modes~\cite{azayev2022} & -- / 0.846 & -- / 0.916 & -- / 0.788 & -- / 0.834 & -- & -- / 0.810 & -- / 0.766 & -- / 0.816 & -- / 0.848 & -- \\
+Manual control~\cite{cihala2025} & -- & -- & -- & -- & -- & 0.887\,$\pm$\,0.006 & 0.921\,$\pm$\,0.011 & 0.866\,$\pm$\,0.015 & 0.875\,$\pm$\,0.007 & 0.0\,$\pm$\,0.0 \\
+Manual modes~\cite{azayev2022} & -- & -- & -- & -- & -- & 0.846\,$\pm$\,0.000 & 0.915\,$\pm$\,0.000 & 0.788\,$\pm$\,0.000 & 0.834\,$\pm$\,0.000 & 0.0\,$\pm$\,0.0 \\
 \midrule
 \multicolumn{11}{@{}l}{\emph{Reactive and geometry-based}} \\
-{\v C}\'ihala \GC/\OA~\cite{cihala2025} & 0.820 / 0.801 & \textbf{0.918} / \textbf{0.916} & \textbf{0.745} / \textbf{0.703} & 0.798 / 0.783 & \underline{0.2} / \textbf{0.0} & 0.612 / 0.657 & 0.780 / \underline{0.794} & \underline{0.528} / 0.323 & 0.777 / 0.854 & \textbf{0.0} / \textbf{0.0} \\
-Chen GFMP~\cite{chen2023} & \underline{0.830} / \underline{0.810} & 0.909 / 0.905 & 0.726 / 0.667 & \underline{0.854} / \underline{0.857} & 9.0 / 9.2 & 0.660 / 0.661 & \underline{0.792} / 0.789 & 0.301 / 0.299 & \textbf{0.886} / \textbf{0.895} & 3.1 / 3.0 \\
-Yuan~\cite{yuan2019} & 0.828 / 0.803 & \underline{0.912} / \underline{0.911} & \underline{0.736} / 0.667 & 0.836 / 0.832 & 11.3 / 8.8 & \underline{0.710} / \textbf{0.721} & 0.776 / 0.783 & 0.471 / \underline{0.497} & \underline{0.883} / 0.883 & \underline{1.3} / 1.2 \\
-Oehler~\cite{oehler2024} & 0.825 / 0.797 & 0.904 / 0.902 & 0.733 / 0.658 & 0.837 / 0.832 & 10.2 / 7.6 & 0.591 / 0.651 & 0.785 / 0.787 & 0.500 / 0.312 & 0.854 / 0.854 & 2.8 / 1.5 \\
-Xu HTO~\cite{xu2024} & 0.807 / 0.794 & 0.899 / 0.898 & 0.690 / 0.652 & 0.833 / 0.833 & 9.5 / 9.8 & 0.685 / 0.677 & 0.779 / 0.776 & 0.404 / 0.387 & 0.872 / 0.868 & 3.5 / 3.3 \\
-Zhang~\cite{zhang2025} & 0.811 / 0.796 & 0.911 / 0.904 & 0.694 / 0.654 & 0.828 / 0.832 & 11.6 / 14.4 & 0.689 / 0.693 & 0.779 / 0.780 & 0.427 / 0.441 & 0.861 / 0.856 & 3.4 / 3.1 \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025} & 0.820\,$\pm$\,0.006 & \textbf{0.917}\,$\pm$\,0.009 & \textbf{0.745}\,$\pm$\,0.014 & 0.798\,$\pm$\,0.009 & \underline{0.2}\,$\pm$\,0.6 & 0.800\,$\pm$\,0.008 & \textbf{0.914}\,$\pm$\,0.011 & \textbf{0.703}\,$\pm$\,0.014 & 0.784\,$\pm$\,0.008 & \textbf{0.0}\,$\pm$\,0.0 \\
+Chen GFMP~\cite{chen2023} & \underline{0.829}\,$\pm$\,0.008 & 0.907\,$\pm$\,0.009 & 0.726\,$\pm$\,0.014 & \underline{0.854}\,$\pm$\,0.007 & 9.0\,$\pm$\,4.0 & \underline{0.809}\,$\pm$\,0.005 & 0.903\,$\pm$\,0.010 & 0.667\,$\pm$\,0.008 & \underline{0.857}\,$\pm$\,0.005 & 9.2\,$\pm$\,1.5 \\
+Yuan~\cite{yuan2019} & 0.827\,$\pm$\,0.004 & \underline{0.910}\,$\pm$\,0.011 & 0.736\,$\pm$\,0.015 & 0.836\,$\pm$\,0.006 & 11.3\,$\pm$\,1.4 & 0.803\,$\pm$\,0.006 & \underline{0.910}\,$\pm$\,0.013 & 0.667\,$\pm$\,0.014 & 0.832\,$\pm$\,0.005 & 8.8\,$\pm$\,3.0 \\
+Oehler~\cite{oehler2024} & 0.824\,$\pm$\,0.009 & 0.902\,$\pm$\,0.010 & 0.733\,$\pm$\,0.017 & 0.837\,$\pm$\,0.008 & 10.2\,$\pm$\,1.9 & 0.797\,$\pm$\,0.007 & 0.900\,$\pm$\,0.015 & 0.658\,$\pm$\,0.010 & 0.832\,$\pm$\,0.004 & 7.6\,$\pm$\,2.6 \\
+Xu HTO~\cite{xu2024} & 0.807\,$\pm$\,0.006 & 0.898\,$\pm$\,0.007 & 0.690\,$\pm$\,0.018 & 0.833\,$\pm$\,0.006 & 9.5\,$\pm$\,3.0 & 0.794\,$\pm$\,0.008 & 0.896\,$\pm$\,0.008 & 0.652\,$\pm$\,0.016 & 0.833\,$\pm$\,0.007 & 9.8\,$\pm$\,2.7 \\
+Zhang~\cite{zhang2025} & 0.811\,$\pm$\,0.008 & 0.910\,$\pm$\,0.010 & 0.694\,$\pm$\,0.015 & 0.828\,$\pm$\,0.009 & 11.6\,$\pm$\,2.3 & 0.796\,$\pm$\,0.005 & 0.903\,$\pm$\,0.005 & 0.654\,$\pm$\,0.017 & 0.832\,$\pm$\,0.004 & 14.4\,$\pm$\,2.0 \\
 \midrule
 \multicolumn{11}{@{}l}{\emph{Imitation learning}} \\
-Azayev~\cite{azayev2022} & 0.797 / 0.781 & 0.865 / 0.858 & 0.698 / 0.655 & 0.828 / 0.831 & 7.6 / \underline{7.1} & 0.662 / 0.694 & 0.775 / 0.775 & 0.347 / 0.424 & 0.864 / 0.885 & \textbf{0.0} / \textbf{0.0} \\
+Azayev~\cite{azayev2022} & 0.796\,$\pm$\,0.007 & 0.862\,$\pm$\,0.008 & 0.698\,$\pm$\,0.020 & 0.828\,$\pm$\,0.007 & 7.6\,$\pm$\,2.3 & 0.781\,$\pm$\,0.008 & 0.856\,$\pm$\,0.011 & 0.655\,$\pm$\,0.014 & 0.831\,$\pm$\,0.008 & 7.1\,$\pm$\,2.5 \\
 \midrule
 \multicolumn{11}{@{}l}{\emph{Reinforcement learning}} \\
-Pecka~\cite{pecka2016} & 0.807 / 0.792 & 0.896 / 0.888 & 0.700 / 0.660 & 0.827 / 0.829 & 10.0 / 10.3 & 0.642 / 0.640 & 0.765 / 0.764 & 0.411 / 0.398 & 0.751 / 0.757 & \textbf{0.0} / \textbf{0.0} \\
-Pan AT-D3QN~\cite{pan2023atd3qn} & 0.807 / 0.792 & 0.904 / 0.898 & 0.694 / 0.652 & 0.823 / 0.826 & 10.6 / 12.1 & 0.642 / 0.644 & 0.773 / 0.770 & 0.307 / 0.313 & 0.845 / 0.849 & 3.5 / \underline{0.4} \\
-Pan ICM-D3QN~\cite{pan2023icm} & 0.801 / 0.793 & 0.908 / 0.903 & 0.677 / 0.645 & 0.819 / 0.831 & 10.2 / 12.2 & 0.652 / 0.548 & 0.774 / 0.771 & 0.318 / 0.391 & 0.864 / 0.836 & 4.7 / 6.1 \\
-Mitriakov~\cite{mitriakov2021} & 0.807 / 0.783 & 0.885 / 0.876 & 0.716 / 0.653 & 0.821 / 0.820 & 10.0 / 8.6 & \textbf{0.712} / 0.635 & 0.781 / 0.776 & 0.501 / 0.323 & 0.855 / 0.806 & \textbf{0.0} / 2.3 \\
-C-TRAC~\cite{ctrac2025} & 0.816 / 0.702 & 0.887 / 0.895 & 0.722 / 0.608 & \underline{0.854} / 0.754 & \textbf{0.0} / 7.5 & 0.457 / 0.478 & 0.785 / 0.775 & \textbf{0.545} / \textbf{0.540} & 0.664 / 0.697 & 7.1 / 3.4 \\
+Pecka~\cite{pecka2016} & 0.807\,$\pm$\,0.003 & 0.894\,$\pm$\,0.008 & 0.700\,$\pm$\,0.007 & 0.827\,$\pm$\,0.004 & 10.0\,$\pm$\,5.8 & 0.792\,$\pm$\,0.006 & 0.886\,$\pm$\,0.005 & 0.660\,$\pm$\,0.011 & 0.829\,$\pm$\,0.005 & 10.3\,$\pm$\,2.5 \\
+Pan AT-D3QN~\cite{pan2023atd3qn} & 0.806\,$\pm$\,0.008 & 0.902\,$\pm$\,0.012 & 0.694\,$\pm$\,0.015 & 0.823\,$\pm$\,0.007 & 10.6\,$\pm$\,1.6 & 0.792\,$\pm$\,0.006 & 0.896\,$\pm$\,0.011 & 0.652\,$\pm$\,0.012 & 0.826\,$\pm$\,0.007 & 12.1\,$\pm$\,2.8 \\
+Pan ICM-D3QN~\cite{pan2023icm} & 0.801\,$\pm$\,0.008 & 0.907\,$\pm$\,0.007 & 0.677\,$\pm$\,0.015 & 0.819\,$\pm$\,0.006 & 10.2\,$\pm$\,1.6 & 0.793\,$\pm$\,0.008 & 0.901\,$\pm$\,0.011 & 0.645\,$\pm$\,0.021 & 0.831\,$\pm$\,0.009 & 12.2\,$\pm$\,2.7 \\
+Mitriakov~\cite{mitriakov2021} & 0.807\,$\pm$\,0.006 & 0.883\,$\pm$\,0.007 & 0.716\,$\pm$\,0.016 & 0.821\,$\pm$\,0.004 & 10.0\,$\pm$\,7.7 & 0.782\,$\pm$\,0.007 & 0.874\,$\pm$\,0.006 & 0.653\,$\pm$\,0.020 & 0.820\,$\pm$\,0.007 & 8.6\,$\pm$\,2.2 \\
+C-TRAC~\cite{ctrac2025} & 0.820\,$\pm$\,0.008 & 0.885\,$\pm$\,0.009 & 0.722\,$\pm$\,0.020 & 0.854\,$\pm$\,0.011 & \textbf{0.0}\,$\pm$\,0.0 & 0.752\,$\pm$\,0.007 & 0.894\,$\pm$\,0.006 & 0.608\,$\pm$\,0.014 & 0.754\,$\pm$\,0.002 & 7.5\,$\pm$\,2.1 \\
+\textbf{\SAS{} (ours)} & \textbf{0.836}\,$\pm$\,0.006 & 0.899\,$\pm$\,0.012 & \underline{0.745}\,$\pm$\,0.010 & \textbf{0.864}\,$\pm$\,0.004 & 4.2\,$\pm$\,3.6 & \textbf{0.816}\,$\pm$\,0.007 & 0.901\,$\pm$\,0.010 & \underline{0.686}\,$\pm$\,0.011 & \textbf{0.861}\,$\pm$\,0.006 & \underline{2.4}\,$\pm$\,3.9 \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\caption{\textbf{Traversal quality on the real pallet.} Mean $\pm$ s.d. over the ten crossings of one ride per controller and map. All channels are scored against ground truth, with $s_{\max}$ \SI{369}{\metre\per\second\squared} in simulation and \SI{47.7}{\metre\per\second\squared} on the real robot. \emph{Anti-stuck}: percentage of distance the flippers were driven by an anti-stuck dig, by the \SAS{} override for the baselines and by its own term for \SAS{}. Manual rides are hand-driven from a third-person view and need no map. Per column, the best controllers are in bold and the second best underlined (ties share the mark).}
+\label{tab:results_real}
+\scriptsize
+\setlength{\tabcolsep}{1.2pt}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l!{\vrule width 0.4pt}cccc!{\color{black!35}\vrule width 0.4pt}c!{\vrule width 0.4pt}cccc!{\color{black!35}\vrule width 0.4pt}c@{}}
+\toprule
+ & \multicolumn{5}{c}{Ground-truth map} & \multicolumn{5}{c}{Onboard map} \\
+\cmidrule(lr){2-6}\cmidrule(l){7-11}
+Controller & TQ $\uparrow$ & Shock $\uparrow$ & Clear. $\uparrow$ & Tilt $\uparrow$ & \shortstack{Anti-\\stuck [\%]} $\downarrow$ & TQ $\uparrow$ & Shock $\uparrow$ & Clear. $\uparrow$ & Tilt $\uparrow$ & \shortstack{Anti-\\stuck [\%]} $\downarrow$ \\
 \midrule
-\textbf{\SAS{} (ours)} & \textbf{0.836} / \textbf{0.817} & 0.901 / 0.903 & \textbf{0.745} / \underline{0.686} & \textbf{0.864} / \textbf{0.861} & -- & 0.680 / \underline{0.703} & \textbf{0.798} / \textbf{0.801} & 0.363 / 0.419 & 0.880 / \underline{0.889} & -- \\
+\multicolumn{11}{@{}l}{\emph{Manual}} \\
+Manual control~\cite{cihala2025} & -- & -- & -- & -- & -- & 0.796\,$\pm$\,0.089 & 0.731\,$\pm$\,0.007 & 0.714\,$\pm$\,0.253 & 0.942\,$\pm$\,0.021 & 0.0\,$\pm$\,0.0 \\
+Manual modes~\cite{azayev2022} & -- & -- & -- & -- & -- & 0.795\,$\pm$\,0.029 & 0.721\,$\pm$\,0.019 & 0.816\,$\pm$\,0.082 & 0.848\,$\pm$\,0.009 & 0.0\,$\pm$\,0.0 \\
+\midrule
+\multicolumn{11}{@{}l}{\emph{Reactive and geometry-based}} \\
+{\v C}\'ihala \GC/\OA~\cite{cihala2025} & 0.681\,$\pm$\,0.091 & 0.737\,$\pm$\,0.010 & \underline{0.528}\,$\pm$\,0.294 & 0.777\,$\pm$\,0.032 & \textbf{0.0}\,$\pm$\,0.0 & 0.644\,$\pm$\,0.020 & \underline{0.754}\,$\pm$\,0.008 & 0.323\,$\pm$\,0.028 & 0.854\,$\pm$\,0.041 & \textbf{0.0}\,$\pm$\,0.0 \\
+Chen GFMP~\cite{chen2023} & 0.646\,$\pm$\,0.010 & \underline{0.751}\,$\pm$\,0.007 & 0.301\,$\pm$\,0.028 & \textbf{0.886}\,$\pm$\,0.006 & 3.1\,$\pm$\,0.4 & 0.648\,$\pm$\,0.013 & 0.748\,$\pm$\,0.017 & 0.299\,$\pm$\,0.036 & \textbf{0.895}\,$\pm$\,0.006 & 3.0\,$\pm$\,0.9 \\
+Yuan~\cite{yuan2019} & 0.695\,$\pm$\,0.067 & 0.733\,$\pm$\,0.010 & 0.471\,$\pm$\,0.207 & \underline{0.883}\,$\pm$\,0.011 & \underline{1.3}\,$\pm$\,2.2 & \textbf{0.708}\,$\pm$\,0.061 & 0.742\,$\pm$\,0.014 & \underline{0.497}\,$\pm$\,0.194 & 0.883\,$\pm$\,0.014 & 1.2\,$\pm$\,2.0 \\
+Oehler~\cite{oehler2024} & \textbf{0.699}\,$\pm$\,0.086 & 0.744\,$\pm$\,0.021 & 0.500\,$\pm$\,0.259 & 0.854\,$\pm$\,0.023 & 2.8\,$\pm$\,2.4 & 0.637\,$\pm$\,0.019 & 0.746\,$\pm$\,0.012 & 0.312\,$\pm$\,0.050 & 0.854\,$\pm$\,0.014 & 1.5\,$\pm$\,1.9 \\
+Xu HTO~\cite{xu2024} & 0.671\,$\pm$\,0.028 & 0.736\,$\pm$\,0.008 & 0.404\,$\pm$\,0.084 & 0.872\,$\pm$\,0.006 & 3.5\,$\pm$\,0.2 & 0.663\,$\pm$\,0.038 & 0.735\,$\pm$\,0.012 & 0.387\,$\pm$\,0.105 & 0.868\,$\pm$\,0.004 & 3.3\,$\pm$\,0.2 \\
+Zhang~\cite{zhang2025} & 0.675\,$\pm$\,0.035 & 0.737\,$\pm$\,0.012 & 0.427\,$\pm$\,0.109 & 0.861\,$\pm$\,0.016 & 3.4\,$\pm$\,0.3 & 0.679\,$\pm$\,0.038 & 0.739\,$\pm$\,0.009 & 0.441\,$\pm$\,0.114 & 0.856\,$\pm$\,0.004 & 3.1\,$\pm$\,0.4 \\
+\midrule
+\multicolumn{11}{@{}l}{\emph{Imitation learning}} \\
+Azayev~\cite{azayev2022} & 0.648\,$\pm$\,0.021 & 0.732\,$\pm$\,0.011 & 0.347\,$\pm$\,0.053 & 0.864\,$\pm$\,0.010 & \textbf{0.0}\,$\pm$\,0.0 & 0.680\,$\pm$\,0.038 & 0.732\,$\pm$\,0.016 & 0.424\,$\pm$\,0.087 & 0.885\,$\pm$\,0.015 & \textbf{0.0}\,$\pm$\,0.0 \\
+\midrule
+\multicolumn{11}{@{}l}{\emph{Reinforcement learning}} \\
+Pecka~\cite{pecka2016} & 0.627\,$\pm$\,0.037 & 0.721\,$\pm$\,0.008 & 0.411\,$\pm$\,0.102 & 0.751\,$\pm$\,0.008 & \textbf{0.0}\,$\pm$\,0.0 & 0.625\,$\pm$\,0.034 & 0.719\,$\pm$\,0.007 & 0.398\,$\pm$\,0.089 & 0.757\,$\pm$\,0.011 & \textbf{0.0}\,$\pm$\,0.0 \\
+Pan AT-D3QN~\cite{pan2023atd3qn} & 0.627\,$\pm$\,0.025 & 0.730\,$\pm$\,0.022 & 0.307\,$\pm$\,0.056 & 0.845\,$\pm$\,0.014 & 3.5\,$\pm$\,3.9 & 0.630\,$\pm$\,0.016 & 0.727\,$\pm$\,0.012 & 0.313\,$\pm$\,0.049 & 0.849\,$\pm$\,0.021 & \underline{0.4}\,$\pm$\,1.1 \\
+Pan ICM-D3QN~\cite{pan2023icm} & 0.638\,$\pm$\,0.018 & 0.731\,$\pm$\,0.012 & 0.318\,$\pm$\,0.051 & 0.864\,$\pm$\,0.010 & 4.7\,$\pm$\,0.2 & 0.651\,$\pm$\,0.058 & 0.727\,$\pm$\,0.022 & 0.391\,$\pm$\,0.188 & 0.836\,$\pm$\,0.025 & 6.1\,$\pm$\,4.6 \\
+Mitriakov~\cite{mitriakov2021} & \underline{0.698}\,$\pm$\,0.012 & 0.739\,$\pm$\,0.004 & 0.501\,$\pm$\,0.034 & 0.855\,$\pm$\,0.008 & \textbf{0.0}\,$\pm$\,0.0 & 0.621\,$\pm$\,0.032 & 0.733\,$\pm$\,0.010 & 0.323\,$\pm$\,0.094 & 0.806\,$\pm$\,0.015 & 2.3\,$\pm$\,2.5 \\
+C-TRAC~\cite{ctrac2025} & 0.651\,$\pm$\,0.089 & 0.743\,$\pm$\,0.017 & \textbf{0.545}\,$\pm$\,0.238 & 0.664\,$\pm$\,0.089 & 7.1\,$\pm$\,4.2 & 0.656\,$\pm$\,0.098 & 0.731\,$\pm$\,0.025 & \textbf{0.540}\,$\pm$\,0.257 & 0.697\,$\pm$\,0.056 & 3.4\,$\pm$\,2.6 \\
+\textbf{\SAS{} (ours)} & 0.667\,$\pm$\,0.021 & \textbf{0.759}\,$\pm$\,0.008 & 0.363\,$\pm$\,0.055 & 0.880\,$\pm$\,0.005 & 15.3\,$\pm$\,1.5 & \underline{0.690}\,$\pm$\,0.029 & \textbf{0.761}\,$\pm$\,0.004 & 0.419\,$\pm$\,0.087 & \underline{0.889}\,$\pm$\,0.002 & 1.3\,$\pm$\,0.3 \\
 \bottomrule
 \end{tabular*}
 \end{table*}
 
 \subsection{Simulation results}
 Table~\ref{tab:results} reports TQ and its three channels per controller in simulation under
-the ground-truth and the onboard map, and the percentage of obstacle distance the \SAS{}
-override held each controller. The manual rides remain the reference: manual control
+the ground-truth and the onboard map, and the percentage of obstacle distance an anti-stuck dig
+drove the flippers. The manual rides remain the reference: manual control
 scores $0.89$, $0.05$ above the best controller, and the difference lies almost entirely in
 the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$
 of the operator for the best controllers. Every controller loses quality under the onboard
-map, by $0.01$ to $0.11$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
+map, by $0.008$ to $0.068$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
 The controllers overall required the override for 7 to 14\% of the obstacle distance under
 either map to finish the obstacles. The shock channel hardly separates the controllers,
 $0.86$ to $0.92$: all of them experienced a similar acceleration, dominated by the rigid
-contacts of the simulator rather than by the flipper motion. C-TRAC degrades the most under the onboard map, by $0.11$, and shows the highest
+contacts of the simulator rather than by the flipper motion. C-TRAC degrades the most under the onboard map, by $0.068$, and shows the highest
 sensitivity to the elevated noise of the onboard map: never overridden under the
 ground-truth map, it is held for 7.5\% of the distance under the onboard map. For Yuan, Oehler, and
 Mitriakov, the override share dropped under the onboard map: the added noise made them move their flippers, which resulted in successful traversals.
 
 \subsection{Real-robot results}
-On the real pallet (Table~\ref{tab:results}) the operator remains the reference: both manual
-rides score $0.81$, above every controller. Three findings stand out. First, the best
-controllers are Yuan under the onboard map ($0.72$) and Mitriakov under the ground-truth
-map ($0.71$). Second, \SAS{} is among the best controllers on the real
+On the real pallet (Table~\ref{tab:results_real}) the operator remains the reference: both manual
+rides score $0.80$, above every controller. Three findings stand out. First, the best
+controllers are Yuan under the onboard map ($0.708$) and Oehler under the ground-truth
+map ($0.699$). Second, \SAS{} is among the best controllers on the real
 robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in simulation: the map-based controllers that stall
 are released by the \SAS{} override for at most 7\% of the crossing distance, and, unlike in simulation, the onboard map lowers that share for most of them, its noise making them move the
-flippers instead of holding a fixed posture. The shock channel again has a small spread, $0.76$ to
-$0.80$, so the controllers experienced a similar acceleration on the pallet as well.
+flippers instead of holding a fixed posture. The shock channel again has a small spread, $0.72$ to
+$0.76$, so the controllers experienced a similar acceleration on the pallet as well.
 
 \subsection{Hidden obstacle}
 Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, which causes the onboard map to show the grass

@@ -67,8 +67,8 @@ ground-truth map~\cite{cihala2025,zimmermann2014}.
 
 \begin{table}[t]
 \centering
-\caption{\textbf{Compared controllers.} \emph{Map \& loc.}: needs an onboard map and
-localization. \emph{Stab.}: attitude axes with an explicit stabilization objective (r roll,
+\caption{\textbf{Compared controllers.} \emph{Map}: needs an onboard
+map. \emph{Stab.}: attitude axes with an explicit stabilization objective (r roll,
 p pitch). \emph{Anti-stuck}: frees itself when stuck. \emph{Code}: the authors' released
 implementation or our reimplementation.}
 \label{tab:sensing}
@@ -76,7 +76,7 @@ implementation or our reimplementation.}
 \setlength{\tabcolsep}{1.3pt}
 \begin{tabular}{@{}llcccc@{}}
 \toprule
-Controller & Approach & Code & \shortstack{Map \&\\loc.} & Stab. & \shortstack{Anti-\\stuck} \\
+Controller & Approach & Code & Map & Stab. & \shortstack{Anti-\\stuck} \\
 \midrule
 \multicolumn{6}{@{}l}{\emph{Manual}} \\
 Manual control~\cite{cihala2025} & direct teleoperation & -- & \xmark & -- & \xmark \\
