@@ -27,6 +27,8 @@ onboard map, the map-based controller Yuan~\cite{yuan2019} got stuck under the l
 Two principles as simple as \emph{hold the body level} and \emph{dig out when motion
 stops} can reach the traversal quality of the map-based state of the art.
 
+The simulation runs reset the perception stack at each obstacle, which limits the drift the
+onboard map can accumulate, so the map degradation reported here is a lower bound.
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
 odometry, which should hold up in occluded, feature-poor, or flat places where ICP alone struggles, and a fallback scheme that defers to a map-based
 controller when the onboard map is trustworthy and to \SAS{} when it is not.
