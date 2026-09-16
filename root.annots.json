@@ -4857,5 +4857,13 @@
   "done": "applied (16.9.2026, round 72)",
   "page_hint": 5,
   "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "the ground-truth map the robot also tipped over on obstacle 7,",
+  "anchor_full": "; in one C-TRAC run under the ground-truth map the robot also tipped over on obstacle 7, the only tip-over in either campaign, and that obstacle is scored as not traversed.",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
  }
 ]
