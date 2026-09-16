@@ -1,14 +1,14 @@
 % ============================ EXPERIMENTS ============================
 \subsection{Platform and onboard pipeline}
 The experimental robot is a tracked robot whose four independently actuated flippers are also its only
-driven tracks (Fig.~\ref{fig:robot}). Robot software backbone is ROS2, which allows for the development of a distributed robotic system. We evaluate the flipper controllers both in simulation and on the
+driven tracks (Fig.~\ref{fig:robot}). The robot software backbone is ROS 2, which allows for the development of a distributed robotic system. We evaluate the flipper controllers both in simulation and on the
 real platform. The onboard perception pipeline that the map-based baselines
 consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
 deskewing and LiDAR-ICP odometry~\cite{norlabicpmapper,libpointmatcher}, which drive elevation
 mapping~\cite{fankhauser2018} to produce a robot-centric
 elevation map, which we call the \emph{onboard map}.
 
-\paragraph{Simulation comparison} We simulate in Gazebo~\cite{gazebo2004} Ionic. Unlike
+\paragraph{Simulation comparison} We simulate in Gazebo Ionic~\cite{gazebo2004}. Unlike
 typical simulators that approximate tracks with multiple wheels, we employ the track
 simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The sensors match the real payload: a simulated Ouster OS0
 ($1024\times64$ rays at \SI{10}{\hertz}, \SIrange{0.1}{50}{\metre}, \SI{1}{\centi\metre}
@@ -58,7 +58,7 @@ ICM-D3QN~\cite{pan2023icm}: the same three changes, sharing the code with AT-D3Q
 otherwise, as published. C-TRAC~\cite{ctrac2025}: reward terms are added that incentivize
 movement and prevent convergence to a fixed pose; trained at a fixed forward velocity.
 Mitriakov~\cite{mitriakov2021}: the 2-DoF arm is dropped, so the center-of-gravity penalty
-reduces to a chassis-tilt; one policy covers both driving directions, and the rule
+reduces to a chassis-tilt proxy; one policy covers both driving directions, and the rule
 that the trailing flipper never goes below neutral is inverted, since on a four-track robot
 that flipper carries a load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
 sign convention follows the authors' reference implementation rather than the paper, and
@@ -89,7 +89,7 @@ $q_t$, and ground clearance $q_c$,
   \mathrm{TQ}=\tfrac{1}{3}\,(q_s+q_t+q_c)\in[0,1).
   \label{eq:tq}
 \end{equation}
-We also report the percentage of the obstacle distance that the \SAS{} override held the flippers.
+We also report the percentage of the obstacle distance for which the \SAS{} override held the flippers.
 Traversal success and traversal time are not informative in this setting: the override
 releases every stall, so every obstacle is completed, and the drive node drives at a constant speed; therefore, the traversal time differs between controllers only by the time spent in the stall state before the override activates.
 \label{sec:metrics-block}%
@@ -159,7 +159,7 @@ the crossings, a crossing not completed scores zero. All channels are scored aga
 truth, with $s_{\max}$ \SI{376}{\metre\per\second\squared} in simulation and
 \SI{57.5}{\metre\per\second\squared} on the real robot. Each cell gives the value under the ground-truth map / the onboard map. Shock,
 clearance and tilt are the three channel scores of~\eqref{eq:tq}. \emph{Override}: percentage of
-distance the \SAS{} override held the flippers. Manual rides are hand-driven from third person view. Per column and map condition, the best controllers are in bold and the second best underlined (ties share the mark).}
+distance the \SAS{} override held the flippers. Manual rides are hand-driven from a third-person view. Per column and map condition, the best controllers are in bold and the second best underlined (ties share the mark).}
 \label{tab:results}
 \scriptsize
 \setlength{\tabcolsep}{1.5pt}
@@ -224,7 +224,7 @@ flippers instead of holding a fixed posture. The shock channel again has a small
 $0.80$, so the controllers experienced a similar acceleration on the pallet as well.
 
 \subsection{Hidden obstacle}
-Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, which caused the onboard map shows the grass
+Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, which causes the onboard map to show the grass
 canopy, and the log is absent from it. Yuan interprets the gap that the log creates in the grass as a drop and lowers the front
 flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
 
@@ -233,7 +233,7 @@ flippers to descend; the lowered flippers slide under the log, causing the robot
   \includegraphics[width=\textwidth]{figures/grass_merged.jpg}
   \caption{\textbf{Traversal of an obstacle hidden in tall grass by the best map-based
   controller, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
-  cloud during Yuan's crossing: the LiDAR does not penetrate the grass, and so the map only shows only the canopy while the log remains obscured. Yuan interprets the gap created by the log in the canopy as a drop and lowers the front flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. (c) \SAS{} does not rely on the LiDAR derived map, therefore it keeps its default posture, and easily crosses the log.}
+  cloud during Yuan's crossing: the LiDAR does not penetrate the grass, and so the map shows only the canopy while the log remains obscured. (b) Yuan interprets the gap created by the log in the canopy as a drop and lowers the front flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. (c) \SAS{} does not rely on the LiDAR-derived map; therefore, it keeps its default posture and easily crosses the log.}
   \label{fig:grass}
 \end{figure*}
 

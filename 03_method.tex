@@ -10,7 +10,7 @@ anti-stuck term $v^{\mathrm{a}}_i$, which frees the robot when it is \emph{stuck
 
 \subsection{Attitude stabilization}\label{sec:method-stab}
 Attitude stabilization drives the body roll $\phi$ and pitch $\theta$ to the zero set points
-$\phi_0$ and $\theta_0$, which can later regulate to a target attitude: from the errors $e_\phi=\phi_0-\phi$ and $e_\theta=\theta_0-\theta$ we form the proportional-integral roll command $u_\phi$ and
+$\phi_0$ and $\theta_0$, which can later be set to a target attitude: from the errors $e_\phi=\phi_0-\phi$ and $e_\theta=\theta_0-\theta$ we form the proportional-integral roll command $u_\phi$ and
 pitch command $u_\theta$,
 \begin{equation}
   u_\phi = K^\phi_{\mathrm P}\,e_\phi + K^\phi_{\mathrm I}\, I_\phi, \qquad
@@ -43,7 +43,7 @@ odometry~\cite{libpointmatcher} over a sliding \SI{0.5}{\second} window. The cue
 to answer whether the robot is moving: it is thresholded, so it needs neither an accurate
 nor a metric estimate of the motion, and any scale-free motion signal would serve. It is
 computed over the window and never accumulated, so it carries none of the drift of an
-integrated pose. LiDAR odometry is capable of detecting no movement, unlike track odometry, if the tracks slip
+integrated pose. Unlike track odometry, LiDAR odometry is capable of detecting no movement if the tracks slip
 on a stuck robot. When digging,
 all four flippers are driven downward at the velocity
 $\lambda_\text{dig}=\SI{2.0}{\radian\per\second}$ so they push against the terrain and lift
@@ -81,7 +81,7 @@ the velocity limit $v_{\max}$ of the flipper drives:
   \label{eq:overview}
 \end{equation}
 
-The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, i.e., $v^{\mathrm{a}}_i$ has an opposing sign to $v^{\mathrm{s}}_i$, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$, the anti-stuck term yields completely, and equation \ref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In case of $\alpha=1$, the anti-stuck term may
+The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, i.e., when $v^{\mathrm{a}}_i$ has an opposing sign to $v^{\mathrm{s}}_i$, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term may
 reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=-v^{\mathrm{s}}_i$; therefore, $v_i=0$. This enforces that the anti-stuck command can never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
 applies only while $|v^{\mathrm{s}}_i|>\beta=\SI{0.05}{\radian\per\second}$, so that
 attitude noise on a level robot cannot suppress the anti-stuck term; otherwise, the

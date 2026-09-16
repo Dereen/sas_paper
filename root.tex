@@ -56,12 +56,12 @@ to an \emph{elevation map} of the terrain under and in front of the robot. The t
 a mapless controller that combines a stabilization term for body roll
 and pitch with an anti-stuck term that frees the robot when it gets stuck. As input, \SAS{} uses the IMU, the flipper joint angles, and a motion cue that only
 tells whether the robot is moving. The cue is computed over a short window and never
-accumulated, resulting in that \SAS{} does not inherit the odometry-integration drift that corrupts the
+accumulated, so \SAS{} does not inherit the odometry-integration drift that corrupts the
 map. We deploy \SAS{} on a tracked robot with four flippers and evaluate it against manual
 teleoperation and prior flipper controllers in a large comparison run, both in
 simulation and in a real obstacle arena. In simulation and on the real robot, \SAS{} achieves traversal quality comparable to that of the
 map-based controllers. On a log hidden in tall grass, invisible to the LiDAR, the best map-based controller got stuck
-while \SAS{} traverse it.
+while \SAS{} traversed it.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

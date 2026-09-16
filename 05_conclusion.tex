@@ -2,11 +2,11 @@
 State-of-the-art flipper controllers depend on an elevation map of the occluded ground under
 the chassis, which drifts with odometry on exactly the terrain where flippers are needed.
 The comparison shows which part of a traversal the choice of controller actually
-governs. Shock does not separate the controllers: over all thirteen it spans $0.865$ to
+governs. Shock does not separate the controllers: over all thirteen of them it spans $0.865$ to
 $0.918$ in simulation and $0.765$ to $0.798$ on the real pallet, so every controller
 transmits a similar acceleration to the body, set by the platform and the terrain rather
 than by the flipper motion. What separates them is how they stabilize the body: clearance and
-tilt, and on the real robot clearance is the most significant, which spreads from $0.301$ to $0.545$. That channel is also the one the transfer from
+tilt, and on the real robot clearance is the most significant, spreading from $0.301$ to $0.545$. That channel is also the one the transfer from
 simulation damages most: every controller drops from $0.68$--$0.75$ in simulation to
 $0.30$--$0.55$ on the real robot, while shock and
 tilt keep their level. The onboard
@@ -20,8 +20,8 @@ map. It recovers from every stall by its own anti-stuck term. Its weakest channe
 ground-truth map and $0.419$ under the onboard map, below the best map-based controllers,
 because without a terrain preview it can only raise the chassis once the obstacle is already
 under it. On a real log hidden in tall grass, invisible to the LiDAR and absent from the
-onboard map, the best map-based controller Yuan \cite{yuan2019} got stuck under the log while \SAS{} crossed it.
-That two principles as simple as \emph{hold the body level} and \emph{dig out when motion
+onboard map, the best map-based controller, Yuan~\cite{yuan2019}, got stuck under the log while \SAS{} crossed it.
+Two principles as simple as \emph{hold the body level} and \emph{dig out when motion
 stops} can reach the traversal quality of the map-based state of the art.
 
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
