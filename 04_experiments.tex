@@ -1,7 +1,7 @@
 % ============================ EXPERIMENTS ============================
 \subsection{Platform and onboard pipeline}
-The robot is a tracked robot with four independently actuated flippers
-(Fig.~\ref{fig:robot}). We evaluate the flipper controllers both in simulation and on the
+The robot is a tracked robot whose four independently actuated flippers are also its only
+driven tracks (Fig.~\ref{fig:robot}); we call this the \emph{four-track} morphology. We evaluate the flipper controllers both in simulation and on the
 real platform. The onboard perception pipeline that the map-based baselines
 consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
 deskewing and LiDAR-ICP odometry~\cite{norlabicpmapper,libpointmatcher}, which drive elevation
@@ -68,10 +68,9 @@ safety is read from the same rollout; the real-robot training stage is omitted.
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/gazebo_arena}
-  \caption{\textbf{Simulation arena.} The Gazebo warehouse course: a straight aisle of twelve numbered obstacles of variable difficulty (pallets, stacked
+  \caption{\textbf{Simulation arena.} The warehouse course: a straight aisle of twelve numbered obstacles of variable difficulty (pallets, stacked
   boxes, planks, and a staircase); the robot starts at the right. In the autonomous ride (Sec.~\ref{sec:experiments}) it is driven at a constant
-  \SI{0.6}{\metre\per\second} through every section in turn, with a \SI{1}{\metre} settling strip between
-  sections.}
+  \SI{0.6}{\metre\per\second} through every obstacle in turn, with a \SI{1}{\metre} settling strip between obstacles.}
   \label{fig:obstacles}
 \end{figure*}
 
@@ -92,20 +91,18 @@ $q_t$, and ground clearance $q_c$,
 \end{equation}
 We also report the share of the obstacle distance the \SAS{} override held the flippers.
 Traversal success and traversal time are not informative under this protocol: the override
-releases every stall, so nearly every obstacle is completed, and the ride node drives at a
-constant speed, so the traversal time differs between controllers only by the time spent
+releases every stall, so nearly every obstacle is completed, and the drive node drives at a constant speed, so the traversal time differs between controllers only by the time spent
 under the override.
 \label{sec:metrics-block}%
 
 \noindent\textbf{Shock.} Shock measures the impacts transmitted to the body, which stress
 the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored with the scale $s_{\max}$, the
 largest acceleration the platform records. On the real robot $s_{\max}$ is the highest measured
-sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In Gazebo, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest measured \SI{0.1}{\second} mean of
+sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In simulation, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest measured \SI{0.1}{\second} mean of
 $s$ over all runs, \SI{376}{\metre\per\second\squared}.
 
 \noindent\textbf{Tilt.} Tilt measures how far the body departs from the gravity-aligned
-horizontal; it is what the attitude stabilization regulates, and it measures how safely the
-policy rides. It is the angle
+horizontal; it is what the attitude stabilization regulates, and it measures how safely the controller rides. It is the angle
 $t$ between the body $z$ axis and the vertical, from the ground-truth pose, scored with
 $t_{\max}=\ang{50}$.
 
@@ -204,14 +201,14 @@ C-TRAC~\cite{ctrac2025} & 0.816 / 0.702 & 0.887 / 0.895 & 0.722 / 0.608 & \under
 \end{table*}
 
 \subsection{Simulation results}
-Table~\ref{tab:results} reports TQ and its three channels per controller in Gazebo under
+Table~\ref{tab:results} reports TQ and its three channels per controller in simulation under
 the ground-truth and the onboard map, and the share of obstacle distance the \SAS{}
 override held each controller. The manual rides remain the reference: manual control
 scores $0.89$, $0.05$ above the best controller, and the difference lies almost entirely in
 the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$
 of the operator for the best controllers. Every controller loses quality under the onboard
 map, by $0.01$ to $0.11$. \SAS{} loses $0.020$, through its LiDAR-ICP motion cue alone.
-The policies overall required the override for 7 to 14\% of the obstacle distance under
+The controllers overall required the override for 7 to 14\% of the obstacle distance under
 either map to finish the obstacles. The shock channel hardly separates the controllers,
 $0.86$ to $0.92$: all of them experienced a similar acceleration, dominated by the rigid
 contacts of the simulator rather than by the flipper motion. C-TRAC degrades the most under the onboard map, by $0.11$, and shows the highest
@@ -229,31 +226,27 @@ map ($0.71$), and the pallet does not separate the map-based controllers by thei
 one ride per condition, the difference between the two maps stays within the spread over
 the crossings for all but ICM-D3QN and Mitriakov, whose quality drops the most under the
 onboard map, by $0.10$ and $0.08$. Second, \SAS{} is among the best controllers on the real
-robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in Gazebo: the map-based controllers that stall
-are released by the \SAS{} override for at most 7\% of the crossing distance, and, unlike in
-Gazebo, the onboard map lowers that share for most of them, its noise making them move the
+robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in simulation: the map-based controllers that stall
+are released by the \SAS{} override for at most 7\% of the crossing distance, and, unlike in simulation, the onboard map lowers that share for most of them, its noise making them move the
 flippers instead of holding a fixed posture; C-TRAC and ICM-D3QN abort crossings under
 either map. The tilt channel, the target of the stabilization term, is where \SAS{} leads
-on both platforms: the best tilt score in Gazebo, and on the real pallet the smallest
+on both platforms: the best tilt score in simulation, and on the real pallet the smallest
 maximum tilt of all controllers, less than a third of C-TRAC's. The shock channel again has a small spread, $0.76$ to
 $0.80$, so the controllers experienced a similar acceleration on the pallet as well.
 
 \subsection{Hidden obstacle}
-Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based policy on the pallet,
-and with \SAS. The LiDAR does not penetrate the grass, so the onboard map shows the grass
+Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, so the onboard map shows the grass
 canopy and the log is absent from it. Yuan interprets the gap that the log opens in the grass as a drop and lowers the front
-flippers to descend; the lowered flippers slide under the log and the robot stalls against
-it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
+flippers to descend; the lowered flippers slide under the log and the robot gets stuck under it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/grass_merged.jpg}
   \caption{\textbf{Traversal of an obstacle hidden in tall grass by the best map-based
-  policy, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
+  controller, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
   cloud during Yuan's crossing: the LiDAR does not penetrate the grass, so the map is
-  inaccurate and the obstacle is practically invisible to the perception stack and the
-  policy. (b) Yuan~\cite{yuan2019}: the policy takes the gap the log opens in the grass for
-  a drop, lowers the flippers to descend, and gets stuck under the log. (c) \SAS{}: without
+  inaccurate and the obstacle is practically invisible to the perception stack and the controller. (b)
+  Yuan~\cite{yuan2019}: the controller takes the gap the log opens in the grass for a drop, lowers the flippers to descend, and gets stuck under the log. (c) \SAS{}: without
   the incorrect information of the onboard map it keeps its default posture and crosses
   the obstacle.}
   \label{fig:grass}
