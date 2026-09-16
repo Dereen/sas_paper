@@ -5,122 +5,153 @@
 
 % ---- ICRA 2025 ----
 @inproceedings{cihala2025,
-  title={Manual, Semi or Fully Autonomous Flipper Control? A Framework for Fair Comparison},
-  author={{\v{C}}{\'\i}hala, Valent{\`y}n and Pecka, Martin and Svoboda, Tom{\'a}{\v{s}} and Zimmermann, Karel},
-  booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)},
-  pages={16377--16383},
+  author={Číhala, Valentýn and Pecka, Martin and Svoboda, Tomáš and Zimmermann, Karel},
+  booktitle={2025 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={Manual, Semi or Fully Autonomous Flipper Control? A Framework for Fair Comparison}, 
   year={2025},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={16377-16383},
+  keywords={Measurement;Hands;Costs;Manuals;Human factors;Benchmark testing;Cognitive load;Real-time systems;Robots;Oscillators},
+  doi={10.1109/ICRA55743.2025.11128663}}
+
 
 % ============================ Family 1: monolithic model-free deep RL ========
 
 @article{ftrbench2025,
-  title={FTR-Bench: Benchmarking Deep Reinforcement Learning for Flipper-Track Robot Control},
-  author={Zhang, Hongchuan and Ren, Junkai and Xiao, Junhao and Pan, Hainan and Lu, Huimin and Xu, Xin},
-  journal={Journal of Field Robotics},
-  volume={42},
-  number={5},
-  pages={2375--2389},
-  year={2025},
-  publisher={Wiley Online Library}
+author = {Zhang, Hongchuan and Ren, Junkai and Xiao, Junhao and Pan, Hainan and Lu, Huimin and Xu, Xin},
+title = {FTR-Bench: Benchmarking Deep Reinforcement Learning for Flipper-Track Robot Control},
+journal = {Journal of Field Robotics},
+volume = {42},
+number = {5},
+pages = {2375-2389},
+keywords = {artificial intelligence, machine learning, tracked robot},
+doi = {https://doi.org/10.1002/rob.22528},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22528},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22528},
+abstract = {ABSTRACT Tracked robots equipped with flippers and sensors are extensively employed in outdoor search and rescue scenarios. However, achieving precise motion control on complex terrains remains a significant challenge, often necessitating expert teleoperation. This stems from the high degree of robot joint freedom and the need for precise flipper coordination based on terrain roughness. To address this problem, we propose Flipper- Track Robot Bench mark (FTR-Bench), a simulator featuring flipper-track robots tasked with crossing various obstacles using reinforcement learning (RL) algorithms. The primary objective is to enable autonomous locomotion in environments that are too remote or hazardous for humans, such as disaster zones or planetary surfaces. Built on Isaac Lab, FTR-Bench achieves efficient RL training at over 4000 FPS on an RTX 3070 GPU. Additionally, it integrates RL algorithms with OpenAI Gym interface specifications, enabling fast secondary development and verification. On this basis, FTR-Bench provides a series of standardized RL-based benchmarking experiments baselines for obstacle-crossing tasks, providing a solid foundation for subsequent algorithm design and performance comparison. Experimental results empirically indicate that SAC algorithms performs relatively well in single and mixed terrain traversal, but most algorithms struggle with multi-terrain traversal skills, which calls the RL community for more substantial development. Our project is open-source at https://github.com/nubot-nudt/FTR-Benchmark.},
+year = {2025}
 }
+
 
 
 @misc{pan2023atd3qn,
-  title={Deep reinforcement learning for flipper control of tracked robots},
-  author={Pan, Hainan and Chen, Bailiang and Huang, Kaihong and Ren, Junkai and Chen, Xieyuanli and Lu, Huimin},
-  howpublished={arXiv preprint arXiv:2306.10352},
-  year={2023}
+      title={Deep Reinforcement Learning for Flipper Control of Tracked Robots}, 
+      author={Hainan Pan and Bailiang Chen and Kaihong Huang and Junkai Ren and Xieyuanli Chen and Huimin Lu},
+      year={2023},
+      eprint={2306.10352},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2306.10352}, 
 }
 
 @article{pan2023icm,
-  title={Deep reinforcement learning for flipper control of tracked robots in urban rescuing environments},
-  author={Pan, Hainan and Chen, Xieyuanli and Ren, Junkai and Chen, Bailiang and Huang, Kaihong and Zhang, Hui and Lu, Huimin},
-  journal={Remote Sensing},
-  volume={15},
-  number={18},
-  pages={4616},
-  year={2023},
-  publisher={MDPI}
+AUTHOR = {Pan, Hainan and Chen, Xieyuanli and Ren, Junkai and Chen, Bailiang and Huang, Kaihong and Zhang, Hui and Lu, Huimin},
+TITLE = {Deep Reinforcement Learning for Flipper Control of Tracked Robots in Urban Rescuing Environments},
+JOURNAL = {Remote Sensing},
+VOLUME = {15},
+YEAR = {2023},
+NUMBER = {18},
+ARTICLE-NUMBER = {4616},
+URL = {https://www.mdpi.com/2072-4292/15/18/4616},
+ISSN = {2072-4292},
+ABSTRACT = {Tracked robots equipped with flippers and LiDAR sensors have been widely used in urban search and rescue. Achieving autonomous flipper control is important in enhancing the intelligent operation of tracked robots within complex urban rescuing environments. While existing methods mainly rely on the heavy work of manual modeling, this paper proposes a novel Deep Reinforcement Learning (DRL) approach named ICM-D3QN for autonomous flipper control in complex urban rescuing terrains. Specifically, ICM-D3QN comprises three modules: a feature extraction and fusion module for extracting and integrating robot and environment state features, a curiosity module for enhancing the efficiency of flipper action exploration, and a deep Q-Learning control module for learning robot-control policy. In addition, a specific reward function is designed, considering both safety and passing smoothness. Furthermore, simulation environments are constructed using the Pymunk and Gazebo physics engine for training and testing. The learned policy is then directly transferred to our self-designed tracked robot in a real-world environment for quantitative analysis. The consistently high performance of the proposed approach validates its superiority over hand-crafted control models and state-of-the-art DRL strategies for crossing complex terrains.},
+DOI = {10.3390/rs15184616}
 }
 
 
+
 @article{mitriakov2021,
-  title={Reinforcement learning based, staircase negotiation learning: Simulation and transfer to reality for articulated tracked robots},
-  author={Mitriakov, Andrei and Papadakis, Panagiotis and Kerdreux, J{\'e}r{\^o}me and Garlatti, Serge},
-  journal={IEEE Robotics \& Automation Magazine},
-  volume={28},
-  number={4},
-  pages={10--20},
-  year={2021},
-  publisher={IEEE}
+author = {Mitriakov, Andrei and Papadakis, Panagiotis and Kerdreux, Jerome and Garlatti, Serge},
+year = {2021},
+month = {10},
+pages = {10-20},
+title = {Reinforcement Learning Based, Staircase Negotiation Learning: Simulation and Transfer to Reality for Articulated Tracked Robots},
+volume = {28},
+journal = {IEEE Robotics & Automation Magazine},
+doi = {10.1109/MRA.2021.3114105}
 }
 
 
 @article{mitriakov2022,
-  title={An open-source software framework for reinforcement learning-based control of tracked robots in simulated indoor environments},
-  author={Mitriakov, Andrei and Papadakis, Panagiotis and Garlatti, Serge},
-  journal={Advanced Robotics},
-  volume={36},
-  number={11},
-  pages={519--532},
-  year={2022},
-  publisher={Taylor \& Francis}
+author = {A. Mitriakov and P. Papadakis and S. Garlatti},
+title = {An open-source software framework for reinforcement learning-based control of tracked robots in simulated indoor environments},
+journal = {Advanced Robotics},
+volume = {36},
+number = {11},
+pages = {519--532},
+year = {2022},
+publisher = {Taylor \& Francis},
+doi = {10.1080/01691864.2022.2076570},
+URL = {https://doi.org/10.1080/01691864.2022.2076570},
+eprint = {https://doi.org/10.1080/01691864.2022.2076570}
 }
 
 
 @inproceedings{pecka2016,
-  title={Autonomous flipper control with safety constraints},
-  author={Pecka, Martin and {\v{S}}alansk{\`y}, Vojt{\v{e}}ch and Zimmermann, Karel and Svoboda, Tom{\'a}{\v{s}}},
-  booktitle={2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={2889--2894},
+  author={Pecka, Martin and Šalanský, Vojtěch and Zimmermann, Karel and Svoboda, Tomáš},
+  booktitle={2016 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={Autonomous flipper control with safety constraints}, 
   year={2016},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={2889-2894},
+  keywords={Safety;Robots;Mathematical model;Trajectory;Computational modeling;Context;Gradient methods},
+  doi={10.1109/IROS.2016.7759447}}
+
 
 
 % ============================ Family 2: hierarchical / switching / MoE =======
 
 @article{azayev2022,
-  title={Autonomous state-based flipper control for articulated tracked robots in urban environments},
   author={Azayev, Teymur and Zimmermann, Karel},
-  journal={IEEE Robotics and Automation Letters},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={Autonomous State-Based Flipper Control for Articulated Tracked Robots in Urban Environments}, 
+  year={2022},
   volume={7},
   number={3},
-  pages={7794--7801},
-  year={2022},
-  publisher={IEEE}
-}
+  pages={7794-7801},
+  keywords={Robots;Neural networks;Task analysis;Behavioral sciences;Training;Robot sensing systems;Reinforcement learning;Deep learning methods;imitation learning;machine learning for robot control},
+  doi={10.1109/LRA.2022.3185762}}
+
 
 
 @inproceedings{zimmermann2014,
-  title={Adaptive traversability of unknown complex terrain with obstacles for mobile robots},
   author={Zimmermann, Karel and Zuzanek, Petr and Reinstein, Michal and Hlavac, Vaclav},
-  booktitle={2014 IEEE international conference on robotics and automation (ICRA)},
-  pages={5177--5182},
+  booktitle={2014 IEEE International Conference on Robotics and Automation (ICRA)}, 
+  title={Adaptive Traversability of unknown complex terrain with obstacles for mobile robots}, 
   year={2014},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={5177-5182},
+  keywords={Training;Testing;Learning (artificial intelligence);Training data;Measurement;Legged locomotion},
+  doi={10.1109/ICRA.2014.6907619}}
 
 
 % ============================ Family 3: imitation learning ===================
 
 @inproceedings{pomerleau1988alvinn,
-  title={Alvinn: An autonomous land vehicle in a neural network},
-  author={Pomerleau, Dean A},
-  journal={Advances in neural information processing systems},
-  volume={1},
-  year={1988}
+author = {Pomerleau, Dean A.},
+title = {ALVINN: an autonomous land vehicle in a neural network},
+year = {1988},
+publisher = {MIT Press},
+address = {Cambridge, MA, USA},
+abstract = {ALVINN (Autonomous Land Vehicle In a Neural Network) is a 3-layer back-propagation network designed for the task of road following. Currently ALVINN takes images from a camera and a laser range finder as input and produces as output the direction the vehicle should travel in order to follow the road. Training has been conducted using simulated road images. Successful tests on the Carnegie Mellon autonomous navigation test vehicle indicate that the network can effectively follow real roads under certain field conditions. The representation developed to perform the task differs dramatically when the network is trained under various conditions, suggesting the possibility of a novel adaptive autonomous navigation system capable of tailoring its processing to the conditions at hand.},
+booktitle = {Proceedings of the 2nd International Conference on Neural Information Processing Systems},
+pages = {305–313},
+numpages = {9},
+series = {NIPS'88}
 }
 
 @inproceedings{ross2011dagger,
-  title={A reduction of imitation learning and structured prediction to no-regret online learning},
-  author={Ross, St{\'e}phane and Gordon, Geoffrey and Bagnell, Drew},
-  booktitle={Proceedings of the fourteenth international conference on artificial intelligence and statistics},
-  pages={627--635},
-  year={2011},
-  organization={JMLR Workshop and Conference Proceedings}
+author = {Ross, Stephane and Gordon, Geoffrey and Bagnell, J.},
+year = {2010},
+month = {11},
+pages = {},
+title = {A Reduction of Imitation Learning and Structured Prediction to No-Regret
+Online Learning},
+volume = {15},
+journal = {Journal of Machine Learning Research - Proceedings Track}
 }
 
 
@@ -138,104 +169,123 @@
 % ============================ Family 4: geometry / model-based planning ======
 
 @article{chen2023,
-  title={Geometry-based flipper motion planning for articulated tracked robots traversing rough terrain in real-time},
-  author={Chen, Bailiang and Huang, Kaihong and Pan, Hainan and Ren, Haoran and Chen, Xieyuanli and Xiao, Junhao and Wu, Wenqi and Lu, Huimin},
-  journal={Journal of Field Robotics},
-  volume={40},
-  number={8},
-  pages={2010--2029},
-  year={2023},
-  publisher={Wiley Online Library}
+author = {Chen, Bailiang and Huang, Kaihong and Pan, Hainan and Ren, Haoran and Chen, Xieyuanli and Xiao, Junhao and Wu, Wenqi and Lu, Huimin},
+title = {Geometry-based flipper motion planning for articulated tracked robots traversing rough terrain in real-time},
+journal = {Journal of Field Robotics},
+volume = {40},
+number = {8},
+pages = {2010-2029},
+keywords = {geometry-based pose prediction, motion planning, semiautonomous traversal, tracked robot},
+doi = {https://doi.org/10.1002/rob.22236},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22236},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22236},
+year = {2023}
 }
 
 
+
+
 @inproceedings{yuan2019,
-  title={Configuration-space flipper planning for rescue robots},
-  author={Yuan, Yijun and Wang, Letong and Schwertfeger, S{\"o}ren},
-  booktitle={2019 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)},
-  pages={37--42},
-  year={2019},
-  organization={IEEE}
+      title={Configuration-Space Flipper Planning for Rescue Robots}, 
+      author={Yijun Yuan and Letong Wang and Sören Schwertfeger},
+      year={2019},
+      eprint={1905.02984},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/1905.02984}, 
 }
 
 
 @inproceedings{oehler2024,
-  title={Accurate pose prediction on signed distance fields for mobile ground robots in rough terrain},
   author={Oehler, Martin and von Stryk, Oskar},
-  booktitle={2023 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)},
-  pages={47--52},
+  booktitle={2023 IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)}, 
+  title={Accurate Pose Prediction on Signed Distance Fields for Mobile Ground Robots in Rough Terrain}, 
   year={2023},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={47-52},
+  keywords={Three-dimensional displays;Navigation;Surface roughness;Safety;Rough surfaces;Planning;Security},
+  doi={10.1109/SSRR59696.2023.10499944}}
 
 
 @article{xu2024,
-  title={Hybrid trajectory optimization for autonomous terrain traversal of articulated tracked robots},
-  author={Xu, Zhengzhe and Chen, Yanbo and Jian, Zhuozhu and Tan, Junbo and Wang, Xueqian and Liang, Bin Liang},
-  journal={IEEE Robotics and Automation Letters},
-  volume={9},
-  number={1},
-  pages={755--762},
-  year={2023},
-  publisher={IEEE}
+      title={Hybrid Trajectory Optimization for Autonomous Terrain Traversal of Articulated Tracked Robots}, 
+      author={Zhengzhe Xu and Yanbo Chen and Zhuozhu Jian and Junbo Tan and Xueqian Wang and Bin Liang},
+      year={2023},
+      eprint={2306.02659},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2306.02659}, 
 }
 
 @inproceedings{athena2025,
-  title={Athena: An Autonomous Open-Hardware Tracked Rescue Robot Platform},
-  author={Fabian, Stefan and Schmidt, Aljoscha and S{\"u}{\ss}, Jonas and Oza, Aum and Von Stryk, Oskar and others},
-  booktitle={2025 IEEE International Symposium on Safety Security Rescue Robotics (SSRR)},
-  pages={166--171},
+  author={Fabian, Stefan and Schmidt, Aljoscha and Süß, Jonas and Dishant and Oza, Aum and Von Stryk, Oskar},
+  booktitle={2025 IEEE International Symposium on Safety Security Rescue Robotics (SSRR)}, 
+  title={Athena: An Autonomous Open-Hardware Tracked Rescue Robot Platform}, 
   year={2025},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={166-171},
+  keywords={Surveys;Stairs;Robot sensing systems;Manipulators;Belts;Valves;Sensors;Robots;Payloads;Testing},
+  doi={10.1109/SSRR68451.2025.11391264}}
+
 
 % ============================ Family 5: recent (2024--2026) learning =========
 
 @inproceedings{ctrac2025,
-  title={C-TRAC: Terrain-Adaptive Control for Articulated Tracked Robots via Contact-Aware Reinforcement Learning},
   author={Pan, Hainan and Huang, Kaihong and Chen, Xieyuanli and Zhang, Hongchuan and Shi, Junfeng and Cheng, Chuang and Chen, Bailiang and Lu, Huimin},
-  booktitle={2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={7289--7296},
+  booktitle={2025 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={C-TRAC: Terrain-Adaptive Control for Articulated Tracked Robots via Contact-Aware Reinforcement Learning}, 
   year={2025},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={7289-7296},
+  keywords={Training;Adaptation models;Uncertainty;Reinforcement learning;Position measurement;Robot sensing systems;Prediction algorithms;Stability analysis;Real-time systems;Rescue robots},
+  doi={10.1109/IROS60139.2025.11247117}}
+
 
 
 @article{zhang2025,
-  title={A Planning Framework Based on Semantic Segmentation and Flipper Motions for Articulated Tracked Robot in Obstacle-Crossing Terrain},
-  author={Zhang, Pu and Liu, Junhang and Fu, Yongling and Sun, Jian},
-  journal={Biomimetics},
-  volume={10},
-  number={9},
-  pages={627},
-  year={2025},
-  publisher={MDPI}
+AUTHOR = {Zhang, Pu and Liu, Junhang and Fu, Yongling and Sun, Jian},
+TITLE = {A Planning Framework Based on Semantic Segmentation and Flipper Motions for Articulated Tracked Robot in Obstacle-Crossing Terrain},
+JOURNAL = {Biomimetics},
+VOLUME = {10},
+YEAR = {2025},
+NUMBER = {9},
+ARTICLE-NUMBER = {627},
+URL = {https://www.mdpi.com/2313-7673/10/9/627},
+PubMedID = {41002861},
+ISSN = {2313-7673},
+DOI = {10.3390/biomimetics10090627}
 }
+
+
+
+
 
 
 % ============================ Perception / mapping stack =====================
 
 @article{fankhauser2018,
-  title={Probabilistic terrain mapping for mobile robots with uncertain localization},
-  author={Fankhauser, P{\'e}ter and Bloesch, Michael and Hutter, Marco},
-  journal={IEEE Robotics and Automation Letters},
+  author={Fankhauser, Péter and Bloesch, Michael and Hutter, Marco},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={Probabilistic Terrain Mapping for Mobile Robots With Uncertain Localization}, 
+  year={2018},
   volume={3},
   number={4},
-  pages={3019--3026},
-  year={2018},
-  publisher={IEEE}
-}
+  pages={3019-3026},
+  keywords={Robot sensing systems;Uncertainty;Legged locomotion;Position measurement;Probabilistic logic;Mapping;field robots;legged robots},
+  doi={10.1109/LRA.2018.2849506}}
+
 
 
 @inproceedings{loam2014,
-  title={LOAM: Lidar odometry and mapping in real-time.},
-  author={Zhang, Ji and Singh, Sanjiv and others},
-  booktitle={Robotics: Science and systems},
-  volume={2},
-  number={9},
-  pages={1--9},
-  year={2014},
-  organization={Berkeley, CA}
+author = {Zhang, Ji and Singh, Sanjiv},
+year = {2014},
+month = {07},
+pages = {},
+title = {LOAM: Lidar Odometry and Mapping in Real-time},
+doi = {10.15607/RSS.2014.X.007}
 }
 
 
@@ -248,46 +298,59 @@
 }
 
 @article{pomerleau2013icp,
-  title={Comparing ICP variants on real-world data sets: Open-source library and experimental protocol},
-  author={Pomerleau, Fran{\c{c}}ois and Colas, Francis and Siegwart, Roland and Magnenat, St{\'e}phane},
-  journal={Autonomous robots},
-  volume={34},
-  number={3},
-  pages={133--148},
-  year={2013},
-  publisher={Springer}
+author = {Pomerleau, François and Colas, Francis and Siegwart, Roland and Magnenat, Stéphane},
+year = {2013},
+month = {04},
+pages = {},
+title = {Comparing ICP variants on real-world data sets},
+journal = {Autonomous Robots},
+doi = {10.1007/s10514-013-9327-2}
 }
 
 
 % ============================ Platform / simulator ===========================
 
 @inproceedings{rocha2023,
-  title={Body posture controller for actively articulated tracked vehicles moving over rough and unknown terrains},
-  author={Rocha, Filipe and Cid, Andre and Delunardo, M{\'a}rio and Junior, Renato P and Thiago, Nilton S and Barros, Luiz and Domingues, Jac{\'o} D and Pessin, Gustavo and Freitas, Gustavo and Costa, Ramon},
-  booktitle={2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  pages={2330--2337},
+  author={Rocha, Filipe and Cid, Andre and Delunardo, Mário and Junior, Renato P. and Thiago, Nilton S and Barros, Luiz and Domingues, Jacó D. and Pessin, Gustavo and Freitas, Gustavo and Costa, Ramon},
+  booktitle={2023 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={Body Posture Controller for Actively Articulated Tracked Vehicles Moving Over Rough and Unknown Terrains}, 
   year={2023},
-  organization={IEEE}
-}
+  volume={},
+  number={},
+  pages={2330-2337},
+  keywords={Torque;Three-dimensional displays;Tracking;Service robots;Navigation;Kinematics;Transforms},
+  doi={10.1109/IROS55552.2023.10341528}}
 
 
 @inproceedings{gazebo2004,
-  title={Design and use paradigms for gazebo, an open-source multi-robot simulator},
-  author={Koenig, Nathan and Howard, Andrew},
-  booktitle={2004 IEEE/RSJ international conference on intelligent robots and systems (IROS)},
-  pages={2149--2154},
+  author={Koenig, N. and Howard, A.},
+  booktitle={2004 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) (IEEE Cat. No.04CH37566)}, 
+  title={Design and use paradigms for Gazebo, an open-source multi-robot simulator}, 
   year={2004},
-  organization={Ieee}
-}
+  volume={3},
+  number={},
+  pages={2149-2154 vol.3},
+  keywords={Open source software;Educational robots;Vehicle dynamics;Robot sensing systems;Packaging;Computational modeling;Service robots;Mobile robots;Friction;Testing},
+  doi={10.1109/IROS.2004.1389727}}
+
 
 
 % ============================ Cognitive-load evaluation ======================
 
 @techreport{hart1986,
-  author      = {Hart, Sandra G.},
-  title       = {{NASA} Task Load Index ({TLX})},
-  institution = {NASA Ames Research Center},
-  year        = {1986},
+title = {Development of NASA-TLX (Task Load Index): Results of Empirical and Theoretical Research},
+editor = {Peter A. Hancock and Najmedin Meshkati},
+series = {Advances in Psychology},
+publisher = {North-Holland},
+volume = {52},
+pages = {139-183},
+year = {1988},
+booktitle = {Human Mental Workload},
+issn = {0166-4115},
+doi = {https://doi.org/10.1016/S0166-4115(08)62386-9},
+url = {https://www.sciencedirect.com/science/article/pii/S0166411508623869},
+author = {Sandra G. Hart and Lowell E. Staveland},
+abstract = {The results of a multi-year research program to identify the factors associated with variations in subjective workload within and between different types of tasks are reviewed. Subjective evaluations of 10 workload-related factors were obtained from 16 different experiments. The experimental tasks included simple cognitive and manual control tasks, complex laboratory and supervisory control tasks, and aircraft simulation. Task-, behavior-, and subject-related correlates of subjective workload experiences varied as a function of difficulty manipulations within experiments, different sources of workload between experiments, and individual differences in workload definition. A multi-dimensional rating scale is proposed in which information about the magnitude and sources of six workload-related factors are combined to derive a sensitive and reliable estimate of workload.}
 }
 
 @article{larochelle2013,
@@ -301,27 +364,37 @@
 }
 
 
+
 @article{fernandez2020,
-  title={Electroencephalographic workload indicators during teleoperation of an unmanned aerial vehicle shepherding a swarm of unmanned ground vehicles in contested environments},
-  author={Fernandez Rojas, Raul and Debie, Essam and Fidock, Justin and Barlow, Michael and Kasmarik, Kathryn and Anavatti, Sreenatha and Garratt, Matthew and Abbass, Hussein},
-  journal={Frontiers in neuroscience},
-  volume={14},
-  pages={40},
-  year={2020},
-  publisher={Frontiers Media SA}
+AUTHOR={Fernandez Rojas, Raul  and Debie, Essam  and Fidock, Justin  and Barlow, Michael  and Kasmarik, Kathryn  and Anavatti, Sreenatha  and Garratt, Matthew  and Abbass, Hussein },
+           
+TITLE={Electroencephalographic Workload Indicators During Teleoperation of an Unmanned Aerial Vehicle Shepherding a Swarm of Unmanned Ground Vehicles in Contested Environments},
+          
+JOURNAL={Frontiers in Neuroscience},
+          
+VOLUME={Volume 14 - 2020},
+  
+YEAR={2020},
+  
+URL={https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2020.00040},
+  
+DOI={10.3389/fnins.2020.00040},
+
+ISSN={1662-453X},
 }
 
 
 @article{labonte2010,
-  title={Comparative analysis of 3-D robot teleoperation interfaces with novice users},
-  author={Labonte, Daniel and Boissy, Patrick and Michaud, Fran{\c{c}}ois},
-  journal={IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)},
+  author={Labonte, Daniel and Boissy, Patrick and Michaud, François},
+  journal={IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)}, 
+  title={Comparative Analysis of 3-D Robot Teleoperation Interfaces With Novice Users}, 
+  year={2010},
   volume={40},
   number={5},
-  pages={1331--1342},
-  year={2010},
-  publisher={IEEE}
-}
+  pages={1331-1342},
+  keywords={Mobile robots;Visualization;User interfaces;Virtual reality;Orbital robotics;Space technology;Humans;Surveillance;Navigation;Virtual environment;Mixed perspective;teleassistive robotic;user interface;virtual reality (VR)},
+  doi={10.1109/TSMCB.2009.2038357}}
+
 
 
 % ---- Baseline source-code implementations we run / build on ----
@@ -366,13 +439,16 @@
 }
 
 @inproceedings{pecka2017tracks,
-  author    = {Pecka, Martin and Zimmermann, Karel and Svoboda, Tom{\'a}{\v s}},
-  title     = {Fast Simulation of Vehicles with Non-deformable Tracks},
-  booktitle = {2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
-  year      = {2017},
-  pages     = {6414--6419},
-  doi       = {10.1109/IROS.2017.8206546},
-}
+  author={Pecka, Martin and Zimmermann, Karel and Svoboda, Tomáš},
+  booktitle={2017 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)}, 
+  title={Fast simulation of vehicles with non-deformable tracks}, 
+  year={2017},
+  volume={},
+  number={},
+  pages={6414-6419},
+  keywords={Computational modeling;Tracking;Friction;Force;Mobile robots;Wheels},
+  doi={10.1109/IROS.2017.8206546}}
+
 
 @misc{norlabicpmapper,
   author       = {{Northern Robotics Laboratory}},
@@ -391,47 +467,69 @@
 }
 
 @techreport{woodman2007imu,
-  author      = {Woodman, Oliver J.},
-  title       = {An Introduction to Inertial Navigation},
-  institution = {University of Cambridge, Computer Laboratory},
-  number      = {UCAM-CL-TR-696},
-  year        = {2007},
+    author = {Baird, William H.},
+    title = {An introduction to inertial navigation},
+    journal = {American Journal of Physics},
+    volume = {77},
+    number = {9},
+    pages = {844-847},
+    year = {2009},
+    month = {09},
+    abstract = {In most introductory physics courses, the first equations encountered are the kinematic equations. Though the emphasis at this level tends to be on cases of constant acceleration, many real-world examples of motion are not so simple. We describe the use of inexpensive hobbyist-grade accelerometers and spreadsheet software to explore inertial navigation via numerical integration of the measured acceleration.},
+    issn = {0002-9505},
+    doi = {10.1119/1.3081061},
+    url = {https://doi.org/10.1119/1.3081061},
+    eprint = {https://pubs.aip.org/aapt/ajp/article-pdf/77/9/844/13086398/844_1_online.pdf},
 }
 
+
 @inproceedings{geiger2012kitti,
-  author    = {Andreas Geiger and Philip Lenz and Raquel Urtasun},
-  title     = {Are we ready for autonomous driving? {The} {KITTI} vision benchmark suite},
-  booktitle = {IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  pages     = {3354--3361},
-  year      = {2012}
+author = {Geiger, Andreas and Lenz, Philip and Urtasun, Raquel},
+year = {2012},
+month = {05},
+pages = {3354-3361},
+title = {Are we ready for autonomous driving? The KITTI Vision Benchmark Suite},
+isbn = {978-1-4673-1226-4},
+journal = {Proceedings / CVPR, IEEE Computer Society Conference on Computer Vision and Pattern Recognition. IEEE Computer Society Conference on Computer Vision and Pattern Recognition},
+doi = {10.1109/CVPR.2012.6248074}
 }
 
 @book{coles2001extremes,
-  author    = {Stuart Coles},
-  title     = {An Introduction to Statistical Modeling of Extreme Values},
-  series    = {Springer Series in Statistics},
-  publisher = {Springer},
-  address   = {London},
-  year      = {2001}
+  added-at = {2010-11-26T10:56:55.000+0100},
+  address = {London},
+  author = {Coles, Stuart},
+  biburl = {https://www.bibsonomy.org/bibtex/2eeb18b99ed553d367e303102fd9916e0/marsianus},
+  interhash = {4d82deba9ce3cb72aa2ad575fbabd6c7},
+  intrahash = {eeb18b99ed553d367e303102fd9916e0},
+  isbn = {1-85233-459-2},
+  keywords = {basic EVT multivariate},
+  mrclass = {62-01 (60G70 62G32)},
+  mrnumber = {1932132 (2003h:62002)},
+  publisher = {Springer-Verlag},
+  series = {Springer Series in Statistics},
+  timestamp = {2011-09-07T11:28:00.000+0200},
+  title = {An introduction to statistical modeling of extreme values},
+  year = 2001
 }
 
 @techreport{iso2631,
-  author      = {{International Organization for Standardization}},
-  title       = {Mechanical vibration and shock --- Evaluation of human exposure
-                 to whole-body vibration --- Part 1: General requirements},
-  number      = {ISO 2631-1:1997},
-  institution = {ISO},
-  year        = {1997}
+  title={Mechanical Vibration and Shock: Evaluation of Human Exposure to Whole-body Vibration. General requirements},
+  author={International Organization for Standardization},
+  number={d{\'\i}l 1},
+  series={Draft international standard},
+  url={https://books.google.cz/books?id=0FZB0AEACAAJ},
+  year={1995},
+  publisher={International Organization for Standardization}
 }
 
 @article{roucek2022subt,
-  author  = {Tom{\'a}{\v s} Rou{\v c}ek and Martin Pecka and Petr {\v C}{\'i}{\v z}ek and Tom{\'a}{\v s} Pet{\v r}{\'i}{\v c}ek and Jan Bayer and Vojt{\v e}ch {\v S}alansk{\'y} and others},
-  title   = {System for multi-robotic exploration of underground environments {CTU-CRAS-NORLAB} in the {DARPA} {Subterranean} {Challenge}},
-  journal = {Field Robotics},
-  volume  = {2},
-  pages   = {1779--1818},
-  year    = {2022},
-  doi     = {10.55417/fr.2022055}
+      title={System for multi-robotic exploration of underground environments CTU-CRAS-NORLAB in the DARPA Subterranean Challenge}, 
+      author={Tomáš Rouček and Martin Pecka and Petr Čížek and Tomáš Petříček and Jan Bayer and Vojtěch Šalanský and Teymur Azayev and Daniel Heřt and Matěj Petrlík and Tomáš Báča and Vojtěch Spurný and Vít Krátký and Pavel Petráček and Dominic Baril and Maxime Vaidis and Vladimír Kubelka and François Pomerleau and Jan Faigl and Karel Zimmermann and Martin Saska and Tomáš Svoboda and Tomáš Krajník},
+      year={2021},
+      eprint={2110.05911},
+      archivePrefix={arXiv},
+      primaryClass={cs.RO},
+      url={https://arxiv.org/abs/2110.05911}, 
 }
 
 % Double-blind review: anonymized. Camera-ready: Sarga, Pavel, "Reinforcement Learning of a
