@@ -83,7 +83,7 @@ the velocity limit $v_{\max}=\SI{1.0}{\radian\per\second}$ of the flipper drives
 \end{equation}
 
 The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$ and $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term can
-reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=v^{\mathrm{s}}_i$, and because of $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ that those two terms cancel each other out; therefore, equation~\eqref{eq:overview} simplifies to $v_i=0$. This enforces that the anti-stuck command can nullify, but never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
+reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=-v^{\mathrm{s}}_i$; therefore, equation~\eqref{eq:overview} simplifies to $v_i=0$. This enforces that the anti-stuck command can nullify, but never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
 applies only while $|v^{\mathrm{s}}_i|>\beta=\SI{0.05}{\radian\per\second}$, so that
 attitude noise on a level robot cannot suppress the anti-stuck term; otherwise, the
 anti-stuck command passes through unchanged.
