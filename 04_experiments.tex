@@ -152,7 +152,13 @@ Clearance -- tilt & $0.39$ & $-0.03$ \\
 
 \begin{table*}[t]
 \centering
-\caption{\textbf{Traversal quality in simulation.} Mean $\pm$ s.d. over the ten runs of the twelve-obstacle course. All channels are scored against ground truth, with $s_{\max}$ \SI{369}{\metre\per\second\squared} in simulation and \SI{47.7}{\metre\per\second\squared} on the real robot. \emph{Anti-stuck}: percentage of distance the flippers were driven by an anti-stuck dig, by the \SAS{} override for the baselines and by its own term for \SAS{}. Manual rides are hand-driven from a third-person view and need no map. Per column, the best controllers are in bold and the second best underlined (ties share the mark).}
+\caption{\textbf{Traversal quality in simulation.} Mean $\pm$ s.d. over the ten runs of the
+twelve-obstacle course, scored against the simulator ground truth with
+$s_{\max}=\SI{369}{\metre\per\second\squared}$. \emph{Anti-stuck}: percentage of the obstacle
+distance an anti-stuck dig drove the flippers, by the \SAS{} override for the baselines and by
+its own term for \SAS{}. The manual rides are hand-driven from a third-person view and use no
+map, so they appear once. Per column, the best controller is in bold and the second best
+underlined; ties share the mark.}
 \label{tab:results}
 \scriptsize
 \setlength{\tabcolsep}{1.2pt}
@@ -190,7 +196,10 @@ C-TRAC~\cite{ctrac2025} & 0.820\,$\pm$\,0.008 & 0.885\,$\pm$\,0.009 & 0.722\,$\p
 
 \begin{table*}[t]
 \centering
-\caption{\textbf{Traversal quality on the real pallet.} Mean $\pm$ s.d. over the ten crossings of one ride per controller and map. All channels are scored against ground truth, with $s_{\max}$ \SI{369}{\metre\per\second\squared} in simulation and \SI{47.7}{\metre\per\second\squared} on the real robot. \emph{Anti-stuck}: percentage of distance the flippers were driven by an anti-stuck dig, by the \SAS{} override for the baselines and by its own term for \SAS{}. Manual rides are hand-driven from a third-person view and need no map. Per column, the best controllers are in bold and the second best underlined (ties share the mark).}
+\caption{\textbf{Traversal quality on the real pallet.} One ride of ten crossings per controller
+and map; mean $\pm$ s.d. over those crossings. Scored against the AprilTag ground truth with
+$s_{\max}=\SI{47.7}{\metre\per\second\squared}$, the largest acceleration measured on the robot.
+Channels, marks, and the \emph{Anti-stuck} column are as in Table~\ref{tab:results}.}
 \label{tab:results_real}
 \scriptsize
 \setlength{\tabcolsep}{1.2pt}
