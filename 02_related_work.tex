@@ -6,14 +6,14 @@ Table~\ref{tab:sensing} summarizes the compared controllers and their sensing
 requirements.
 
 \subsection{Manual control}
-In direct teleoperation the operator drives the flippers by hand~\cite{cihala2025}, or
+In direct teleoperation, the operator drives the flippers by hand~\cite{cihala2025}, or
 switches between preset flipper modes~\cite{larochelle2013,azayev2022}. Manual control
 needs no map: the operator observes the terrain from a third-person view, closes the control
 loop by hand, and also stabilizes the robot.
 
 \subsection{Reactive and geometry-based control}
-These controllers compute the flipper commands from an explicit terrain model, either
-reactively~\cite{cihala2025} or by planning, and depend on the map the most. Chen et al. combine dynamic programming with a
+These controllers are the most dependent on an explicit terrain model, because they compute the flipper commands either
+reactively~\cite{cihala2025} or by planning. Chen et al. combine dynamic programming with a
 fast geometry-based pose predictor over the elevation
 point cloud~\cite{chen2023}; Yuan et al. plan in the flipper configuration space
 from known stair geometry with motion-capture ground truth~\cite{yuan2019}; Oehler
@@ -27,10 +27,9 @@ segmentation of the elevation map only as a perception front-end~\cite{zhang2025
 \subsection{Imitation learning}
 These controllers learn from demonstrations which low-level behavior to apply. The
 adaptive-traversability line~\cite{zimmermann2014} classifies
-terrain into discrete flipper modes from an elevation map, and for the selected mode a
-simple low-level controller drives the flippers. 
+terrain into discrete flipper modes from an elevation map. 
 A learned state machine~\cite{azayev2022}
-switches among seven hand-crafted flipper morphologies selected from an elevation map. Each
+switches among seven hand-crafted flipper morphologies selected from an elevation map. In addition, each
 state overlays a \emph{roll}-stabilization term and a stagnation-triggered
 \emph{anti-stuck} term that lowers all four flippers to free the robot. It is the one prior
 method that couples an anti-stuck term with attitude stabilization, and the origin of the
@@ -39,14 +38,13 @@ anti-stuck term we adopt.
 \subsection{Reinforcement learning}
 Pecka et al. learn a
 safety-constrained policy (Constrained REPS) whose state is the body pitch and the terrain
-height \SI{20}{\centi\metre} ahead of the robot, read from an occupancy map built online from the LiDAR scans~\cite{pecka2016}. Discrete-action variants dominate the
+height \SI{20}{\centi\metre} ahead of the robot, observed from an occupancy map built online from the LiDAR scans~\cite{pecka2016}. Discrete-action variants dominate the
 flipper-specific literature: Pan et al. learn a dueling double-DQN over discrete
 front/rear flipper increments~\cite{pan2023atd3qn} and extend it with an
 intrinsic-curiosity module~\cite{pan2023icm}; both take the chassis pitch and the average
-terrain heights of a few segments ahead of, below and behind the robot. Their reward favors smooth pitch only, and getting stuck is a terminal
+terrain heights of a few segments ahead of, below, and behind the robot. Their reward favors smooth pitch only, and getting stuck is a terminal
 penalty. Mitriakov et al.
-learn staircase negotiation with a policy-gradient method from step-edge geometry with
-marker-based ground truth~\cite{mitriakov2021}, injecting stability through center-of-gravity and
+learn staircase negotiation with a policy-gradient method from step-edge geometry~\cite{mitriakov2021}, injecting stability through center-of-gravity and
 pitch-rate reward shaping. Most recently, C-TRAC learns a contact-aware latent representation from noisy LiDAR and
 drives an asymmetric-SAC policy that stabilizes both roll and pitch via a
 normalized-energy-stability-margin reward~\cite{ctrac2025}. We train our RL baselines in
@@ -59,16 +57,13 @@ an elevation map: a roll-only stabilization term inside a map-based state
 machine~\cite{azayev2022}, and C-TRAC stabilizing both roll and pitch from a reward computed
 on the map-based simulator state~\cite{ctrac2025}. Rocha et al.~\cite{rocha2023} regulate
 roll, pitch, and ground clearance of an articulated tracked vehicle from the IMU and the
-flipper joints alone; in its inputs it is the closest prior work to ours, but the method
-is not designed for obstacle traversal.
+flipper joints.
 
 \subsection{Evaluating traversal quality}
-We evaluate a controller by the quality of the traversal it produces, measured
+To evaluate traversal quality, multiple metrics were proposed and measured
 on the robot's body: IMU-based smoothness such as pitch swing and vertical
 shock~\cite{chen2023}, body attitude, and chassis-to-ground clearance from the
-ground-truth map.
-Following~\cite{cihala2025,zimmermann2014} we score shock, tilt, and clearance
-(Sec.~\ref{sec:metrics-block}).
+ground-truth map \cite{cihala2025,zimmermann2014}.
 
 \begin{table}[t]
 \centering

@@ -1,19 +1,28 @@
 % ============================ CONCLUSION ============================
 State-of-the-art flipper controllers depend on an elevation map of the occluded ground under
 the chassis, which drifts with odometry on exactly the terrain where flippers are needed.
-\SAS{} removes that dependency: its stabilization term regulates roll and pitch from the
-IMU, and its anti-stuck term, triggered by a binary motion cue that is never accumulated,
-frees the robot when stuck, while the directional-priority blend keeps the stabilization
-term in control of the flippers. It cannot anticipate an obstacle before contact,
-but it keeps the robot stabilized and operational, where the onboard map, and with it every
-map-based controller, breaks down.
+The comparison shows which part of a traversal the choice of controller actually
+governs. Shock does not separate the controllers: over all thirteen it spans $0.865$ to
+$0.918$ in simulation and $0.765$ to $0.798$ on the real pallet, so every controller
+transmits a similar acceleration to the body, set by the platform and the terrain rather
+than by the flipper motion. What separates them is how they stabilize the body: clearance and
+tilt, and on the real robot clearance is the most significant, which spreads from $0.301$ to $0.545$. That channel is also the one the transfer from
+simulation damages most: every controller drops from $0.68$--$0.75$ in simulation to
+$0.30$--$0.55$ on the real robot, while shock and
+tilt keep their level. The onboard
+map costs quality throughout: in simulation every controller scores lower under it than
+under the ground-truth map, by $0.01$ to $0.11$, against $0.020$ for \SAS{} through its
+motion cue alone.
 
-In the simulation comparison \SAS{} reaches the highest traversal quality of all controllers
-under both the ground-truth and the onboard map, and on the real pallet it is among the leading
-controllers. It recovers from every stall by its own
-anti-stuck term, without a map, a localization estimate, or an external override. On a real log
-hidden in tall grass, invisible to the LiDAR and absent from the onboard map, the best map-based controller got stuck under the log while \SAS{} crossed it in its default
-posture.
+\SAS{} reaches the highest traversal quality of all controllers in simulation under both
+maps, and on the real pallet it is among the leading controllers, second under the onboard
+map. It recovers from every stall by its own anti-stuck term. Its weakest channel is on the real pallet where it holds a clearance of $0.363$ under the
+ground-truth map and $0.419$ under the onboard map, below the best map-based controllers,
+because without a terrain preview it can only raise the chassis once the obstacle is already
+under it. On a real log hidden in tall grass, invisible to the LiDAR and absent from the
+onboard map, the best map-based controller Yuan \cite{yuan2019} got stuck under the log while \SAS{} crossed it.
+That two principles as simple as \emph{hold the body level} and \emph{dig out when motion
+stops} can reach the traversal quality of the map-based state of the art.
 
 Future work targets a more robust motion cue by fusing LiDAR-ICP odometry with camera
 odometry or integrated IMU motion, which would make the controller fully proprioceptive

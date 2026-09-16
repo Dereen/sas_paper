@@ -1,20 +1,20 @@
 % ============================ EXPERIMENTS ============================
 \subsection{Platform and onboard pipeline}
-The robot is a tracked robot whose four independently actuated flippers are also its only
-driven tracks (Fig.~\ref{fig:robot}); we call this the \emph{four-track} morphology. We evaluate the flipper controllers both in simulation and on the
+The experimental robot is a tracked robot whose four independently actuated flippers are also its only
+driven tracks (Fig.~\ref{fig:robot}). Robot software backbone is ROS2, which allows for the development of a distributed robotic system. We evaluate the flipper controllers both in simulation and on the
 real platform. The onboard perception pipeline that the map-based baselines
 consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
 deskewing and LiDAR-ICP odometry~\cite{norlabicpmapper,libpointmatcher}, which drive elevation
 mapping~\cite{fankhauser2018} to produce a robot-centric
 elevation map, which we call the \emph{onboard map}.
 
-\paragraph{Simulation comparison} We simulate in Gazebo~\cite{gazebo2004}. Unlike
+\paragraph{Simulation comparison} We simulate in Gazebo~\cite{gazebo2004} Ionic. Unlike
 typical simulators that approximate tracks with multiple wheels, we employ the track
 simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The sensors match the real payload: a simulated Ouster OS0
 ($1024\times64$ rays at \SI{10}{\hertz}, \SIrange{0.1}{50}{\metre}, \SI{1}{\centi\metre}
 Gaussian range noise) and a \SI{50}{\hertz} IMU with Gaussian noise and a slowly varying
 bias. The onboard-map condition runs the robot's ICP and elevation-mapping nodes on these
-simulated streams; the ground-truth condition takes the pose and the map from the
+simulated streams. Ground-truth pose and map for evaluation are taken from the
 simulator. The arena is a twelve-obstacle warehouse course (Fig.~\ref{fig:obstacles}): a straight aisle lined with twelve numbered obstacles of
 variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 
@@ -22,20 +22,19 @@ variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot provide absolute localization in the handcrafted
 ground-truth map.
 
-\paragraph{Autonomous ride and \SAS{} override} In all reported runs, the robot is driven autonomously, so the comparison is not biased by an operator's control. A drive node
-drives the robot at a constant
+\paragraph{Autonomous ride and \SAS{} override} In all reported runs, the robot is driven autonomously, ensuring that the comparison is not biased by an operator's control. A drive node drives the robot at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
-hands the flippers to \SAS{} until the robot moves again, and the obstacle is finished.
+hands the flippers to \SAS{} anti-stuck dig mode until the robot moves again.
 
 \subsection{Baselines}
-We evaluate \SAS{} together with two manual references, \textbf{Manual control}, an expert operator driving all four flippers by hand from a
-third-person view of the robot, and \textbf{Manual modes}, the same operator switching between preset flipper modes by hand~\cite{azayev2022}, and with every map-based
-controller catalogued in Table~\ref{tab:sensing}. The mapless posture controller of Rocha
-et al.~\cite{rocha2023} is not evaluated, since it is not designed for obstacle traversal. Where the authors released code we run their
-implementation; where they did not, we use our reimplementation from the paper. The geometry-based
-controllers were adapted to the four-track morphology as follows. Chen's
-GFMP~\cite{chen2023} keeps the exact two-contact solver and waypoint dynamic programming, but admits only flipper-supported contact cases,
+We evaluate \SAS{} together with two manual references: \textbf{Manual control}, an expert operator driving all four flippers by hand from a
+third-person view of the robot, and \textbf{Manual modes}, the same operator switching between preset flipper modes by hand~\cite{azayev2022}, and with every map-based controller cataloged in Table~\ref{tab:sensing}. 
+
+Where the authors released code, we run their implementation; where they did not, we use our reimplementation from the paper.
+
+The geometry-based controllers were adapted to the four-track morphology as follows. Chen's
+GFMP~\cite{chen2023} keeps the exact two-contact solver and waypoint dynamic programming but admits only flipper-supported contact cases,
 since the chassis is passive, adds an absolute-pitch levelness cost, and uses the
 four-track morphology and the onboard-map profile. Yuan's configuration-space
 planner~\cite{yuan2019} was reimplemented for the four-track morphology; it estimates the
@@ -46,23 +45,24 @@ no configuration is stable. Xu's HTO~\cite{xu2024} assumes a driven chassis that
 flipper bridge with enforced chassis clearance, plus rear-release and
 descent-preparation schedules. Zhang's planner~\cite{zhang2025} is reproduced only as its
 contact-model pose prediction and action cost, solved at a virtual station
-\SI{0.5}{\metre} ahead; chassis-supported poses are forbidden on the passive chassis. The learned controllers were adapted as follows. Pan's
+\SI{0.5}{\metre} ahead; chassis-supported poses are forbidden on the passive chassis. The mapless posture controller of Rocha
+et al.~\cite{rocha2023} is not evaluated, since it is not designed for obstacle traversal.
+
+The learned controllers were adapted as follows. Pan's
 AT-D3QN~\cite{pan2023atd3qn}: the flipper reward $R_{\text{flipper}}$ is mirrored onto the
-rear flippers and the target pitch is referenced to the ground rather than to the chassis,
-since on a four-track robot the rear flippers are part of the drivetrain and the ride
+rear flippers, and the target pitch is referenced to the ground rather than to the chassis,
+since on a four-track robot the rear flippers are part of the drive train and the ride
 height is a free variable; the contact reward $R_{\text{contact}}$ of ICM-D3QN is added and
 redefined around flipper-pair grounding and chassis clearance. Pan's
 ICM-D3QN~\cite{pan2023icm}: the same three changes, sharing the code with AT-D3QN;
-otherwise as published. C-TRAC~\cite{ctrac2025}: reward terms are added that incentivize
+otherwise, as published. C-TRAC~\cite{ctrac2025}: reward terms are added that incentivize
 movement and prevent convergence to a fixed pose; trained at a fixed forward velocity.
 Mitriakov~\cite{mitriakov2021}: the 2-DoF arm is dropped, so the center-of-gravity penalty
-reduces to a chassis-tilt proxy; one policy covers both driving directions, and the rule
+reduces to a chassis-tilt; one policy covers both driving directions, and the rule
 that the trailing flipper never goes below neutral is inverted, since on a four-track robot
 that flipper carries a load; trained at a fixed forward velocity. Pecka~\cite{pecka2016}: the
 sign convention follows the authors' reference implementation rather than the paper, and
 safety is read from the same rollout; the real-robot training stage is omitted.
-
-
 
 
 \begin{figure*}[t]
@@ -78,7 +78,7 @@ safety is read from the same rollout; the real-robot training stage is omitted.
 The map-based baselines depend on the onboard map, so scoring them under that map alone
 would mix the quality of the controller with the quality of its perception. We therefore
 run each of them twice: with the onboard map and localization, and with a
-\emph{ground-truth} map that is free of odometry drift. The difference between the two scores is the baseline's
+\emph{ground-truth} map that is free of odometry noise. The difference between the two scores is the baseline's
 sensitivity to onboard mapping.
 
 \subsection{Metrics}
@@ -89,24 +89,23 @@ $q_t$, and ground clearance $q_c$,
   \mathrm{TQ}=\tfrac{1}{3}\,(q_s+q_t+q_c)\in[0,1).
   \label{eq:tq}
 \end{equation}
-We also report the share of the obstacle distance the \SAS{} override held the flippers.
-Traversal success and traversal time are not informative under this protocol: the override
-releases every stall, so nearly every obstacle is completed, and the drive node drives at a constant speed, so the traversal time differs between controllers only by the time spent
-under the override.
+We also report the percentage of the obstacle distance that the \SAS{} override held the flippers.
+Traversal success and traversal time are not informative in this setting: the override
+releases every stall, so every obstacle is completed, and the drive node drives at a constant speed; therefore, the traversal time differs between controllers only by the time spent in the stall state before the override activates.
 \label{sec:metrics-block}%
 
-\noindent\textbf{Shock.} Shock measures the impacts transmitted to the body, which stress
-the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, scored with the scale $s_{\max}$, the
+\noindent\textbf{Shock} measures the impacts transmitted to the body, which stress
+the robot and its payload. It is the acceleration magnitude $s=|a|$ from the IMU, normalized with the scale $s_{\max}$, the
 largest acceleration the platform records. On the real robot $s_{\max}$ is the highest measured
 sample of the campaign, \SI{57.5}{\metre\per\second\squared}. In simulation, the rigid contacts of DART produce single-step spikes, so $s_{\max}$ is the highest measured \SI{0.1}{\second} mean of
 $s$ over all runs, \SI{376}{\metre\per\second\squared}.
 
-\noindent\textbf{Tilt.} Tilt measures how far the body departs from the gravity-aligned
+\noindent\textbf{Tilt} measures how far the body departs from the gravity-aligned
 horizontal; it is what the attitude stabilization regulates, and it measures how safely the controller rides. It is the angle
-$t$ between the body $z$ axis and the vertical, from the ground-truth pose, scored with
+$t$ between the body $z$ axis and the vertical, from a level pose, normalized with
 $t_{\max}=\ang{50}$.
 
-\noindent\textbf{Ground clearance.} Clearance measures whether the chassis is kept off the terrain. We measure it as the
+\noindent\textbf{Ground clearance} measures whether the chassis is kept off the terrain. We measure it as the
 closest ground point of a $10\times8$ grid with \SI{5}{\centi\metre}
 cells under the chassis, read from the ground-truth map. The four-track morphology leaves a \SI{7.3}{\centi\metre} gap under the chassis on flat
 ground with level flippers, which the score takes as its reference: it penalizes the deviation of the clearance from that flat-ground gap outside a
@@ -124,17 +123,16 @@ therefore mapped by the sigmoid of~\cite{cihala2025},
 against a reference $\hat{x}$: $N=1$ at $x=0$, $N\approx0.54$ when the sample reaches
 $\hat{x}$, and $N\to0$ for large samples. Each channel is scored as $q=N(x,x_{\max}/2)$ with
 its own scale $x_{\max}$, so the score is close to linear for small samples and saturates
-smoothly, and a single extreme sample cannot dominate the average.
+smoothly; a single extreme sample cannot dominate the average.
 
-\noindent\textbf{Binning.} Each channel score of an obstacle is a \emph{distance-binned
-maximum} of the per-sample scores: the obstacle is divided into bins of \SI{0.25}{\metre}
-along the driving direction, the worst per-sample score in each bin is kept, and the
-channel score is the mean of these bin values. We bin by distance rather than by time
-because each controller takes a different time to traverse the same obstacle.
+\noindent\textbf{Distance binning} is used rather than time binning 
+because each controller takes a different amount of time to traverse the same obstacle. The measured data are divided into bins of \SI{0.25}{\metre}
+along the driving direction of an obstacle; the worst per-sample score in each bin is kept, and the
+channel score is the mean of these bin values. 
 
 Averaging the three channels in~\eqref{eq:tq} assumes that they carry different
 information, so they should not correlate strongly; their pairwise Spearman correlations
-over the traversed obstacles (Table~\ref{tab:spearman}) are at most $0.39$.
+over the traversed obstacles (Table~\ref{tab:spearman}) are at most $0.39$, which suggests that none of our evaluation channels are redundant.
 
 \begin{table}[t]
 \centering
@@ -157,12 +155,11 @@ Clearance -- tilt & $0.39$ & $-0.03$ \\
 \centering
 \caption{\textbf{Traversal quality in simulation and on the real pallet.} Simulation: mean over
 ten runs of the twelve-obstacle course. Real: one ride of ten crossings per controller and map, mean over
-the crossings, a crossing not completed scoring zero. All channels are scored against ground
+the crossings, a crossing not completed scores zero. All channels are scored against ground
 truth, with $s_{\max}$ \SI{376}{\metre\per\second\squared} in simulation and
 \SI{57.5}{\metre\per\second\squared} on the real robot. Each cell gives the value under the ground-truth map / the onboard map. Shock,
-clearance and tilt are the three channel scores of~\eqref{eq:tq}. \emph{Override}: share of
-distance the \SAS{} override held the flippers. Manual rides are hand-driven. Per column and map condition, the best controllers are in bold
-and the second best underlined (ties share the mark).}
+clearance and tilt are the three channel scores of~\eqref{eq:tq}. \emph{Override}: percentage of
+distance the \SAS{} override held the flippers. Manual rides are hand-driven from third person view. Per column and map condition, the best controllers are in bold and the second best underlined (ties share the mark).}
 \label{tab:results}
 \scriptsize
 \setlength{\tabcolsep}{1.5pt}
@@ -202,7 +199,7 @@ C-TRAC~\cite{ctrac2025} & 0.816 / 0.702 & 0.887 / 0.895 & 0.722 / 0.608 & \under
 
 \subsection{Simulation results}
 Table~\ref{tab:results} reports TQ and its three channels per controller in simulation under
-the ground-truth and the onboard map, and the share of obstacle distance the \SAS{}
+the ground-truth and the onboard map, and the percentage of obstacle distance the \SAS{}
 override held each controller. The manual rides remain the reference: manual control
 scores $0.89$, $0.05$ above the best controller, and the difference lies almost entirely in
 the clearance channel ($0.87$ against $0.61$--$0.75$), while shock and tilt are within $0.03$
@@ -213,10 +210,8 @@ either map to finish the obstacles. The shock channel hardly separates the contr
 $0.86$ to $0.92$: all of them experienced a similar acceleration, dominated by the rigid
 contacts of the simulator rather than by the flipper motion. C-TRAC degrades the most under the onboard map, by $0.11$, and shows the highest
 sensitivity to the elevated noise of the onboard map: never overridden under the
-ground-truth map, it is held for 7.5\% of the distance under the onboard map; in one C-TRAC
-run under the ground-truth map the robot also tipped over on obstacle~7, the only tip-over
-in either campaign, and that obstacle is scored as not traversed. For Yuan, Oehler and
-Mitriakov the override share dropped under the onboard map: the added noise made them move their flippers, which resulted in successful traversals.
+ground-truth map, it is held for 7.5\% of the distance under the onboard map. For Yuan, Oehler, and
+Mitriakov, the override share dropped under the onboard map: the added noise made them move their flippers, which resulted in successful traversals.
 
 \subsection{Real-robot results}
 On the real pallet (Table~\ref{tab:results}) the operator remains the reference: both manual
@@ -229,20 +224,16 @@ flippers instead of holding a fixed posture. The shock channel again has a small
 $0.80$, so the controllers experienced a similar acceleration on the pallet as well.
 
 \subsection{Hidden obstacle}
-Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, so the onboard map shows the grass
-canopy and the log is absent from it. Yuan interprets the gap that the log opens in the grass as a drop and lowers the front
-flippers to descend; the lowered flippers slide under the log and the robot gets stuck under it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
+Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan, the best map-based controller on the pallet, and with \SAS. The LiDAR does not penetrate the grass, which caused the onboard map shows the grass
+canopy, and the log is absent from it. Yuan interprets the gap that the log creates in the grass as a drop and lowers the front
+flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. \SAS{} does not rely on the map, keeps its default posture, and crosses the log.
 
 \begin{figure*}[t]
   \centering
   \includegraphics[width=\textwidth]{figures/grass_merged.jpg}
   \caption{\textbf{Traversal of an obstacle hidden in tall grass by the best map-based
   controller, Yuan~\cite{yuan2019}, and by \SAS.} (a) The onboard map built from the LiDAR point
-  cloud during Yuan's crossing: the LiDAR does not penetrate the grass, so the map is
-  inaccurate and the obstacle is practically invisible to the perception stack and the controller. (b)
-  Yuan~\cite{yuan2019}: the controller takes the gap the log opens in the grass for a drop, lowers the flippers to descend, and gets stuck under the log. (c) \SAS{}: without
-  the incorrect information of the onboard map it keeps its default posture and crosses
-  the obstacle.}
+  cloud during Yuan's crossing: the LiDAR does not penetrate the grass, and so the map only shows only the canopy while the log remains obscured. Yuan interprets the gap created by the log in the canopy as a drop and lowers the front flippers to descend; the lowered flippers slide under the log, causing the robot to get stuck underneath it. (c) \SAS{} does not rely on the LiDAR derived map, therefore it keeps its default posture, and easily crosses the log.}
   \label{fig:grass}
 \end{figure*}
 
@@ -253,7 +244,7 @@ body footprint (the chassis and \SI{1.5}{\metre} ahead, at a grid resolution of
 \SI{5}{\centi\metre}) at every
 map update, every \SI{0.25}{\second}. The error grows while the robot ascends the obstacle,
 where the ground under the body was last seen from the flat approach, and falls again on
-the descent, where the ground ahead comes back into view; on the real robot it is an order
+the descent, where the ground ahead comes back into view; on the real robot, it is an order
 of magnitude larger than in simulation.
 
 \begin{figure}[t]
