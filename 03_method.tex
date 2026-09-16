@@ -31,7 +31,7 @@ pitch and a left/right differential for roll:
 
 \subsection{Reactive anti-stuck}\label{sec:method-antistuck}
 The anti-stuck term follows~\cite{azayev2022}: when the robot is stuck, it drives the
-flippers to lift the body off the ground, freeing the robot. The state \emph{dig} is entered if the following condition applies:
+flippers to lift the body off the ground, freeing the robot. The condition \emph{dig} holds when
 \begin{equation}
     \text{dig} \coloneqq \big(|v_\text{cmd}|>\tau_\text{move}\big)\ \wedge\
   \big(m<\tau_\text{stuck}\big),

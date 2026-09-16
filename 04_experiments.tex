@@ -1,14 +1,14 @@
 % ============================ EXPERIMENTS ============================
 \subsection{Platform and onboard pipeline}
-The experimental robot is a tracked robot whose four independently actuated flippers are also its only
-driven tracks (Fig.~\ref{fig:robot}). The robot software backbone is ROS 2, which allows for the development of a distributed robotic system. We evaluate the flipper controllers both in simulation and on the
+The experimental robot is an articulated tracked robot whose four independently actuated flippers are also its only
+driven tracks (Fig.~\ref{fig:robot}); we call this the \emph{four-track} robot. The robot software backbone is ROS 2, which allows for the development of a distributed robotic system. We evaluate the flipper controllers both in simulation and on the
 real platform. The onboard perception pipeline that the map-based baselines
 consume is representative of current practice: an Ouster LiDAR and IMU feed point-cloud
 deskewing and LiDAR-ICP odometry~\cite{norlabicpmapper,libpointmatcher}, which drive elevation
 mapping~\cite{fankhauser2018} to produce a robot-centric
 elevation map, which we call the \emph{onboard map}.
 
-\paragraph{Simulation comparison} We simulate in Gazebo Ionic~\cite{gazebo2004}. Unlike
+\paragraph{Simulation comparison} We simulate in Gazebo Ionic~\cite{gazebo2004} with the DART physics engine. Unlike
 typical simulators that approximate tracks with multiple wheels, we employ the track
 simulation of~\cite{pecka2017tracks}, which models conveyor-belt behavior. The sensors match the real payload: a simulated Ouster OS0
 ($1024\times64$ rays at \SI{10}{\hertz}, \SIrange{0.1}{50}{\metre}, \SI{1}{\centi\metre}
@@ -22,7 +22,7 @@ variable difficulty, including pallets, stacked boxes, planks, and a staircase.
 two reset zones (Fig.~\ref{fig:robot}). AprilTag markers on the robot provide absolute localization in the handcrafted
 ground-truth map.
 
-\paragraph{Autonomous ride and \SAS{} override} In all reported controller runs, the flippers are driven autonomously, ensuring that the comparison is not biased by an operator's control; in the two manual references, which set the bar, the operator drives the flippers by hand. A drive node drives the robot in every run at a constant
+\paragraph{Autonomous run and \SAS{} override} In all reported controller runs, the flippers are driven autonomously, ensuring that the comparison is not biased by an operator's control; in the two manual references, which set the bar, the operator drives the flippers by hand. A drive node drives the robot in every run at a constant
 \SI{0.6}{\metre\per\second} in simulation and, for safety, \SI{0.25}{\metre\per\second}
 on the real robot. A controller that stalls on an obstacle is released by the \emph{\SAS{} override}, which
 hands the flippers to \SAS{} anti-stuck dig mode until the robot moves again.
@@ -69,7 +69,7 @@ safety is read from the same rollout; the real-robot training stage is omitted.
   \centering
   \includegraphics[width=\textwidth]{figures/gazebo_arena}
   \caption{\textbf{Simulation arena.} The warehouse course: a straight aisle of twelve numbered obstacles of variable difficulty (pallets, stacked
-  boxes, planks, and a staircase); the robot starts at the right. In the autonomous ride (Sec.~\ref{sec:experiments}) it is driven at a constant
+  boxes, planks, and a staircase); the robot starts at the right. In the autonomous run (Sec.~\ref{sec:experiments}) it is driven at a constant
   \SI{0.6}{\metre\per\second} through every obstacle in turn, with a \SI{1}{\metre} settling strip between obstacles.}
   \label{fig:obstacles}
 \end{figure*}

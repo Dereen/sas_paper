@@ -2,8 +2,8 @@
 % Structure: manual + three autonomy families (reactive/geometry-based, hierarchical, RL).
 We group the flipper controllers into manual control and three families of autonomous
 control: reactive and geometry-based, imitation learning, and reinforcement learning.
-Table~\ref{tab:sensing} summarizes the compared controllers and their sensing
-requirements.
+Table~\ref{tab:sensing} summarizes the compared controllers and what they
+require.
 
 \subsection{Manual control}
 In direct teleoperation, the operator drives the flippers by hand~\cite{cihala2025}, or
@@ -60,9 +60,9 @@ roll, pitch, and ground clearance of an articulated tracked vehicle from the IMU
 flipper joints.
 
 \subsection{Evaluating traversal quality}
-To evaluate traversal quality, multiple metrics were proposed and measured
-on the robot's body: IMU-based smoothness such as pitch swing and vertical
-shock~\cite{chen2023}, body attitude, and chassis-to-ground clearance from the
+To evaluate traversal quality, multiple metrics were proposed: IMU-based smoothness
+measured on the robot's body, such as pitch swing and vertical
+shock~\cite{chen2023}, body attitude, and chassis-to-ground clearance read from the
 ground-truth map~\cite{cihala2025,zimmermann2014}.
 
 \begin{table}[t]

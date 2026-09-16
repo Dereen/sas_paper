@@ -19,7 +19,7 @@ free the robot when it gets \emph{stuck}~\cite{yuan2019,chen2023,xu2024}.
     \node[anchor=north west, inner sep=1.5pt, fill=white, fill opacity=0.75,
           text opacity=1, font=\bfseries\small] at (rb.north west) {(b)};
   \end{tikzpicture}
-  \caption{\textbf{Obstacle traversal with the elevation map.} (a) The robot climbing a
+  \caption{\textbf{The onboard map against ground truth on a pallet.} (a) The robot climbing a
   pallet obstacle. (b) The same pose, rendered from the data the robot observed there: the
   onboard map (blue) against the handcrafted ground-truth
   map positioned by AprilTags (transparent red), with the ground-truth robot pose drawn
@@ -73,7 +73,7 @@ cue is computed over a short window and is never accumulated, \SAS{} never inher
 \nopagebreak
 \begin{enumerate}
   \item We propose \SAS, a mapless flipper controller that needs only a
-  binary motion cue, combining continuous roll and pitch stabilization with a reactive
+  thresholded motion cue, combining continuous roll and pitch stabilization with a reactive
   anti-stuck term under a safe directional-priority blend.
   \item We measure the degradation of the elevation map caused by body occlusion and
   odometry drift by evaluating map-based baselines under both a \emph{ground-truth} map and
