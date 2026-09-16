@@ -90,6 +90,10 @@ $q_t$, and ground clearance $q_c$,
   \label{eq:tq}
 \end{equation}
 We also report the percentage of the obstacle distance for which an anti-stuck dig drove the flippers.
+We report means only: over the ten simulation runs the standard deviation of every cell stays below
+$0.022$ and varies by $0.004$ across cells, an order of magnitude below the scores themselves, and on
+the real pallet it stays below $0.06$ for shock and tilt; only the real clearance channel varies more
+between crossings, up to $0.31$.
 Traversal success and traversal time are not informative in this setting: the override
 releases every stall, so every obstacle is completed, and the drive node drives at a constant speed; therefore, the traversal time differs between controllers only by the time spent in the stall state before the override activates.
 \label{sec:metrics-block}%
@@ -219,7 +223,9 @@ map ($0.71$). Second, \SAS{} is among the best controllers on the real
 robot as well, second under the onboard map behind Yuan. Third, stalls are rarer than in simulation: the map-based controllers that stall
 are released by the \SAS{} override for at most 7.1\% of the crossing distance, and, unlike in simulation, the onboard map lowers that share for most of them, its noise making them move the
 flippers instead of holding a fixed posture. The shock channel again has a small spread, $0.76$ to
-$0.80$, so the controllers experienced a similar acceleration on the pallet as well.
+$0.80$, so the controllers experienced a similar acceleration on the pallet as well. The two map
+conditions separate the controllers far less here than in simulation because one crossing is short and
+the perception stack is reset before each of them, so the onboard map has little time to drift.
 
 \subsection{Hidden obstacle}
 Figure~\ref{fig:grass} shows a real experiment with a log hidden in tall grass, with Yuan and with \SAS. The LiDAR does not penetrate the grass, which causes the onboard map to show the grass
