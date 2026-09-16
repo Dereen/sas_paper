@@ -82,9 +82,11 @@ the velocity limit $v_{\max}$ of the flipper drives:
   \label{eq:overview}
 \end{equation}
 
-The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, i.e., when $v^{\mathrm{a}}_i$ has an opposing sign to $v^{\mathrm{s}}_i$, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term may
+The fraction $\alpha$ sets how much the opposing anti-stuck term may weaken stabilization. When the condition $v^{\mathrm{s}}_i v^{\mathrm{a}}_i~<~0$ applies, i.e., when $v^{\mathrm{a}}_i$ has an opposing sign to $v^{\mathrm{s}}_i$, the $\mathrm{cap}$ saturates the anti-stuck command to the fraction $\alpha |v^{\mathrm{s}}_i|$ of the stabilization velocity. If $\alpha=0$, then $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=0$ wherever the cap applies, the anti-stuck term yields completely, and equation~\eqref{eq:overview} simplifies to $v_i=\operatorname{sat}(v^{\mathrm{s}}_i, v_{\max})$. In the case of $\alpha=1$, the anti-stuck term may
 reach $\mathrm{cap}(v^{\mathrm{a}}_i,v^{\mathrm{s}}_i)=-v^{\mathrm{s}}_i$; therefore, $v_i=0$. This enforces that the anti-stuck command can never reverse the stabilization command. We use $\alpha=0.5$, so a conflicting dig is allowed at half strength. The cap
 applies only while $|v^{\mathrm{s}}_i|>\beta=\SI{0.05}{\radian\per\second}$, so that
 attitude noise on a level robot cannot suppress the anti-stuck term; otherwise, the
-anti-stuck command passes through unchanged. 
+anti-stuck command passes through unchanged. \SAS{} runs at \SI{20}{\hertz} with
+$\phi_0=\theta_0=0$, $v_{\max}=\SI{1.0}{\radian\per\second}$,
+$\tau_\text{move}=\SI{0.1}{\metre\per\second}$ and $\tau_\text{stuck}=\SI{2}{\milli\metre}$. 
 

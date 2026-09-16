@@ -4905,5 +4905,13 @@
   "done": "",
   "page_hint": 7,
   "source": "root.pdf"
+ },
+ {
+  "note": "should be v_i^2",
+  "anchor": "",
+  "anchor_full": "\u2212 \u2212v i",
+  "done": "",
+  "page_hint": 3,
+  "source": "root.pdf"
  }
 ]
