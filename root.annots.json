@@ -4913,5 +4913,13 @@
   "done": "",
   "page_hint": 3,
   "source": "root.pdf"
+ },
+ {
+  "note": "Remove this.",
+  "anchor": "only: over the ten simulation runs the standard deviation of",
+  "anchor_full": "We report means only: over the ten simulation runs the standard deviation of every cell stays below w 0 0. 022 a and varies by 0 0. .004 4 a across cells, an order of magnitude below the scores themselves, and on the real pallet it stays below w 0. 06 6 for shock and tilt; only the real clearance channel varies more between crossings, up to o 0. .3 31 .",
+  "done": "",
+  "page_hint": 5,
+  "source": "root.pdf"
  }
 ]
